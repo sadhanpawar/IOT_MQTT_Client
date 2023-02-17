@@ -415,10 +415,6 @@ void getTcpMessageSocket(etherHeader *ether, socket *s)
 
 void tcpSendSyn(etherHeader *ether)
 {
-    //socket s;
-    //getTcpMessageSocket(ether,&s);
-    //tcpMakeSegment(ether,s);
-
     uint8_t i;
     uint32_t sum;
     uint16_t tmp16;
@@ -471,7 +467,7 @@ void tcpSendSyn(etherHeader *ether)
     tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,SYN);
     
-    tcpLength = sizeof(tcpHeader) + sizeof(optionsField)+ 0; /*syn has no data */
+    tcpLength = sizeof(tcpHeader); /* + sizeof(optionsField)+ 0; /*syn has no data */
     
     tcp->offsetFields &= ~(0xF000);
     tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
@@ -479,21 +475,37 @@ void tcpSendSyn(etherHeader *ether)
 
     tcp->offsetFields = htons(tcp->offsetFields);
 
+    /*
     ptr = (uint8_t *)tcp->data[0];
     for(i = 0; i < sizeof(optionsField); i++) {
         ptr[i] = optionsField[i];
     }
+    */
 
     ip->length = htons(sizeof(ipHeader) + tcpLength) ;
     calcIpChecksum(ip);
-    
+
+    /*tcp checksum:
+    * psuedo header + tcp header + tcp data
+    */
+
+    /*source & dst addresss */
     sum = 0;
     sumIpWords(ip->sourceIp, 8, &sum);
+
+    /*protocol and reserved */
     tmp16 = ip->protocol;
-    sum += (tmp16 & 0xff) << 8;
-    sumIpWords(&tcpLength, 2, &sum); /* doubt in this */
+    sum += ((tmp16 & 0xff) << 8);
+
+    /*tcp length*/
+    tmp16 = htons(tcpLength);
+    sumIpWords(&tmp16, 2, &sum);
+
+    /*tcp header + tcp data */
     tcp->checksum = 0;
     sumIpWords(tcp, tcpLength, &sum);
+
+    /*load the checksum*/
     tcp->checksum = getIpChecksum(sum);
 
     putEtherPacket(ether, sizeof(etherHeader) + ipHeaderLength + tcpLength);
