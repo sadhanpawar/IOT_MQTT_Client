@@ -467,7 +467,7 @@ void tcpSendSyn(etherHeader *ether)
     tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,SYN);
     
-    tcpLength = sizeof(tcpHeader); /* + sizeof(optionsField)+ 0; /*syn has no data */
+    tcpLength = sizeof(tcpHeader) + sizeof(optionsField)+ 0; /*syn has no data */
     
     tcp->offsetFields &= ~(0xF000);
     tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
@@ -475,12 +475,12 @@ void tcpSendSyn(etherHeader *ether)
 
     tcp->offsetFields = htons(tcp->offsetFields);
 
-    /*
+    
     ptr = (uint8_t *)tcp->data[0];
     for(i = 0; i < sizeof(optionsField); i++) {
         ptr[i] = optionsField[i];
     }
-    */
+    
 
     ip->length = htons(sizeof(ipHeader) + tcpLength) ;
     calcIpChecksum(ip);
