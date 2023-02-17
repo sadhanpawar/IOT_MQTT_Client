@@ -418,8 +418,8 @@ void tcpSendSyn(etherHeader *ether)
     uint8_t i;
     uint32_t sum;
     uint16_t tmp16;
-    uint32_t tmp32 = 0;
-    uint16_t tcpHdrlen = 0;
+    uint32_t tmp32;
+    uint16_t tcpHdrlen;
     uint16_t tcpLength;
     uint8_t localHwAddress[6];
     uint8_t localIpAddress[4];
@@ -513,16 +513,13 @@ void tcpSendSyn(etherHeader *ether)
 
 void tcpSendAck(etherHeader *ether)
 {
-    //socket s;
-    //getTcpMessageSocket(ether,&s);
-    //tcpMakeSegment(ether,s);
-
     uint8_t i;
     uint32_t sum;
     uint16_t tmp16;
     uint16_t tcpLength;
     uint8_t localHwAddress[6];
     uint8_t localIpAddress[4];
+    uint16_t tcpHdrlen;
 
     // Ether frame
     getEtherMacAddress(localHwAddress);
@@ -558,18 +555,30 @@ void tcpSendAck(etherHeader *ether)
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
     tcp->sequenceNumber = socketConns[0].s.sequenceNumber;
-    tcp->acknowledgementNumber = 0;
-    tcp->windowSize = MSS;
+    tcp->acknowledgementNumber = socketConns[0].s.acknowledgementNumber;
+    tcp->windowSize = htons(MSS);
     tcp->urgentPointer = 0;
+    tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,ACK);
-    calcIpChecksum(ip);
+    
     tcpLength = sizeof(tcpHeader) + 0; /*ack has no data */
+
+    tcp->offsetFields &= ~(0xF000);
+    tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
+    tcp->offsetFields |= tcpHdrlen;
+
+    tcp->offsetFields = htons(tcp->offsetFields);
+
+    
+    ip->length = htons(sizeof(ipHeader) + tcpLength) ;
+    calcIpChecksum(ip);
 
     sum = 0;
     sumIpWords(ip->sourceIp, 8, &sum);
     tmp16 = ip->protocol;
     sum += (tmp16 & 0xff) << 8;
-    sumIpWords(&tcpLength, 2, &sum); /* doubt in this */
+    tmp16 = htons(tcpLength);
+    sumIpWords(&tmp16, 2, &sum); /* doubt in this */
     tcp->checksum = 0;
     sumIpWords(tcp, tcpLength, &sum);
     tcp->checksum = getIpChecksum(sum);
@@ -585,6 +594,7 @@ void tcpSendFin(etherHeader *ether)
     uint16_t tcpLength;
     uint8_t localHwAddress[6];
     uint8_t localIpAddress[4];
+    uint16_t tcpHdrlen;
 
     // Ether frame
     getEtherMacAddress(localHwAddress);
@@ -621,17 +631,28 @@ void tcpSendFin(etherHeader *ether)
     tcp->destPort = htons(socketConns[0].s.remotePort);
     tcp->sequenceNumber = socketConns[0].s.sequenceNumber;
     tcp->acknowledgementNumber = 0;
-    tcp->windowSize = MSS;
+    tcp->windowSize = htons(MSS);
     tcp->urgentPointer = 0;
+    tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,FIN);
-    calcIpChecksum(ip);
+
+    tcp->offsetFields &= ~(0xF000);
+    tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
+    tcp->offsetFields |= tcpHdrlen;
+
+    tcp->offsetFields = htons(tcp->offsetFields);
+
     tcpLength = sizeof(tcpHeader) + 0; /*ack has no data */
+
+    ip->length = htons(sizeof(ipHeader) + tcpLength) ;
+    calcIpChecksum(ip);
 
     sum = 0;
     sumIpWords(ip->sourceIp, 8, &sum);
     tmp16 = ip->protocol;
     sum += (tmp16 & 0xff) << 8;
-    sumIpWords(&tcpLength, 2, &sum); /* doubt in this */
+    tmp16 = htons(tcpLength);
+    sumIpWords(&tmp16, 2, &sum);
     tcp->checksum = 0;
     sumIpWords(tcp, tcpLength, &sum);
     tcp->checksum = getIpChecksum(sum);
