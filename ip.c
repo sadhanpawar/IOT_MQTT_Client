@@ -209,7 +209,7 @@ void calcIpChecksum(ipHeader* ip)
 {
     // 32-bit sum over ip header
     uint32_t sum = 0;
-    sumIpWords(&ip, 10, &sum);
+    sumIpWords(ip, 10, &sum);
     sumIpWords(ip->sourceIp, (ip->size * 4) - 12, &sum);
     ip->headerChecksum = getIpChecksum(sum);
 }
