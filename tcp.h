@@ -68,11 +68,12 @@ typedef struct _tcpHeader // 20 or more bytes
 #define REMOTE_PORT       (8181u)
 #define REMOTE_HW_MAC     ()
 
-#define SETBIT(x,n)       (x |= (1 << n))
-#define CLEARBIT(x,n)     (x &= ~(1 << n))
+#define SETBIT(x,n)       (x |= (n))
+#define CLEARBIT(x,n)     (x &= ~(n))
 
 #define TCP_RX            (1u)
 #define TCP_TX            (2u)
+#define TCP_NO_TX_RX      (3u)
 
 #define TCP_INV_VAL       (0xFF)
 
@@ -109,6 +110,8 @@ uint8_t tcpGetMatchingSocket(etherHeader *ether);
 void tcpSendAck(etherHeader *ether);
 void tcpSendFin(etherHeader *ether);
 void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag);
+uint8_t getTcpCurrState(uint8_t i);
+uint32_t genRandNum(void);
 
 #endif
 

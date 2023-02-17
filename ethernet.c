@@ -343,8 +343,10 @@ void processShell()
 
             if (strcmp(token, "publish") == 0)
             {
-                topic = strtok(NULL, " ");
-                data = strtok(NULL, " ");
+                token = strtok(NULL, " ");
+                topic = asciiToUint8(token);
+                token = strtok(NULL, " ");
+                data = asciiToUint8(token);
 
                 mqttLogPublishEvent(topic, data);
             }

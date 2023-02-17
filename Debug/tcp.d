@@ -22,6 +22,7 @@ tcp.obj: ../ip.h
 tcp.obj: ../eth0.h
 tcp.obj: ../ip.h
 tcp.obj: ../timer.h
+tcp.obj: ../mqtt.h
 
 ../tcp.c:
 
@@ -66,4 +67,6 @@ tcp.obj: ../timer.h
 ../ip.h:
 
 ../timer.h:
+
+../mqtt.h:
 

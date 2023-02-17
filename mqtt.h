@@ -49,6 +49,7 @@
 #define MQ_ASS_DELIVERY (2u)
 #define MQ_RESERVED     (3u)
 
+#define MQTT_PAYLOAD_SIZE   (2u)
 
 typedef struct _mqttHeader
 {
@@ -72,8 +73,9 @@ typedef enum
 typedef struct 
 {
     mqttEvent_t mqttEvent;
-    uint8_t data;
-    uint8_t topic;
+    uint16_t size;
+    uint8_t data[MQTT_PAYLOAD_SIZE];
+    uint8_t initiateTrans;
 }mqttMcb_t;
 
 void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size);
@@ -83,5 +85,9 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttDisconnect(etherHeader *ether, uint8_t *data, uint16_t size);
 
 void mqttLogPublishEvent(uint8_t topic, uint8_t data);
+bool mqttGetTxStatus(void);
+void mqttSetTxStatus(bool status);
+void mqttPubGetData(uint8_t *data, uint16_t *size);
+void mqttHandler(etherHeader *ether );
 
 #endif /* MQTT_H_ */
