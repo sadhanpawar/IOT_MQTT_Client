@@ -54,6 +54,7 @@
 #include "udp.h"
 #include "tcp.h"
 #include "mqtt.h"
+#include "ip_custom_layer.h"
 
 // Pins
 #define RED_LED PORTF,1
@@ -242,8 +243,6 @@ void processShell()
     uint8_t i;
     uint8_t ip[IP_ADD_LENGTH];
     uint32_t* p32;
-    uint8_t topic = 0;
-    uint8_t data = 0;
 
     if (kbhitUart0())
     {
@@ -343,13 +342,37 @@ void processShell()
 
             if (strcmp(token, "publish") == 0)
             {
+                
                 token = strtok(NULL, " ");
-                topic = asciiToUint8(token);
-                token = strtok(NULL, " ");
-                data = asciiToUint8(token);
+                mqttLogPublishEvent(token, strlen(token),0);
 
-                mqttLogPublishEvent(topic, data);
+                token = strtok(NULL, " ");
+                mqttLogPublishEvent(token, strlen(token),1);
+                
             }
+            if (strcmp(token, "subscribe") == 0)
+            {
+                
+                token = strtok(NULL, " ");
+                mqttLogSubscribeEvent(token, strlen(token));
+            }
+            if (strcmp(token, "unsubscribe") == 0)
+            {
+                
+                token = strtok(NULL, " ");
+                mqttLogUnSubscribeEvent(token, strlen(token));
+            }
+
+            if (strcmp(token, "connect") == 0)
+            {
+                mqttLogConnectEvent();
+            }
+
+            if (strcmp(token, "disconnect") == 0)
+            {
+                mqttLogDisConnectEvent();
+            }
+
             if (strcmp(token, "help") == 0)
             {
                 putsUart0("Commands:\r");
@@ -396,6 +419,7 @@ int main(void)
     // Init EEPROM
     initEeprom();
     readConfiguration();
+    appInit();
 
     setPinValue(GREEN_LED, 1);
     waitMicrosecond(100000);
@@ -427,6 +451,13 @@ int main(void)
             if (isArpRequest(data))
             {
                 sendArpResponse(data);
+                ipHandlerRx(data);
+            }
+
+            /*handle ARP response*/
+            if (isIpArpResponse(data))
+            {
+                ipHandlerRx(data);
             }
 
             // Handle IP datagram
@@ -458,14 +489,19 @@ int main(void)
                         tcpHandlerRx(data);
                     }
                 }
-            }
-            
+            } 
         }
 
         /* for transmission */
         mqttHandler(TransBuffer);
         tcpHandlerTx(TransBuffer);
+        ipHandlerTx(TransBuffer);
         
     }
 }
 
+void appInit(void)
+{
+    (void)random32();
+    mqttInit();
+}

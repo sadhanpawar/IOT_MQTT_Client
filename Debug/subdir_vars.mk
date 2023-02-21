@@ -9,13 +9,13 @@ CMD_SRCS += \
 C_SRCS += \
 ../arp.c \
 ../clock.c \
-../commandline.c \
 ../eeprom.c \
 ../eth0.c \
 ../ethernet.c \
 ../gpio.c \
 ../icmp.c \
 ../ip.c \
+../ip_custom_layer.c \
 ../mqtt.c \
 ../spi0.c \
 ../tcp.c \
@@ -28,13 +28,13 @@ C_SRCS += \
 C_DEPS += \
 ./arp.d \
 ./clock.d \
-./commandline.d \
 ./eeprom.d \
 ./eth0.d \
 ./ethernet.d \
 ./gpio.d \
 ./icmp.d \
 ./ip.d \
+./ip_custom_layer.d \
 ./mqtt.d \
 ./spi0.d \
 ./tcp.d \
@@ -47,13 +47,13 @@ C_DEPS += \
 OBJS += \
 ./arp.obj \
 ./clock.obj \
-./commandline.obj \
 ./eeprom.obj \
 ./eth0.obj \
 ./ethernet.obj \
 ./gpio.obj \
 ./icmp.obj \
 ./ip.obj \
+./ip_custom_layer.obj \
 ./mqtt.obj \
 ./spi0.obj \
 ./tcp.obj \
@@ -66,13 +66,13 @@ OBJS += \
 OBJS__QUOTED += \
 "arp.obj" \
 "clock.obj" \
-"commandline.obj" \
 "eeprom.obj" \
 "eth0.obj" \
 "ethernet.obj" \
 "gpio.obj" \
 "icmp.obj" \
 "ip.obj" \
+"ip_custom_layer.obj" \
 "mqtt.obj" \
 "spi0.obj" \
 "tcp.obj" \
@@ -85,13 +85,13 @@ OBJS__QUOTED += \
 C_DEPS__QUOTED += \
 "arp.d" \
 "clock.d" \
-"commandline.d" \
 "eeprom.d" \
 "eth0.d" \
 "ethernet.d" \
 "gpio.d" \
 "icmp.d" \
 "ip.d" \
+"ip_custom_layer.d" \
 "mqtt.d" \
 "spi0.d" \
 "tcp.d" \
@@ -104,13 +104,13 @@ C_DEPS__QUOTED += \
 C_SRCS__QUOTED += \
 "../arp.c" \
 "../clock.c" \
-"../commandline.c" \
 "../eeprom.c" \
 "../eth0.c" \
 "../ethernet.c" \
 "../gpio.c" \
 "../icmp.c" \
 "../ip.c" \
+"../ip_custom_layer.c" \
 "../mqtt.c" \
 "../spi0.c" \
 "../tcp.c" \

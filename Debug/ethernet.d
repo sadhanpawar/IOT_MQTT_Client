@@ -36,6 +36,7 @@ ethernet.obj: ../icmp.h
 ethernet.obj: ../udp.h
 ethernet.obj: ../tcp.h
 ethernet.obj: ../mqtt.h
+ethernet.obj: ../ip_custom_layer.h
 
 ../ethernet.c:
 
@@ -108,4 +109,6 @@ ethernet.obj: ../mqtt.h
 ../tcp.h:
 
 ../mqtt.h:
+
+../ip_custom_layer.h:
 

@@ -26,7 +26,7 @@
 // Subroutines
 //-----------------------------------------------------------------------------
 
-/* Message Type */
+/* Message Type/Control packet type */
 #define MQ_CONNECT      (1u)
 #define MQ_CONNACK      (2u)
 #define MQ_PUBLISH      (3u)
@@ -49,11 +49,13 @@
 #define MQ_ASS_DELIVERY (2u)
 #define MQ_RESERVED     (3u)
 
-#define MQTT_PAYLOAD_SIZE   (2u)
+#define MQTT_SIZE       (30u)
+//#define MQTT_PORT       (8081u)
+#define MQTT_PORT       (80)
 
 typedef struct _mqttHeader
 {
-    uint8_t messageType:4;
+    uint8_t controlPacket:4;
     uint8_t dup:1;
     uint8_t qosLevel:2;
     uint8_t retain:1;
@@ -65,18 +67,34 @@ typedef enum
 {
     NOEVENT,
     PUBLISH,
+    PUBLISH_WAIT,
     SUBSCRIBE,
+    SUBSCRIBE_WAIT,
+    UNSUBSCRIBE,
+    UNSUBSCRIBE_WAIT,
     CONNECT,
-    DISCONNECT
+    CONNECT_WAIT,
+    DISCONNECT,
+    DISCONNECT_WAIT
 }mqttEvent_t;
+
+typedef struct _mqttMcb_t
+{
+    mqttEvent_t mqttEvent;
+    uint16_t totalSize;
+    uint16_t topicSize;
+    uint16_t dataSize;
+    char data[MQTT_SIZE];
+    char args[MQTT_SIZE];
+    bool initiateTrans;
+}mqttMcb_t;
 
 typedef struct 
 {
     mqttEvent_t mqttEvent;
-    uint16_t size;
-    uint8_t data[MQTT_PAYLOAD_SIZE];
-    uint8_t initiateTrans;
-}mqttMcb_t;
+    char data[MQTT_SIZE];
+    bool receviedData;
+}mqttRxBf_t;
 
 void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size);
@@ -84,10 +102,16 @@ void mqttUnsubscribe(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttDisconnect(etherHeader *ether, uint8_t *data, uint16_t size);
 
-void mqttLogPublishEvent(uint8_t topic, uint8_t data);
+void mqttLogPublishEvent(char *data, uint16_t size, bool flag);
+void mqttLogSubscribeEvent(char *data, uint16_t size);
+void mqttLogUnSubscribeEvent(char *data, uint16_t size);
+void mqttLogConnectEvent(void);
+void mqttLogDisConnectEvent(void);
 bool mqttGetTxStatus(void);
 void mqttSetTxStatus(bool status);
-void mqttPubGetData(uint8_t *data, uint16_t *size);
+void mqttGetTxData(uint8_t *data, uint16_t *size);
 void mqttHandler(etherHeader *ether );
-
+void mqttInit(void);
+void mqttSetRxData(etherHeader *ether);
+void appInit(void);
 #endif /* MQTT_H_ */

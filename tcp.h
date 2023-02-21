@@ -22,6 +22,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "ip.h"
+#include "timer.h"
 
 typedef struct _tcpHeader // 20 or more bytes
 {
@@ -85,6 +86,7 @@ typedef struct _Tcb
   uint8_t socketIdx;
 }Tcb_t;
 
+extern Tcb_t socketConns[NO_OF_SOCKETS];
 //-----------------------------------------------------------------------------
 // Subroutines
 //-----------------------------------------------------------------------------
@@ -104,7 +106,7 @@ void tcpSendSyn(etherHeader *ether);
 void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag);
 void tcpHandlerTx(etherHeader *ether);
 void tcpHandlerRx(etherHeader *ether);
-void tcpCreateSocket(uint16_t remotePort, uint8_t *toIp);
+void tcpCreateSocket(uint16_t remotePort);
 void tcpConnect(uint8_t socketno);
 uint8_t tcpGetMatchingSocket(etherHeader *ether);
 void tcpSendAck(etherHeader *ether);
@@ -112,6 +114,9 @@ void tcpSendFin(etherHeader *ether);
 void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag);
 uint8_t getTcpCurrState(uint8_t i);
 uint32_t genRandNum(void);
-
+bool tcpValidChecks(etherHeader *ether);
+void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size);
+uint8_t *getTcpHeader(etherHeader *ether);
+_callback tcpSendTimerCb();
 #endif
 

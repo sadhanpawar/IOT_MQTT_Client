@@ -23,6 +23,8 @@ tcp.obj: ../eth0.h
 tcp.obj: ../ip.h
 tcp.obj: ../timer.h
 tcp.obj: ../mqtt.h
+tcp.obj: ../ip_custom_layer.h
+tcp.obj: ../uart0.h
 
 ../tcp.c:
 
@@ -69,4 +71,8 @@ tcp.obj: ../mqtt.h
 ../timer.h:
 
 ../mqtt.h:
+
+../ip_custom_layer.h:
+
+../uart0.h:
 
