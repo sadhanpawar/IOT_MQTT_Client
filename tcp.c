@@ -34,6 +34,7 @@ static uint32_t initialAckNo = 0;
 static uint32_t initialSeqNo = 0;
 static bool initiateFin = false;
 static uint8_t tcpTimerFlag = 0;
+static uint16_t tcpCurrWindow = 0;
 // ------------------------------------------------------------------------------
 //  Structures
 // ------------------------------------------------------------------------------
@@ -295,10 +296,17 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
         case TCP_ESTABLISHED:
         {
             /* received fin ? */
-            if(tcp->offsetFields & FIN)
+            if(htons(tcp->offsetFields) & FIN)
             {
                 tcpSendAck(ether);
                 socketConns[Idx].fsmState = TCP_CLOSE_WAIT;
+            }
+            else if(htons(tcp->offsetFields) & RST)
+            {
+                tcpSendAck(ether);
+                socketConns[Idx].fsmState = TCP_CLOSED;
+                snprintf(str, sizeof(str), "TCP STATE: RST ISSUED CLOSING TCP STATE \n");
+                putsUart0(str);
             }
             else if (initiateFin)
             {
@@ -313,7 +321,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_FIN_WAIT_1:
         {
-            if(tcp->offsetFields & ACK)
+            if(htons(tcp->offsetFields) & ACK )
             {
                 socketConns[Idx].fsmState = TCP_FIN_WAIT_2;
             }
@@ -322,7 +330,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_FIN_WAIT_2:
         {
-            if(tcp->offsetFields & FIN)
+            if(htons(tcp->offsetFields) & FIN)
             {
                 tcpSendAck(ether);
                 socketConns[Idx].fsmState = TCP_TIME_WAIT;
@@ -440,7 +448,7 @@ void tcpSendSyn(etherHeader *ether)
     uint16_t tcpLength;
     uint8_t localHwAddress[6];
     uint8_t localIpAddress[4];
-    uint8_t *ptr;
+    //uint8_t *ptr;
     uint8_t ipHeaderLength;
     //uint8_t optionsField[] = {0x2, 0x4, 0x5, 0xB4}; /*kind, len, size(2bytes)*/
 
@@ -579,7 +587,7 @@ void tcpSendAck(etherHeader *ether)
     
     //tcp->sequenceNumber = socketConns[0].s.sequenceNumber += 1;
     //tcp->acknowledgementNumber = socketConns[0].s.acknowledgementNumber;
-    tcp->windowSize = tcp->windowSize; //htons(MSS);
+    tcp->windowSize = tcpCurrWindow = tcp->windowSize; //htons(MSS);
     tcp->urgentPointer = 0;
     tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,ACK);
@@ -652,7 +660,7 @@ void tcpSendFin(etherHeader *ether)
     tcpHeader* tcp = (tcpHeader*)((uint8_t*)ip + (ip->size * 4));
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
-    tcp->sequenceNumber = socketConns[0].s.sequenceNumber;
+    tcp->sequenceNumber = htonl(socketConns[0].s.sequenceNumber + 1);
     tcp->acknowledgementNumber = 0;
     tcp->windowSize = htons(MSS);
     tcp->urgentPointer = 0;
@@ -718,7 +726,7 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
                     /* maintain window pointers to send next packet or retransmit the packet */
 
                     mqttGetTxData(data, &size);
-                    tcpSendSegment(ether, data, size);
+                    tcpSendSegment(ether, data, size,PSH);
                     tcpWriteFSM = 2;    /*since only 2 bytes we can set it here else in 
                                             tcpSendSegment */
                     /*start the timer*/
@@ -778,7 +786,7 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
     }
 }
 
-void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size)
+void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t flags)
 {
     uint8_t i;
     uint32_t sum;
@@ -787,7 +795,8 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t localHwAddress[6];
     uint8_t localIpAddress[4];
     uint16_t tcpHdrlen;
-    uint8_t *ptr = NULL;
+    uint8_t *ptr;
+    uint8_t ipHeaderLength;
 
     // Ether frame
     getEtherMacAddress(localHwAddress);
@@ -802,7 +811,6 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size)
 
     // IP header
     ipHeader* ip = (ipHeader*)ether->data;
-    uint8_t ipHeaderLength = ip->size * 4;
     ip->rev = 0x4;
     ip->size = 0x5;
     ip->typeOfService = 0;
@@ -811,6 +819,7 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size)
     ip->ttl = 128;
     ip->protocol = PROTOCOL_TCP;
     ip->headerChecksum = 0;
+    ipHeaderLength = ip->size * 4;
      
     for (i = 0; i < IP_ADD_LENGTH; i++)
     {
@@ -822,13 +831,16 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size)
     tcpHeader* tcp = (tcpHeader*)((uint8_t*)ip + (ip->size * 4));
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
-    tcp->sequenceNumber = socketConns[0].s.sequenceNumber;
-    tcp->acknowledgementNumber = socketConns[0].s.acknowledgementNumber;
-    tcp->windowSize = htons(MSS);
+    tcp->sequenceNumber = htonl(socketConns[0].s.sequenceNumber + 1);
+    //tcp->acknowledgementNumber =  htonl(htonl(tcp->sequenceNumber) + 1);
+    tcp->windowSize = tcpCurrWindow; //htons(MSS);
     tcp->urgentPointer = 0;
-    SETBIT(tcp->offsetFields,ACK);
+    tcp->offsetFields = 0;
+    //SETBIT(tcp->offsetFields,ACK);
+    SETBIT(tcp->offsetFields,flags);
 
     tcpLength = sizeof(tcpHeader) + size; 
+    tcp->acknowledgementNumber =  htonl(htonl(tcp->sequenceNumber) + tcpLength);
 
     tcp->offsetFields &= ~(0xF000);
     tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */

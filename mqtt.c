@@ -212,6 +212,7 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     varLen += 2;
     
     mqtt->remLength = varLen;
+    mqttMcb.totalSize = varLen;
 
     mqttSetTxStatus(true);
 }
@@ -264,6 +265,7 @@ void mqttLogSubscribeEvent(char *data, uint16_t size)
 {
     uint8_t i = 0;
     mqttMcb.mqttEvent = SUBSCRIBE;
+    initiateConnectReq = true;
     
     for(i = 0; i < size; i++) {
         mqttMcb.args[i] = data[i];
@@ -277,6 +279,7 @@ void mqttLogUnSubscribeEvent(char *data, uint16_t size)
 {
     uint8_t i = 0;
     mqttMcb.mqttEvent = UNSUBSCRIBE;
+    initiateConnectReq = true;
     
     for(i = 0; i < size; i++) {
         mqttMcb.args[i] = data[i];
@@ -289,7 +292,8 @@ void mqttLogUnSubscribeEvent(char *data, uint16_t size)
 void mqttLogConnectEvent(void)
 {
     mqttMcb.mqttEvent = CONNECT;
-    
+    initiateConnectReq = true;
+
     mqttMcb.topicSize = 0;
     mqttMcb.dataSize = 0;
     mqttMcb.totalSize = 0;
@@ -298,7 +302,8 @@ void mqttLogConnectEvent(void)
 void mqttLogDisConnectEvent(void)
 {
     mqttMcb.mqttEvent = DISCONNECT;
-    
+    initiateConnectReq = true;
+
     mqttMcb.topicSize = 0;
     mqttMcb.dataSize = 0;
     mqttMcb.totalSize = 0;
@@ -360,10 +365,11 @@ void mqttHandler(etherHeader *ether )
                     /* send the the topic and data with mqtt message */
                     mqttSubscribe(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = SUBSCRIBE_WAIT;
-            } else if (getTcpCurrState(0) == TCP_CLOSED) {
+            } else if (getTcpCurrState(0) == TCP_CLOSED && initiateConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */ 
                 tcpConnect(0);
+                initiateConnectReq = false;
             }
 
         }break;
@@ -403,10 +409,11 @@ void mqttHandler(etherHeader *ether )
                     /* send the the topic and data with mqtt message */
                     mqttUnSubscribe(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = NOEVENT;
-            } else if (getTcpCurrState(0) == TCP_CLOSED) {
+            } else if (getTcpCurrState(0) == TCP_CLOSED && initiateConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */ 
                 tcpConnect(0);
+                initiateConnectReq = false;
             }
 
         }break;
@@ -448,10 +455,11 @@ void mqttHandler(etherHeader *ether )
                     mqttConnect(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = CONNECT_WAIT;
                     /*TODO start the timer*/
-            } else if (getTcpCurrState(0) == TCP_CLOSED) {
+            } else if (getTcpCurrState(0) == TCP_CLOSED && initiateConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */ 
                 tcpConnect(0);
+                initiateConnectReq = false;
             }
 
         }break;
@@ -502,10 +510,11 @@ void mqttHandler(etherHeader *ether )
                     /* send the the topic and data with mqtt message */
                     mqttDisConnect(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = NOEVENT;
-            } else if (getTcpCurrState(0) == TCP_CLOSED) {
+            } else if (getTcpCurrState(0) == TCP_CLOSED && initiateConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */
                 tcpConnect(0);
+                initiateConnectReq = false;
             }
 
         }break;

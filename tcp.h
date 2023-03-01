@@ -115,7 +115,7 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag);
 uint8_t getTcpCurrState(uint8_t i);
 uint32_t genRandNum(void);
 bool tcpValidChecks(etherHeader *ether);
-void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size);
+void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size,uint16_t flags);
 uint8_t *getTcpHeader(etherHeader *ether);
 _callback tcpSendTimerCb();
 #endif
