@@ -180,6 +180,26 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t *varHdrPtr;
     uint16_t varLen = 0;
 
+    mqttMcb.data[0] = 0x10;
+    mqttMcb.data[1] = 0x25;
+    mqttMcb.data[2] = 0x0;
+    mqttMcb.data[3] = 0x6;
+    mqttMcb.data[4] = 0x4d;
+    mqttMcb.data[5] = 0x51;
+    mqttMcb.data[6] = 0x49;
+    mqttMcb.data[7] = 0x73;
+    mqttMcb.data[8] = 0x64;
+    mqttMcb.data[9] = 0x70;
+    mqttMcb.data[10] = 0x03;
+    mqttMcb.data[11] = 0x02;
+    mqttMcb.data[12] = 0x00;
+    mqttMcb.data[13] = 0x05;
+    mqttMcb.data[14] = 0x00;
+    mqttMcb.data[15] = 0x17;
+    mqttMcb.totalSize = 15;
+
+
+    #if 0
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_CONNECT;
     mqtt->dup = 0; /*first try*/
@@ -213,6 +233,7 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     
     mqtt->remLength = varLen;
     mqttMcb.totalSize = varLen;
+    #endif
 
     mqttSetTxStatus(true);
 }

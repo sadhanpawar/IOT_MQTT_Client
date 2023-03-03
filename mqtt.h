@@ -51,14 +51,14 @@
 
 #define MQTT_SIZE       (30u)
 //#define MQTT_PORT       (8081u)
-#define MQTT_PORT       (80)
+#define MQTT_PORT       (1883u)
 
 typedef struct _mqttHeader
 {
-    uint8_t controlPacket:4;
-    uint8_t dup:1;
-    uint8_t qosLevel:2;
     uint8_t retain:1;
+    uint8_t qosLevel:2;
+    uint8_t dup:1;
+    uint8_t controlPacket:4;
     uint8_t remLength; /* 1 to 4 bytes maybe uint32_t need to check while processing data */
     uint8_t data[0];
 }mqttHeader;
