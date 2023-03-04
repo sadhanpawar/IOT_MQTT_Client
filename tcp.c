@@ -32,7 +32,7 @@ Tcb_t socketConns[NO_OF_SOCKETS] = {0};
 //socket tcpSocket = {0};
 static uint32_t initialAckNo = 0;
 static uint32_t initialSeqNo = 0;
-static bool initiateFin = false;
+bool initiateFin = false;
 static uint8_t tcpTimerFlag = 0;
 static uint16_t tcpCurrWindow = 0;
 // ------------------------------------------------------------------------------
@@ -309,7 +309,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 /*get length of packet to add it to seq no for ack no*/
                 tcpSendAck(ether,0);
                 socketConns[Idx].fsmState = TCP_CLOSE_WAIT;
-                snprintf(str, sizeof(str), "TCP STATE: FIN ISSUED CLOSING WAIT\n");
+                snprintf(str, sizeof(str), "TCP STATE: FIN ISSUED TCP_CLOSE_WAIT\n");
                 putsUart0(str);
             }
             else if(htons(tcp->offsetFields) & RST)
@@ -319,13 +319,21 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
                 tcpSendAck(ether,0);
                 socketConns[Idx].fsmState = TCP_CLOSED;
-                snprintf(str, sizeof(str), "TCP STATE: RST ISSUED CLOSING TCP STATE \n");
+                snprintf(str, sizeof(str), "TCP STATE: RST ISSUED TCP_CLOSED\n");
                 putsUart0(str);
             }
             else if (initiateFin)
             {
-                tcpSendFin(ether);
+                uint8_t data[MQTT_SIZE] = {0};
+                uint16_t size;  
+
+                mqttGetTxData(data, &size);
+                tcpSendSegment(ether, data, size,PSH|FIN, 0);
+                //tcpSendFin(ether);
                 socketConns[Idx].fsmState = TCP_FIN_WAIT_1;
+                snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_FIN_WAIT_1\n");
+                putsUart0(str);
+                initiateFin = false;
             }
             else {
                 tcpHandleRwTransactions(ether, flag);
@@ -338,6 +346,13 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
             if(htons(tcp->offsetFields) & ACK )
             {
                 socketConns[Idx].fsmState = TCP_FIN_WAIT_2;
+                snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_FIN_WAIT_2\n");
+                putsUart0(str);
+            }
+            else
+            {
+                snprintf(str, sizeof(str), ".");
+                putsUart0(str);
             }
 
         }break;
@@ -348,7 +363,15 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
             {
                 tcpSendAck(ether,0);
                 socketConns[Idx].fsmState = TCP_TIME_WAIT;
+                snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_TIME_WAIT\n");
+                putsUart0(str);
             }
+            else
+            {
+                snprintf(str, sizeof(str), ".");
+                putsUart0(str);
+            }
+
         }break;
 
         case TCP_CLOSING:
@@ -379,6 +402,9 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
         case TCP_TIME_WAIT:
         {
             socketConns[Idx].fsmState = TCP_CLOSED;
+            snprintf(str, sizeof(str), "TCP STATE: TCP_CLOSED\n");
+            putsUart0(str);
+            
         }break;
 
         case TCP_LISTEN:
@@ -772,7 +798,7 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
                     /* maintain window pointers to send next packet or retransmit the packet */
 
                     mqttGetTxData(data, &size);
-                    tcpSendSegment(ether, data, size,PSH);
+                    tcpSendSegment(ether, data, size,PSH,1);
                     tcpWriteFSM = 2;    /*since only 2 bytes we can set it here else in 
                                             tcpSendSegment */
                     /*start the timer*/
@@ -838,7 +864,8 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
     }
 }
 
-void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t flags)
+void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t flags,
+                    uint8_t ackVal)
 {
     uint8_t i;
     uint32_t sum;
@@ -887,7 +914,7 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
     tcp->destPort = htons(socketConns[0].s.remotePort);
     tcp->sequenceNumber = htonl(initialSeqNo + 1);
     tcp->acknowledgementNumber =  htonl(socketConns[0].s.sequenceNumber +
-                                        socketConns[0].tcpSegLen + 1);
+                                        socketConns[0].tcpSegLen + ackVal);
 
     tcp->windowSize = tcpCurrWindow; //htons(MSS);
     tcp->urgentPointer = 0;

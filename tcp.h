@@ -88,6 +88,7 @@ typedef struct _Tcb
 }Tcb_t;
 
 extern Tcb_t socketConns[NO_OF_SOCKETS];
+extern bool initiateFin;
 //-----------------------------------------------------------------------------
 // Subroutines
 //-----------------------------------------------------------------------------
@@ -116,7 +117,7 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag);
 uint8_t getTcpCurrState(uint8_t i);
 uint32_t genRandNum(void);
 bool tcpValidChecks(etherHeader *ether);
-void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size,uint16_t flags);
+void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size,uint16_t flags,uint8_t ackVal);
 uint8_t *getTcpHeader(etherHeader *ether);
 _callback tcpSendTimerCb();
 uint8_t getTcpSegmentLength(etherHeader *ether);

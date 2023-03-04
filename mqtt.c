@@ -289,7 +289,9 @@ void mqttDisConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     mqtt->remLength = varLen;
     mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
 
-    mqttSetTxStatus(true);
+    initiateFin = true;
+
+    //mqttSetTxStatus(true);
 }
 
 /*TODO : might have to implement a state machine to split the larger data packets 
