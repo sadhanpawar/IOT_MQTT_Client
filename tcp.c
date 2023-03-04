@@ -360,14 +360,18 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
         {
             tcpSendFin(ether);
             socketConns[Idx].fsmState = TCP_LAST_ACK;
+            snprintf(str, sizeof(str), "TCP STATE: TCP_LAST_ACK\n");
+            putsUart0(str);
 
         }break;
 
         case TCP_LAST_ACK:
         {
-            if(tcp->offsetFields & ACK)
+            if(htons(tcp->offsetFields) & ACK)
             {
                 socketConns[Idx].fsmState = TCP_CLOSED;
+                snprintf(str, sizeof(str), "TCP STATE: TCP_CLOSED\n");
+                putsUart0(str);
             }
 
         }break;
@@ -666,7 +670,7 @@ void tcpSendFin(etherHeader *ether)
     uint8_t localHwAddress[6];
     uint8_t localIpAddress[4];
     uint16_t tcpHdrlen;
-
+    uint8_t ipHeaderLength;
     // Ether frame
     getEtherMacAddress(localHwAddress);
     getIpAddress(localIpAddress);
@@ -680,7 +684,7 @@ void tcpSendFin(etherHeader *ether)
 
     // IP header
     ipHeader* ip = (ipHeader*)ether->data;
-    uint8_t ipHeaderLength = ip->size * 4;
+
     ip->rev = 0x4;
     ip->size = 0x5;
     ip->typeOfService = 0;
@@ -700,12 +704,14 @@ void tcpSendFin(etherHeader *ether)
     tcpHeader* tcp = (tcpHeader*)((uint8_t*)ip + (ip->size * 4));
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
-    tcp->sequenceNumber = htonl(socketConns[0].s.sequenceNumber + 1);
-    tcp->acknowledgementNumber = 0;
-    tcp->windowSize = htons(MSS);
+    tcp->sequenceNumber = htonl(initialSeqNo + 1);
+    tcp->acknowledgementNumber = htonl(socketConns[0].s.sequenceNumber +
+                                        socketConns[0].tcpSegLen);
+    tcp->windowSize = tcpCurrWindow = tcp->windowSize;
     tcp->urgentPointer = 0;
     tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,FIN);
+    SETBIT(tcp->offsetFields,ACK);
 
     tcp->offsetFields &= ~(0xF000);
     tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
