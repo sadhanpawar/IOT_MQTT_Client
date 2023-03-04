@@ -84,6 +84,7 @@ typedef struct _Tcb
   uint8_t fsmState;
   bool    initConnect;
   uint8_t socketIdx;
+  uint8_t tcpSegLen;
 }Tcb_t;
 
 extern Tcb_t socketConns[NO_OF_SOCKETS];
@@ -118,5 +119,6 @@ bool tcpValidChecks(etherHeader *ether);
 void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size,uint16_t flags);
 uint8_t *getTcpHeader(etherHeader *ether);
 _callback tcpSendTimerCb();
+uint8_t getTcpSegmentLength(etherHeader *ether);
 #endif
 

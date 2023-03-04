@@ -287,6 +287,7 @@ void mqttDisConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     /* No variable header*/
 
     mqtt->remLength = varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
 
     mqttSetTxStatus(true);
 }
@@ -367,7 +368,7 @@ void mqttLogDisConnectEvent(void)
 
 void mqttHandler(etherHeader *ether )
 {
-    char str[50];
+    char str[80];
 
     switch (mqttMcb.mqttEvent)
     {
@@ -565,6 +566,8 @@ void mqttHandler(etherHeader *ether )
             if(getTcpCurrState(0) == TCP_ESTABLISHED) {
                     /* send the the topic and data with mqtt message */
                     mqttDisConnect(ether, mqttMcb.data, mqttMcb.totalSize);
+                    snprintf(str, sizeof(str), "DISCONNECT:disconnected successfully with MQTT broker\n");
+                    putsUart0(str);
                     mqttMcb.mqttEvent = NOEVENT;
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateConnectReq) {
                

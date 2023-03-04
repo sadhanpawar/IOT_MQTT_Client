@@ -102,10 +102,10 @@ bool tcpIsAck(etherHeader *ether)
 }
 
 /* header lenght is 4 bits in offset field */
-uint16_t tcpHeaderSize(etherHeader *ether)
+uint8_t tcpHeaderSize(etherHeader *ether)
 {
     tcpHeader *tcpHdr = (tcpHeader*)getTcpHeader(ether);
-    return (htons(tcpHdr->offsetFields) >> (OFS_SHIFT - 1));
+    return (htons(tcpHdr->offsetFields) >> (OFS_SHIFT));
 }
 
 /***************************************************RX*******************************/
@@ -246,7 +246,7 @@ _callback tcpSendTimerCb()
 
 void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 {
-    char str[30];
+    char str[50];
     tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
 
     switch(socketConns[Idx].fsmState)
@@ -272,7 +272,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
             /* awaits syn+ack from servers and sends an ack and enters established */
 
             if( (htons(tcp->offsetFields) & ACK ) 
-                // && (htons(tcp->offsetFields) & SYN)
+                 && (htons(tcp->offsetFields) & SYN)
                 // TODO (htons(tcp->offsetFields) & SYN)
                 //mqtt server only sends ack not syn+ack
                //(socketConns[0].s.sequenceNumber + 1 == htonl(tcp->acknowledgementNumber))
@@ -281,6 +281,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 /*send ack */
                 socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
+                socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
                 tcpSendAck(ether);
                 socketConns[Idx].fsmState = TCP_ESTABLISHED;
                 snprintf(str, sizeof(str), "\nTCP STATE: ESTABLISHED \n");
@@ -302,11 +303,20 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
             /* received fin ? */
             if(htons(tcp->offsetFields) & FIN)
             {
+                socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
+                socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
+                socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
+                /*get length of packet to add it to seq no for ack no*/
                 tcpSendAck(ether);
                 socketConns[Idx].fsmState = TCP_CLOSE_WAIT;
+                snprintf(str, sizeof(str), "TCP STATE: FIN ISSUED CLOSING WAIT\n");
+                putsUart0(str);
             }
             else if(htons(tcp->offsetFields) & RST)
             {
+                socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
+                socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
+                socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
                 tcpSendAck(ether);
                 socketConns[Idx].fsmState = TCP_CLOSED;
                 snprintf(str, sizeof(str), "TCP STATE: RST ISSUED CLOSING TCP STATE \n");
@@ -386,6 +396,21 @@ uint8_t getTcpCurrState(uint8_t i)
     return socketConns[i].fsmState;
 }
 
+uint8_t getTcpSegmentLength(etherHeader *ether)
+{
+    tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
+    ipHeader *ip = (ipHeader*)ether->data;
+    uint8_t len = 0;
+    uint8_t tcpHdrLen = (tcpHeaderSize(ether)*4);
+    uint16_t ipLen = htons(ip->length);
+
+
+     
+    len = ipLen - sizeof(ipHeader) - tcpHdrLen;
+
+    return len;
+}
+
 #if 0
 void tcpMakeSegment(etherHeader *ether, socket s)
 {
@@ -452,7 +477,7 @@ void tcpSendSyn(etherHeader *ether)
     uint16_t tcpLength;
     uint8_t localHwAddress[6];
     uint8_t localIpAddress[4];
-    uint8_t *ptr;
+    //uint8_t *ptr;
     uint8_t ipHeaderLength;
    /* uint8_t optionsField[] = {0x1,0x1,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,
                                 0x9,0x10}; {0x2, 0x4, 0x5, 0xB4}; kind, len, size(2bytes)*/
@@ -590,7 +615,8 @@ void tcpSendAck(etherHeader *ether)
     tcpHeader* tcp = (tcpHeader*)((uint8_t*)ip + (ip->size * 4));
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
-    tcp->acknowledgementNumber = htonl(socketConns[0].s.sequenceNumber + 1);
+    tcp->acknowledgementNumber = htonl(socketConns[0].s.sequenceNumber +
+                                        socketConns[0].tcpSegLen + 1);
     tcp->sequenceNumber = htonl(initialSeqNo + 1);//tcp->acknowledgementNumber;
     
     //tcp->sequenceNumber = socketConns[0].s.sequenceNumber += 1;
@@ -779,8 +805,12 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
     
     if ( flag == TCP_RX)
     {   
-
         tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
+        
+        socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
+        socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
+        socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
+
         if(tcpValidChecks(ether) && 
             tcpIsAck(ether)
         ) 
@@ -790,6 +820,7 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
                 tcpReadFlag = true;
                 /* collect the data for application */
                 mqttSetRxData(ether);
+                tcpSendAck(ether);
             } else {
                 /*discard the packet*/
             }
@@ -849,7 +880,9 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
     tcp->sequenceNumber = htonl(initialSeqNo + 1);
-    tcp->acknowledgementNumber =  htonl(socketConns[0].s.sequenceNumber + 1);
+    tcp->acknowledgementNumber =  htonl(socketConns[0].s.sequenceNumber +
+                                        socketConns[0].tcpSegLen + 1);
+
     tcp->windowSize = tcpCurrWindow; //htons(MSS);
     tcp->urgentPointer = 0;
     tcp->offsetFields = 0;
@@ -895,6 +928,7 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
     putEtherPacket(ether, sizeof(etherHeader) + ipHeaderLength + tcpLength);
 
     //TODO socketConns[0].s.acknowledgementNumber += tcpLength;
+    initialSeqNo += (size-1);/* -1 due to +1 is added above */
 }
 
 bool tcpValidChecks(etherHeader *ether)
