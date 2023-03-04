@@ -451,9 +451,10 @@ void tcpSendSyn(etherHeader *ether)
     uint16_t tcpLength;
     uint8_t localHwAddress[6];
     uint8_t localIpAddress[4];
-    //uint8_t *ptr;
+    uint8_t *ptr;
     uint8_t ipHeaderLength;
-    //uint8_t optionsField[] = {0x2, 0x4, 0x5, 0xB4}; /*kind, len, size(2bytes)*/
+   /* uint8_t optionsField[] = {0x1,0x1,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,
+                                0x9,0x10}; {0x2, 0x4, 0x5, 0xB4}; kind, len, size(2bytes)*/
 
     // Ether frame
     getEtherMacAddress(localHwAddress);
@@ -496,7 +497,7 @@ void tcpSendSyn(etherHeader *ether)
     tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,SYN);
     
-    tcpLength = sizeof(tcpHeader) + /*sizeof(optionsField) */ + 0; /*syn has no data */
+    tcpLength = sizeof(tcpHeader) + /*sizeof(optionsField)  +*/ 0; /*syn has no data */
     
     tcp->offsetFields &= ~(0xF000);
     tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
@@ -505,9 +506,9 @@ void tcpSendSyn(etherHeader *ether)
     tcp->offsetFields = htons(tcp->offsetFields);
 
     /*
-    ptr = (uint8_t *)tcp->data[0];
+    ptr = (uint8_t *)tcp->data;
     for(i = 0; i < sizeof(optionsField); i++) {
-        ptr[i] = optionsField[(sizeof(optionsField)-1) - i];
+        ptr[i] = optionsField[i];
     }
     */
 
@@ -550,6 +551,9 @@ void tcpSendAck(etherHeader *ether)
     uint8_t localIpAddress[4];
     uint16_t tcpHdrlen;
     uint8_t ipHeaderLength;
+    /*uint8_t optionsField[] = {0x1,0x1,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,
+                                0x9,0x10};
+    uint8_t *ptr;*/
 
     // Ether frame
     getEtherMacAddress(localHwAddress);
@@ -595,7 +599,7 @@ void tcpSendAck(etherHeader *ether)
     tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,ACK);
     
-    tcpLength = sizeof(tcpHeader) + 0; /*ack has no data */
+    tcpLength = sizeof(tcpHeader) + /*sizeof(optionsField) +*/ 0; /*ack has no data */
 
     tcp->offsetFields &= ~(0xF000);
     tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
@@ -603,6 +607,12 @@ void tcpSendAck(etherHeader *ether)
 
     tcp->offsetFields = htons(tcp->offsetFields);
 
+    /*
+    ptr = (uint8_t *)tcp->data;
+    for(i = 0; i < sizeof(optionsField); i++) {
+        ptr[i] = optionsField[i];
+    }
+    */
     
     ip->length = htons(sizeof(ipHeader) + tcpLength) ;
     calcIpChecksum(ip);
@@ -800,6 +810,8 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
     uint16_t tcpHdrlen;
     uint8_t *ptr;
     uint8_t ipHeaderLength;
+    /*uint8_t optionsField[] = {0x1,0x1,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,
+                                0x9,0x10};*/
 
     // Ether frame
     getEtherMacAddress(localHwAddress);
@@ -842,7 +854,7 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
     SETBIT(tcp->offsetFields,ACK);
     SETBIT(tcp->offsetFields,flags);
 
-    tcpLength = sizeof(tcpHeader) + size; 
+    tcpLength = sizeof(tcpHeader) +  /*sizeof(optionsField) +*/ size;
     //tcp->acknowledgementNumber =  htonl(htonl(tcp->sequenceNumber) + tcpLength);
 
     tcp->offsetFields &= ~(0xF000);
@@ -851,6 +863,14 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
 
     tcp->offsetFields = htons(tcp->offsetFields);
 
+    /*
+    ptr = (uint8_t *)tcp->data;
+    for(i = 0; i < sizeof(optionsField); i++) {
+        ptr[i] = optionsField[i];
+    }
+
+    ptr += (uint8_t)i;
+    */
 
     ptr = (uint8_t*)tcp->data;
     for(i = 0; i < size; i++) {

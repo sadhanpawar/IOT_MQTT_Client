@@ -179,7 +179,9 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
 {
     uint8_t *varHdrPtr;
     uint16_t varLen = 0;
+    uint8_t i;
 
+    #if 0
     mqttMcb.data[0] = 0x10;
     mqttMcb.data[1] = 0x25;
     mqttMcb.data[2] = 0x0;
@@ -196,10 +198,32 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttMcb.data[13] = 0x05;
     mqttMcb.data[14] = 0x00;
     mqttMcb.data[15] = 0x17;
-    mqttMcb.totalSize = 15;
+    mqttMcb.data[16] = 0x70;
+    mqttMcb.data[17] = 0x61;
+    mqttMcb.data[18] = 0x68;
+    mqttMcb.data[19] = 0x6f;
+    mqttMcb.data[20] = 0x2f;
+    mqttMcb.data[21] = 0x33;
+    mqttMcb.data[22] = 0x34;
+    mqttMcb.data[23] = 0x41;
+    mqttMcb.data[24] = 0x41;
+    mqttMcb.data[25] = 0x45;
+    mqttMcb.data[26] = 0x35;
+    mqttMcb.data[27] = 0x34;
+    mqttMcb.data[28] = 0x41;
+    mqttMcb.data[29] = 0x37;
+    mqttMcb.data[30] = 0x35;
+    mqttMcb.data[30] = 0x35;
+    mqttMcb.data[30] = 0x35;
+    mqttMcb.data[30] = 0x35;
+    mqttMcb.data[30] = 0x35;
+    mqttMcb.data[30] = 0x35;
+    mqttMcb.data[30] = 0x35;
+    mqttMcb.data[30] = 0x35;
+    mqttMcb.totalSize = MQTT_SIZE;
+    #endif
 
-
-    #if 0
+    #if 1
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_CONNECT;
     mqtt->dup = 0; /*first try*/
@@ -223,16 +247,27 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     varLen += 1;
 
     /* connect flag */
-    *(varHdrPtr + 7)    = 0x1;
+    *(varHdrPtr + 7)    = 0x2;
     varLen += 1;
 
     /*keep alive*/
-    *(varHdrPtr + 7)    = 0x0;
-    *(varHdrPtr + 8)    = 0xA; /*10 secs*/
+    *(varHdrPtr + 8)    = 0x0;
+    *(varHdrPtr + 9)    = 0x5; /*10 secs*/
     varLen += 2;
+
+    /*client ID length*/
+    *(varHdrPtr + 10)    = 0x0;
+    *(varHdrPtr + 11)    = 0x17;
+    varLen += 2;
+
+    /*client ID */
+    for(i = 12; i < 35; i++) {
+        *(varHdrPtr + i)    = i - 12;
+    }
+    varLen += (i-12);
     
-    mqtt->remLength = varLen;
-    mqttMcb.totalSize = varLen;
+    mqtt->remLength = varLen; /*var header + payload lenght */
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
     #endif
 
     mqttSetTxStatus(true);
