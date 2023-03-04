@@ -252,7 +252,7 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
 
     /*keep alive*/
     *(varHdrPtr + 8)    = 0x0;
-    *(varHdrPtr + 9)    = 0x5; /*10 secs*/
+    *(varHdrPtr + 9)    = 0x14; /*20 secs*/
     varLen += 2;
 
     /*client ID length*/
