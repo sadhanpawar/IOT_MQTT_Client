@@ -608,9 +608,34 @@ void mqttGetTxData(uint8_t *data, uint16_t *size)
     *size = mqttMcb.totalSize;
 }
 
-void isMqtt(etherHeader *ether)
+bool isMqtt(etherHeader *ether)
 {
+    tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
+    mqttHeader *mqtt = (mqttHeader*)tcp->data;
 
+    uint8_t flag = mqtt->controlPacket;
+
+    switch(flag)
+    {
+        case MQ_CONNECT     :
+        case MQ_CONNACK     :  
+        case MQ_PUBLISH     :  
+        case MQ_PUBACK      :  
+        case MQ_PUBREC      :  
+        case MQ_PUBREL      :  
+        case MQ_PUBCOMP     :  
+        case MQ_SUBSCRIBE   :  
+        case MQ_SUBACK      :  
+        case MQ_UNSUBSCRIBE :  
+        case MQ_UNSUBACK    :  
+        case MQ_PINGREQ     :  
+        case MQ_PINGRESP    :  
+        case MQ_DISCONNECT  :  
+        case MQ_AUTH        :  
+            return true;
+        default : break;
+    }
+    return false;
 }
 
 void mqttSetRxData(etherHeader *ether)
@@ -619,11 +644,12 @@ void mqttSetRxData(etherHeader *ether)
 
     tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
 
-    mqttHeader *mqtt = (mqttHeader *)tcp->data;
+    uint8_t *mqtt = (uint8_t*)tcp->data;
+    uint8_t remlength = mqtt[1];
 
-    for(i = 0; i < mqtt->remLength; i++)
+    for(i = 0; i < remlength; i++)
     {
-        mqttRxBuffer.data[i] = mqtt->data[i];
+        mqttRxBuffer.data[i] = mqtt[i];
     }
     mqttRxBuffer.receviedData = true;
 }

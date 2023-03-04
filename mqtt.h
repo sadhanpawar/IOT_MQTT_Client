@@ -114,4 +114,5 @@ void mqttHandler(etherHeader *ether );
 void mqttInit(void);
 void mqttSetRxData(etherHeader *ether);
 void appInit(void);
+bool isMqtt(etherHeader *ether);
 #endif /* MQTT_H_ */

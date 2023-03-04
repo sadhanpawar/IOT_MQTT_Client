@@ -90,14 +90,14 @@ uint8_t *getTcpHeader(etherHeader *ether)
 bool tcpIsSyn(etherHeader *ether)
 {
     tcpHeader *tcpHdr = (tcpHeader*)getTcpHeader(ether);
-    return ((tcpHdr->offsetFields & 0x0002) >> 1);
+    return ((htons(tcpHdr->offsetFields) & 0x0002) >> 1);
 
 }
 
 bool tcpIsAck(etherHeader *ether)
 {
     tcpHeader *tcpHdr = (tcpHeader*)getTcpHeader(ether);
-    return ((tcpHdr->offsetFields & 0x0010) >> 4);
+    return ((htons(tcpHdr->offsetFields) & 0x0010) >> 4);
 
 }
 
@@ -105,7 +105,7 @@ bool tcpIsAck(etherHeader *ether)
 uint16_t tcpHeaderSize(etherHeader *ether)
 {
     tcpHeader *tcpHdr = (tcpHeader*)getTcpHeader(ether);
-    return (tcpHdr->offsetFields >> (OFS_SHIFT - 1));
+    return (htons(tcpHdr->offsetFields) >> (OFS_SHIFT - 1));
 }
 
 /***************************************************RX*******************************/
@@ -283,14 +283,15 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
                 tcpSendAck(ether);
                 socketConns[Idx].fsmState = TCP_ESTABLISHED;
-                snprintf(str, sizeof(str), "TCP STATE: ESTABLISHED \n");
+                snprintf(str, sizeof(str), "\nTCP STATE: ESTABLISHED \n");
                 putsUart0(str);
 
             } else {
                 //socketConns[Idx].fsmState = TCP_CLOSED;
                 //coming for tx not needed 
                 //perhaps we could start timer 
-                snprintf(str, sizeof(str), "TCP STATE: UNKNOWN \n");
+                //snprintf(str, sizeof(str), "TCP STATE: UNKNOWN \n");
+                snprintf(str, sizeof(str), ".");
                 putsUart0(str);
             }
             
@@ -784,7 +785,8 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
             tcpIsAck(ether)
         ) 
         {
-            if(tcp->acknowledgementNumber == socketConns[0].s.sequenceNumber + 1) {
+            //if(tcp->acknowledgementNumber == socketConns[0].s.sequenceNumber + 1) {
+            if(isMqtt(ether)) {
                 tcpReadFlag = true;
                 /* collect the data for application */
                 mqttSetRxData(ether);
@@ -900,7 +902,7 @@ bool tcpValidChecks(etherHeader *ether)
     bool flag = false;
     tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
     
-    if(tcp->destPort == socketConns[0].s.localPort) {
+    if(htons(tcp->destPort) == socketConns[0].s.localPort) {
         flag = true;
     } else {
         return false;
