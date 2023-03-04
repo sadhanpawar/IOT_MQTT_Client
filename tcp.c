@@ -282,7 +282,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
                 socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
-                tcpSendAck(ether);
+                tcpSendAck(ether, 1);
                 socketConns[Idx].fsmState = TCP_ESTABLISHED;
                 snprintf(str, sizeof(str), "\nTCP STATE: ESTABLISHED \n");
                 putsUart0(str);
@@ -307,7 +307,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
                 socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
                 /*get length of packet to add it to seq no for ack no*/
-                tcpSendAck(ether);
+                tcpSendAck(ether,0);
                 socketConns[Idx].fsmState = TCP_CLOSE_WAIT;
                 snprintf(str, sizeof(str), "TCP STATE: FIN ISSUED CLOSING WAIT\n");
                 putsUart0(str);
@@ -317,7 +317,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
                 socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
-                tcpSendAck(ether);
+                tcpSendAck(ether,0);
                 socketConns[Idx].fsmState = TCP_CLOSED;
                 snprintf(str, sizeof(str), "TCP STATE: RST ISSUED CLOSING TCP STATE \n");
                 putsUart0(str);
@@ -346,7 +346,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
         {
             if(htons(tcp->offsetFields) & FIN)
             {
-                tcpSendAck(ether);
+                tcpSendAck(ether,0);
                 socketConns[Idx].fsmState = TCP_TIME_WAIT;
             }
         }break;
@@ -567,7 +567,7 @@ void tcpSendSyn(etherHeader *ether)
     putEtherPacket(ether, sizeof(etherHeader) + ipHeaderLength + tcpLength);
 }
 
-void tcpSendAck(etherHeader *ether)
+void tcpSendAck(etherHeader *ether, uint8_t ackVal)
 {
     uint8_t i;
     uint32_t sum;
@@ -616,7 +616,7 @@ void tcpSendAck(etherHeader *ether)
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
     tcp->acknowledgementNumber = htonl(socketConns[0].s.sequenceNumber +
-                                        socketConns[0].tcpSegLen + 1);
+                                        socketConns[0].tcpSegLen + ackVal);
     tcp->sequenceNumber = htonl(initialSeqNo + 1);//tcp->acknowledgementNumber;
     
     //tcp->sequenceNumber = socketConns[0].s.sequenceNumber += 1;
@@ -820,7 +820,7 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
                 tcpReadFlag = true;
                 /* collect the data for application */
                 mqttSetRxData(ether);
-                tcpSendAck(ether);
+                tcpSendAck(ether,0);
             } else {
                 /*discard the packet*/
             }
@@ -928,7 +928,7 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
     putEtherPacket(ether, sizeof(etherHeader) + ipHeaderLength + tcpLength);
 
     //TODO socketConns[0].s.acknowledgementNumber += tcpLength;
-    initialSeqNo += (size-1);/* -1 due to +1 is added above */
+    initialSeqNo += (size);/* -1 due to +1 is added above */
 }
 
 bool tcpValidChecks(etherHeader *ether)

@@ -110,7 +110,7 @@ void tcpHandlerRx(etherHeader *ether);
 void tcpCreateSocket(uint16_t remotePort);
 void tcpConnect(uint8_t socketno);
 uint8_t tcpGetMatchingSocket(etherHeader *ether);
-void tcpSendAck(etherHeader *ether);
+void tcpSendAck(etherHeader *ether, uint8_t ackVal);
 void tcpSendFin(etherHeader *ether);
 void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag);
 uint8_t getTcpCurrState(uint8_t i);
