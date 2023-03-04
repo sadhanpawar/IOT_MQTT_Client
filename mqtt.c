@@ -94,7 +94,7 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t *varHdrPtr;
     uint8_t i;
     uint16_t varLen = 0;
-    uint8_t reqQos = 1;
+    uint8_t reqQos = MQ_FIRE_FORGET;
 
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_SUBSCRIBE;
@@ -106,12 +106,11 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
 
     varHdrPtr = mqtt->data;
 
-    /*packet ID*/
+    /*packet ID/Message Identifier*/
     *(varHdrPtr + 0)= (mqttPktId & 0xFF00) >> 8;
     *(varHdrPtr+ 1) = (uint8_t)(mqttPktId & 0x00FF);
 
     varLen += 2;
-
     varHdrPtr += 2;
 
     /*topic length*/
@@ -123,10 +122,10 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
 
     /*topic name*/
     for(i = 0 ; i < mqttMcb.topicSize; i ++) {
-        varHdrPtr[i] = data[i];
+        varHdrPtr[i] = mqttMcb.args[i];
     }
     varLen += mqttMcb.topicSize;
-    varHdrPtr += (uint8_t)mqttMcb.topicSize;
+    varHdrPtr += i;
 
     /*requested qos*/
     *varHdrPtr = reqQos;
@@ -147,7 +146,7 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_UNSUBSCRIBE;
     mqtt->dup = 0; /*first try*/
-    mqtt->qosLevel = 1;
+    mqtt->qosLevel = MQ_FIRE_FORGET;
     mqtt->retain = 0;
 
     /*variable header*/
@@ -159,7 +158,6 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     *(varHdrPtr+ 1) = (uint8_t)(mqttPktId & 0x00FF);
 
     varLen += 2;
-
     varHdrPtr += 2;
 
     /*topic length*/
@@ -171,10 +169,10 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
 
     /*topic name*/
     for(i = 0 ; i < mqttMcb.topicSize; i ++) {
-        varHdrPtr[i] = data[i];
+        varHdrPtr[i] = mqttMcb.args[i];
     }
     varLen += mqttMcb.topicSize;
-    varHdrPtr += (uint8_t)mqttMcb.topicSize;
+    varHdrPtr += i;
     
     mqtt->remLength = varLen;
     mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
@@ -432,6 +430,8 @@ void mqttHandler(etherHeader *ether )
                     /* send the the topic and data with mqtt message */
                     mqttSubscribe(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = SUBSCRIBE_WAIT;
+                    snprintf(str, sizeof(str), "SUBSCRIBE: Request with Pkt ID:""%"PRIu16, mqttPktId);
+                    putsUart0(str);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */ 
@@ -476,6 +476,8 @@ void mqttHandler(etherHeader *ether )
                     /* send the the topic and data with mqtt message */
                     mqttUnSubscribe(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = NOEVENT;
+                    snprintf(str, sizeof(str), "UNSUBSCRIBE: Request with Pkt ID:""%"PRIu16, mqttPktId);
+                    putsUart0(str);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */ 
