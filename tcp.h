@@ -121,5 +121,6 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size,uint16_t fl
 uint8_t *getTcpHeader(etherHeader *ether);
 _callback tcpSendTimerCb();
 uint8_t getTcpSegmentLength(etherHeader *ether);
+void displayStatus(void);
 #endif
 

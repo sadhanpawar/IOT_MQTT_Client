@@ -100,6 +100,7 @@ typedef struct
 }mqttRxBf_t;
 
 extern char *mqttState[];
+extern char *mqttFsmState[];
 
 void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size);
@@ -121,4 +122,7 @@ void mqttSetRxData(etherHeader *ether);
 void appInit(void);
 bool isMqtt(etherHeader *ether);
 uint8_t mqttGetCurrState(void);
+void mqttSetCurrState(mqttEvent_t val);
+void mqttSetConnState(uint8_t val);
+uint8_t mqttGetConnState(void);
 #endif /* MQTT_H_ */

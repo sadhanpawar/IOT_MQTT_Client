@@ -17,6 +17,7 @@
 //-----------------------------------------------------------------------------
 
 #include <inttypes.h>
+#include <stdio.h>
 #include "ip_custom_layer.h"
 #include "arp.h"
 #include "tcp.h"

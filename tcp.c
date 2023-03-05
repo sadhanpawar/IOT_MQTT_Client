@@ -334,6 +334,7 @@ _callback tcpSendTimerCb()
 void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 {
     char str[50];
+    static uint32_t counter = 0;
     tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
 
     switch(socketConns[Idx].fsmState)
@@ -379,8 +380,13 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 //coming for tx not needed 
                 //perhaps we could start timer 
                 //snprintf(str, sizeof(str), "TCP STATE: UNKNOWN \n");
-                snprintf(str, sizeof(str), ".");
-                putsUart0(str);
+                if(counter % 10000000000 == 0) {
+                    snprintf(str, sizeof(str), ".");
+                    putsUart0(str);
+                    counter = 0;
+                } else {
+                    counter++;
+                }
             }
             
         }break;
@@ -398,6 +404,8 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[Idx].fsmState = TCP_CLOSE_WAIT;
                 snprintf(str, sizeof(str), "TCP STATE: FIN ISSUED TCP_CLOSE_WAIT\n");
                 putsUart0(str);
+                mqttSetConnState(MQTT_DISCONNECTED);
+                //mqttSetCurrState(NOEVENT);
             }
             else if(htons(tcp->offsetFields) & RST)
             {
@@ -409,6 +417,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 snprintf(str, sizeof(str), "TCP STATE: RST ISSUED TCP_CLOSED\n");
                 putsUart0(str);
                 mqttSetConnState(MQTT_DISCONNECTED);
+                //mqttSetCurrState(NOEVENT);
             }
             else if (initiateFin)
             {
@@ -422,6 +431,8 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_FIN_WAIT_1\n");
                 putsUart0(str);
                 initiateFin = false;
+                mqttSetConnState(MQTT_DISCONNECTED);
+                //mqttSetCurrState(NOEVENT);
             }
             else {
                 tcpHandleRwTransactions(ether, flag);
@@ -847,7 +858,8 @@ void tcpSendFin(etherHeader *ether)
     ip->ttl = 128;
     ip->protocol = PROTOCOL_TCP;
     ip->headerChecksum = 0;
-     
+    ipHeaderLength = ip->size * 4;
+
     for (i = 0; i < IP_ADD_LENGTH; i++)
     {
         ip->destIp[i] = socketConns[0].s.remoteIpAddress[i];
@@ -1171,7 +1183,7 @@ void displayStatus(void)
     putcUart0('\n');
 
     putsUart0("  MQTT FSM STATE:    ");
-    snprintf(str, sizeof(str), "%s",mqttState[mqttGetCurrState()]);
+    snprintf(str, sizeof(str), "%s",mqttFsmState[mqttGetCurrState()]);
     putsUart0(str);
     putcUart0('\n');
 

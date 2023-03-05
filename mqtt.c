@@ -54,6 +54,20 @@ char *mqttState[] = {
         "MQ_DISCONNECT  ",  
         "MQ_AUTH        " 
 };
+
+char *mqttFsmState[] = {
+    "NOEVENT",
+    "PUBLISH",
+    "PUBLISH_WAIT",
+    "SUBSCRIBE",
+    "SUBSCRIBE_WAIT",
+    "UNSUBSCRIBE",
+    "UNSUBSCRIBE_WAIT",
+    "CONNECT",
+    "CONNECT_WAIT",
+    "DISCONNECT",
+    "DISCONNECT_WAIT"
+};
 //-----------------------------------------------------------------------------
 // Subroutines
 //-----------------------------------------------------------------------------
@@ -808,6 +822,16 @@ void mqttInit(void)
 uint8_t mqttGetCurrState(void)
 {
     return (uint8_t)mqttMcb.mqttEvent;
+}
+
+/**
+ * @brief mqttSetCurrState
+ * 
+ * @param val 
+ */
+void mqttSetCurrState(mqttEvent_t val)
+{
+    mqttMcb.mqttEvent = val;
 }
 
 /**
