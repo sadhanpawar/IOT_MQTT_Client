@@ -35,6 +35,12 @@ static uint8_t arpResponseTimeout = false;
 //-----------------------------------------------------------------------------
 // Subroutines
 //-----------------------------------------------------------------------------
+
+/**
+ * @brief ipHandlerTx
+ * 
+ * @param ether 
+ */
 void ipHandlerTx(etherHeader *ether)
 {
     uint8_t localIpAddr[IP_ADD_LENGTH] = {0};
@@ -64,7 +70,11 @@ void ipHandlerTx(etherHeader *ether)
     }
 }
 
-
+/**
+ * @brief ipHandlerRx
+ * 
+ * @param ether 
+ */
 void ipHandlerRx(etherHeader *ether)
 {
     char str[30];
@@ -105,6 +115,11 @@ void ipHandlerRx(etherHeader *ether)
     }
 }
 
+/**
+ * @brief Set the Ip Mqtt Mac Broker Address object
+ * 
+ * @param mac 
+ */
 void setIpMqttMacBrokerAddress(uint8_t mac[HW_ADD_LENGTH])
 {
     uint8_t i;
@@ -112,16 +127,33 @@ void setIpMqttMacBrokerAddress(uint8_t mac[HW_ADD_LENGTH])
         socketConns[0].s.remoteHwAddress[i] = mac[i];
 }
 
+/**
+ * @brief Get the Ip Current Event Status object
+ * 
+ * @return ipEvent_t 
+ */
 ipEvent_t getIpCurrentEventStatus(void)
 {
     return ipEventIcb;
 }
 
+/**
+ * @brief arpRespTimeoutCb
+ * 
+ * @return _callback 
+ */
 _callback arpRespTimeoutCb()
 {
     arpResponseTimeout = 2;
 }
 
+/**
+ * @brief isIpArpResponse
+ * 
+ * @param ether 
+ * @return true 
+ * @return false 
+ */
 bool isIpArpResponse(etherHeader *ether)
 {
     arpPacket *arp = (arpPacket*)ether->data;

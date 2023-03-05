@@ -57,6 +57,14 @@ char *mqttState[] = {
 //-----------------------------------------------------------------------------
 // Subroutines
 //-----------------------------------------------------------------------------
+
+/**
+ * @brief mqttPublish
+ * 
+ * @param ether 
+ * @param data 
+ * @param size 
+ */
 void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size)
 {
     uint8_t *varHdrPtr;
@@ -107,6 +115,13 @@ void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttSetTxStatus(true);
 }
 
+/**
+ * @brief mqttSubscribe
+ * 
+ * @param ether 
+ * @param data 
+ * @param size 
+ */
 void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
 {
     uint8_t *varHdrPtr;
@@ -155,6 +170,13 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttSetTxStatus(true);
 }
 
+/**
+ * @brief mqttUnSubscribe
+ * 
+ * @param ether 
+ * @param data 
+ * @param size 
+ */
 void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
 {
     uint8_t *varHdrPtr;
@@ -198,6 +220,13 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttSetTxStatus(true);
 }
 
+/**
+ * @brief mqttConnect
+ * 
+ * @param ether 
+ * @param data 
+ * @param size 
+ */
 void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
 {
     uint8_t *varHdrPtr;
@@ -296,7 +325,13 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttSetTxStatus(true);
 }
 
-
+/**
+ * @brief mqttDisConnect
+ * 
+ * @param ether 
+ * @param data 
+ * @param size 
+ */
 void mqttDisConnect(etherHeader *ether, uint8_t *data, uint16_t size)
 {
     uint16_t varLen = 0;
@@ -321,6 +356,13 @@ void mqttDisConnect(etherHeader *ether, uint8_t *data, uint16_t size)
 to feed into tcp/ip if it exceeds MTU
 */
 
+/**
+ * @brief mqttLogPublishEvent
+ * 
+ * @param data 
+ * @param size 
+ * @param flag 
+ */
 void mqttLogPublishEvent(char *data, uint16_t size, bool flag)
 {
     uint8_t i = 0;
@@ -344,6 +386,12 @@ void mqttLogPublishEvent(char *data, uint16_t size, bool flag)
     }
 }
 
+/**
+ * @brief mqttLogSubscribeEvent
+ * 
+ * @param data 
+ * @param size 
+ */
 void mqttLogSubscribeEvent(char *data, uint16_t size)
 {
     uint8_t i = 0;
@@ -358,6 +406,12 @@ void mqttLogSubscribeEvent(char *data, uint16_t size)
     mqttMcb.totalSize = size;
 }
 
+/**
+ * @brief mqttLogUnSubscribeEvent
+ * 
+ * @param data 
+ * @param size 
+ */
 void mqttLogUnSubscribeEvent(char *data, uint16_t size)
 {
     uint8_t i = 0;
@@ -372,6 +426,10 @@ void mqttLogUnSubscribeEvent(char *data, uint16_t size)
     mqttMcb.totalSize = size;
 }
 
+/**
+ * @brief mqttLogConnectEvent
+ * 
+ */
 void mqttLogConnectEvent(void)
 {
     mqttMcb.mqttEvent = CONNECT;
@@ -382,6 +440,10 @@ void mqttLogConnectEvent(void)
     mqttMcb.totalSize = 0;
 }
 
+/**
+ * @brief mqttLogDisConnectEvent
+ * 
+ */
 void mqttLogDisConnectEvent(void)
 {
     mqttMcb.mqttEvent = DISCONNECT;
@@ -392,6 +454,11 @@ void mqttLogDisConnectEvent(void)
     mqttMcb.totalSize = 0;
 }
 
+/**
+ * @brief mqttHandler
+ * 
+ * @param ether 
+ */
 void mqttHandler(etherHeader *ether )
 {
     char str[80];
@@ -625,16 +692,33 @@ void mqttHandler(etherHeader *ether )
     }
 }
 
+/**
+ * @brief mqttGetTxStatus
+ * 
+ * @return true 
+ * @return false 
+ */
 bool mqttGetTxStatus(void)
 {
     return mqttMcb.initiateTrans;
 }
 
+/**
+ * @brief mqttSetTxStatus
+ * 
+ * @param status 
+ */
 void mqttSetTxStatus(bool status)
 {
     mqttMcb.initiateTrans = status;
 }
 
+/**
+ * @brief mqttGetTxData
+ * 
+ * @param data 
+ * @param size 
+ */
 void mqttGetTxData(uint8_t *data, uint16_t *size)
 {
     uint8_t i;
@@ -646,6 +730,13 @@ void mqttGetTxData(uint8_t *data, uint16_t *size)
     *size = mqttMcb.totalSize;
 }
 
+/**
+ * @brief isMqtt
+ * 
+ * @param ether 
+ * @return true 
+ * @return false 
+ */
 bool isMqtt(etherHeader *ether)
 {
     tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
@@ -676,6 +767,11 @@ bool isMqtt(etherHeader *ether)
     return false;
 }
 
+/**
+ * @brief mqttSetRxData
+ * 
+ * @param ether 
+ */
 void mqttSetRxData(etherHeader *ether)
 {
     uint8_t i;
@@ -692,6 +788,10 @@ void mqttSetRxData(etherHeader *ether)
     mqttRxBuffer.receviedData = true;
 }
 
+/**
+ * @brief mqttInit
+ * 
+ */
 void mqttInit(void)
 {
     /* create a socket and bind it to initiate socket communication 
@@ -700,16 +800,31 @@ void mqttInit(void)
     tcpCreateSocket(MQTT_PORT);
 }
 
+/**
+ * @brief mqttGetCurrState
+ * 
+ * @return uint8_t 
+ */
 uint8_t mqttGetCurrState(void)
 {
     return (uint8_t)mqttMcb.mqttEvent;
 }
 
+/**
+ * @brief mqttGetConnState
+ * 
+ * @return uint8_t 
+ */
 uint8_t mqttGetConnState(void)
 {
     return mqttConnStatus;
 }
 
+/**
+ * @brief mqttSetConnState
+ * 
+ * @param val 
+ */
 void mqttSetConnState(uint8_t val)
 {
     mqttConnStatus = val;

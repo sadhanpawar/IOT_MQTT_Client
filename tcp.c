@@ -58,6 +58,14 @@ static char *tcpState[] = {
 
 // Determines whether packet is TCP packet
 // Must be an IP packet
+
+/**
+ * @brief checks wether it's Tcp packet
+ * 
+ * @param ether 
+ * @return true 
+ * @return false 
+ */
 bool isTcp(etherHeader* ether)
 {
     ipHeader *ip = (ipHeader*)ether->data;
@@ -84,6 +92,12 @@ bool isTcp(etherHeader* ether)
 
 // TODO: Add functions here
 /***************************************************RX*******************************/
+/**
+ * @brief Get the Tcp Data object
+ * 
+ * @param ether 
+ * @return uint8_t* 
+ */
 uint8_t *getTcpData(etherHeader *ether)
 {
     ipHeader *ip = (ipHeader*)ether->data;
@@ -92,6 +106,12 @@ uint8_t *getTcpData(etherHeader *ether)
     return tcp->data;
 }
 
+/**
+ * @brief Get the Tcp Header object
+ * 
+ * @param ether 
+ * @return uint8_t* 
+ */
 uint8_t *getTcpHeader(etherHeader *ether)
 {
     ipHeader *ip = (ipHeader*)ether->data;
@@ -100,6 +120,13 @@ uint8_t *getTcpHeader(etherHeader *ether)
     return (uint8_t*)tcp;
 }
 
+/**
+ * @brief 
+ * 
+ * @param ether 
+ * @return true 
+ * @return false 
+ */
 bool tcpIsSyn(etherHeader *ether)
 {
     tcpHeader *tcpHdr = (tcpHeader*)getTcpHeader(ether);
@@ -107,6 +134,13 @@ bool tcpIsSyn(etherHeader *ether)
 
 }
 
+/**
+ * @brief tcpIsAck
+ * 
+ * @param ether 
+ * @return true 
+ * @return false 
+ */
 bool tcpIsAck(etherHeader *ether)
 {
     tcpHeader *tcpHdr = (tcpHeader*)getTcpHeader(ether);
@@ -115,6 +149,12 @@ bool tcpIsAck(etherHeader *ether)
 }
 
 /* header lenght is 4 bits in offset field */
+/**
+ * @brief tcpHeaderSize
+ * 
+ * @param ether 
+ * @return uint8_t 
+ */
 uint8_t tcpHeaderSize(etherHeader *ether)
 {
     tcpHeader *tcpHdr = (tcpHeader*)getTcpHeader(ether);
@@ -188,12 +228,23 @@ void tcpFsmStateMachineServer(etherHeader *ether,uint8_t state)
 }
 #endif
 
+/**
+ * @brief genRandNum
+ * 
+ * @return uint32_t 
+ */
 uint32_t genRandNum(void)
 {
     srand(rand());
 
     return (rand()*10*3);
 }
+
+/**
+ * @brief tcpHandlerRx
+ * 
+ * @param ether 
+ */
 void tcpHandlerRx(etherHeader *ether)
 {
     uint8_t socketNo = 0;
@@ -205,6 +256,12 @@ void tcpHandlerRx(etherHeader *ether)
 
 }
 
+/**
+ * @brief tcpGetMatchingSocket
+ * 
+ * @param ether 
+ * @return uint8_t 
+ */
 uint8_t tcpGetMatchingSocket(etherHeader *ether)
 {
     uint8_t i;
@@ -240,6 +297,11 @@ uint8_t tcpGetMatchingSocket(etherHeader *ether)
 }
 
 /***************************************************TX*******************************/
+/**
+ * @brief tcpHandlerTx
+ * 
+ * @param ether 
+ */
 void tcpHandlerTx(etherHeader *ether)
 {
     uint8_t count = 0;
@@ -252,11 +314,23 @@ void tcpHandlerTx(etherHeader *ether)
 
 }
 
+/**
+ * @brief tcpSendTimerCb
+ * 
+ * @return _callback 
+ */
 _callback tcpSendTimerCb()
 {
     tcpTimerFlag = 2;
 }
 
+/**
+ * @brief tcpFsmStateMachineClient
+ * 
+ * @param ether 
+ * @param Idx 
+ * @param flag 
+ */
 void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 {
     char str[50];
@@ -429,17 +503,35 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 }
 
 /* function needs to be set to initate tx */
+
+/**
+ * @brief tcpConnect
+ * 
+ * @param socketno 
+ */
 void tcpConnect(uint8_t socketno)
 {
     /* set the socket connection to syn sent */
     socketConns[socketno].initConnect = true;
 }
 
+/**
+ * @brief Get the Tcp Curr State object
+ * 
+ * @param i 
+ * @return uint8_t 
+ */
 uint8_t getTcpCurrState(uint8_t i)
 {
     return socketConns[i].fsmState;
 }
 
+/**
+ * @brief Get the Tcp Segment Length object
+ * 
+ * @param ether 
+ * @return uint8_t 
+ */
 uint8_t getTcpSegmentLength(etherHeader *ether)
 {
     tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
@@ -497,6 +589,12 @@ void tcpMakeSegment(etherHeader *ether, socket s)
 }
 #endif
 
+/**
+ * @brief Get the Tcp Message Socket object
+ * 
+ * @param ether 
+ * @param s 
+ */
 void getTcpMessageSocket(etherHeader *ether, socket *s)
 {
     tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
@@ -511,6 +609,11 @@ void getTcpMessageSocket(etherHeader *ether, socket *s)
     s->localPort = ntohs(tcp->destPort);
 }
 
+/**
+ * @brief tcpSendSyn
+ * 
+ * @param ether 
+ */
 void tcpSendSyn(etherHeader *ether)
 {
     uint8_t i;
@@ -611,6 +714,12 @@ void tcpSendSyn(etherHeader *ether)
     putEtherPacket(ether, sizeof(etherHeader) + ipHeaderLength + tcpLength);
 }
 
+/**
+ * @brief tcpSendAck
+ * 
+ * @param ether 
+ * @param ackVal 
+ */
 void tcpSendAck(etherHeader *ether, uint8_t ackVal)
 {
     uint8_t i;
@@ -701,6 +810,11 @@ void tcpSendAck(etherHeader *ether, uint8_t ackVal)
     putEtherPacket(ether, sizeof(etherHeader) + ipHeaderLength + tcpLength);
 }
 
+/**
+ * @brief tcpSendFin
+ * 
+ * @param ether 
+ */
 void tcpSendFin(etherHeader *ether)
 {
     uint8_t i;
@@ -777,6 +891,11 @@ void tcpSendFin(etherHeader *ether)
     putEtherPacket(ether, sizeof(etherHeader) + ipHeaderLength + tcpLength);
 }
 
+/**
+ * @brief tcpCreateSocket
+ * 
+ * @param remotePort 
+ */
 void tcpCreateSocket(uint16_t remotePort)
 {
     /* TODO need to come up with generic socket no instead of 0 */
@@ -788,6 +907,12 @@ void tcpCreateSocket(uint16_t remotePort)
     ipEventIcb = IP_ARP_REQ_RESP;   
 }
 
+/**
+ * @brief tcpHandleRwTransactions
+ * 
+ * @param ether 
+ * @param flag 
+ */
 void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
 {
     static uint8_t tcpWriteFSM = 0;
@@ -878,6 +1003,15 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
     }
 }
 
+/**
+ * @brief tcpSendSegment
+ * 
+ * @param ether 
+ * @param data 
+ * @param size 
+ * @param flags 
+ * @param ackVal 
+ */
 void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t flags,
                     uint8_t ackVal)
 {
@@ -978,6 +1112,13 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
     initialSeqNo += (size);/* -1 due to +1 is added above */
 }
 
+/**
+ * @brief tcpValidChecks
+ * 
+ * @param ether 
+ * @return true 
+ * @return false 
+ */
 bool tcpValidChecks(etherHeader *ether)
 {
     bool flag = false;
@@ -993,6 +1134,10 @@ bool tcpValidChecks(etherHeader *ether)
     return flag;
 }
 
+/**
+ * @brief displayStatus
+ * 
+ */
 void displayStatus(void)
 {
     uint8_t ip[4];
