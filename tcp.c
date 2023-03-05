@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include "tcp.h"
 #include "timer.h"
 #include "mqtt.h"
@@ -38,7 +39,19 @@ static uint16_t tcpCurrWindow = 0;
 // ------------------------------------------------------------------------------
 //  Structures
 // ------------------------------------------------------------------------------
-
+static char *tcpState[] = {
+    "TCP_CLOSED",
+    "TCP_LISTEN",
+    "TCP_SYN_RECEIVED",
+    "TCP_SYN_SENT",
+    "TCP_ESTABLISHED",
+    "TCP_FIN_WAIT_1",
+    "TCP_FIN_WAIT_2",
+    "TCP_CLOSING",
+    "TCP_CLOSE_WAIT",
+    "TCP_LAST_ACK",
+    "TCP_TIME_WAIT"
+};
 //-----------------------------------------------------------------------------
 // Subroutines
 //-----------------------------------------------------------------------------
@@ -321,6 +334,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[Idx].fsmState = TCP_CLOSED;
                 snprintf(str, sizeof(str), "TCP STATE: RST ISSUED TCP_CLOSED\n");
                 putsUart0(str);
+                mqttSetConnState(MQTT_DISCONNECTED);
             }
             else if (initiateFin)
             {
@@ -977,4 +991,48 @@ bool tcpValidChecks(etherHeader *ether)
 
     /* add more conditions if needed */
     return flag;
+}
+
+void displayStatus(void)
+{
+    uint8_t ip[4];
+    char str[30];
+    uint8_t i;
+
+    getIpAddress(ip);
+    putsUart0("  IP:                ");
+    for (i = 0; i < IP_ADD_LENGTH; i++)
+    {
+        snprintf(str, sizeof(str), "%"PRIu8, ip[i]);
+        putsUart0(str);
+        if (i < IP_ADD_LENGTH-1)
+            putcUart0('.');
+    }
+    putcUart0('\n');
+
+    putsUart0("  MQTT:              ");
+    for (i = 0; i < IP_ADD_LENGTH; i++)
+    {
+        snprintf(str, sizeof(str), "%"PRIu8, ip[i]);
+        putsUart0(str);
+        if (i < IP_ADD_LENGTH-1)
+            putcUart0('.');
+    }
+    putcUart0('\n');
+
+    putsUart0("  MQTT CONN STATE:   ");
+    snprintf(str, sizeof(str), "%s",mqttGetConnState() ? "MQTT_CONNECTED":"MQTT_DISCONNECTED");
+    putsUart0(str);
+    putcUart0('\n');
+
+    putsUart0("  MQTT FSM STATE:    ");
+    snprintf(str, sizeof(str), "%s",mqttState[mqttGetCurrState()]);
+    putsUart0(str);
+    putcUart0('\n');
+
+    putsUart0("  TCP STATE:         ");
+    snprintf(str, sizeof(str), "%s",tcpState[getTcpCurrState(0)]);
+    putsUart0(str);
+    putcUart0('\n');
+
 }

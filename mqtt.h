@@ -53,6 +53,9 @@
 //#define MQTT_PORT       (8081u)
 #define MQTT_PORT       (1883u)
 
+#define MQTT_DISCONNECTED   0u
+#define MQTT_CONNECTED      1u
+
 typedef struct _mqttHeader
 {
     uint8_t retain:1;
@@ -96,6 +99,8 @@ typedef struct
     bool receviedData;
 }mqttRxBf_t;
 
+extern char *mqttState[];
+
 void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttUnsubscribe(etherHeader *ether, uint8_t *data, uint16_t size);
@@ -115,4 +120,5 @@ void mqttInit(void);
 void mqttSetRxData(etherHeader *ether);
 void appInit(void);
 bool isMqtt(etherHeader *ether);
+uint8_t mqttGetCurrState(void);
 #endif /* MQTT_H_ */

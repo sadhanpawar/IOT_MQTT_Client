@@ -373,6 +373,11 @@ void processShell()
                 mqttLogDisConnectEvent();
             }
 
+            if (strcmp(token, "status") == 0)
+            {
+                displayStatus();
+            }
+
             if (strcmp(token, "help") == 0)
             {
                 putsUart0("Commands:\r");

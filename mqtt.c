@@ -32,10 +32,28 @@ uint16_t mqttPktId = 0x1234;
 static mqttMcb_t mqttMcb = {0};
 static mqttRxBf_t mqttRxBuffer = {0};
 static bool initiateTcpConnectReq = false;
+static uint8_t mqttConnStatus = MQTT_DISCONNECTED;
 // ------------------------------------------------------------------------------
 //  Structures
 // ------------------------------------------------------------------------------
+char *mqttState[] = {
 
+        "MQ_CONNECT     ",
+        "MQ_CONNACK     ",  
+        "MQ_PUBLISH     ",  
+        "MQ_PUBACK      ",  
+        "MQ_PUBREC      ",  
+        "MQ_PUBREL      ",  
+        "MQ_PUBCOMP     ",  
+        "MQ_SUBSCRIBE   ",  
+        "MQ_SUBACK      ",  
+        "MQ_UNSUBSCRIBE ",  
+        "MQ_UNSUBACK    ",  
+        "MQ_PINGREQ     ",  
+        "MQ_PINGRESP    ",  
+        "MQ_DISCONNECT  ",  
+        "MQ_AUTH        " 
+};
 //-----------------------------------------------------------------------------
 // Subroutines
 //-----------------------------------------------------------------------------
@@ -550,18 +568,22 @@ void mqttHandler(etherHeader *ether )
                     if(*(varHdrPtr+1) == 0) /*byte 2*/
                     {
                         snprintf(str, sizeof(str), "CONNECT:connected successfully with MQTT broker\n");
+                        mqttConnStatus = MQTT_CONNECTED;
                     }
                     else if(*(varHdrPtr+1) == 1) 
                     {
                         snprintf(str, sizeof(str), "CONNECT:connected refused with protocol version\n");
+                        mqttConnStatus = MQTT_DISCONNECTED;
                     }
                     else if(*(varHdrPtr+1) == 2) 
                     {
                         snprintf(str, sizeof(str), "CONNECT:connected refused identifier rejected\n");
+                        mqttConnStatus = MQTT_DISCONNECTED;
                     }
                     else
                     {
                         snprintf(str, sizeof(str), "CONNECT:unknown code returned\n");
+                        mqttConnStatus = MQTT_DISCONNECTED;
                     }
                     putsUart0(str);
                     mqttMcb.mqttEvent = NOEVENT;
@@ -581,6 +603,7 @@ void mqttHandler(etherHeader *ether )
                     snprintf(str, sizeof(str), "DISCONNECT:disconnected successfully with MQTT broker\n");
                     putsUart0(str);
                     mqttMcb.mqttEvent = NOEVENT;
+                    mqttConnStatus = MQTT_DISCONNECTED;
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */
@@ -675,4 +698,19 @@ void mqttInit(void)
         when triggered
     */
     tcpCreateSocket(MQTT_PORT);
+}
+
+uint8_t mqttGetCurrState(void)
+{
+    return (uint8_t)mqttMcb.mqttEvent;
+}
+
+uint8_t mqttGetConnState(void)
+{
+    return mqttConnStatus;
+}
+
+void mqttSetConnState(uint8_t val)
+{
+    mqttConnStatus = val;
 }
