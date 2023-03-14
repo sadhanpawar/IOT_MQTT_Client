@@ -50,7 +50,7 @@
 #define MQ_RESERVED     (3u)
 
 #define MQTT_SIZE       (60u)
-//#define MQTT_PORT       (8081u)
+#define MQTT_SRV_PORT   (8081u)
 #define MQTT_PORT       (1883u)
 
 #define MQTT_DISCONNECTED   0u
@@ -125,4 +125,16 @@ uint8_t mqttGetCurrState(void);
 void mqttSetCurrState(mqttEvent_t val);
 void mqttSetConnState(uint8_t val);
 uint8_t mqttGetConnState(void);
+void mqttPubAck(etherHeader *ether);
+void mqttSubAck(etherHeader *ether);
+void mqttHandlePubServer(etherHeader *ether);
+void mqttHandleSubServer(etherHeader *ether);
+void mqttHandleAllRxMsgs(etherHeader *ether);
+void mqttHandleConnectServer(etherHeader *ether);
+void mqttConnAck(etherHeader *ether);
+void mqttPingResp(etherHeader *ether);
+bool ismqttConnected(void);
+
+_callback mqttKeepAliveTimeCb();
+_callback mqttConTimerCb();
 #endif /* MQTT_H_ */

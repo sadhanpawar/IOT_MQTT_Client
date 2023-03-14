@@ -25,7 +25,7 @@
 #include "uart0.h"
 #include "tcp.h"
 
-uint16_t mqttPktId = 0x1234;
+uint16_t mqttPktId = 0x0001;
 // ------------------------------------------------------------------------------
 //  Globals
 // ------------------------------------------------------------------------------
@@ -33,6 +33,9 @@ static mqttMcb_t mqttMcb = {0};
 static mqttRxBf_t mqttRxBuffer = {0};
 static bool initiateTcpConnectReq = false;
 static uint8_t mqttConnStatus = MQTT_DISCONNECTED;
+static bool mqttServerConnectStatus = false;
+static uint16_t keepAliveTimer = 0;
+static bool mqttConTimerFlag = false;
 // ------------------------------------------------------------------------------
 //  Structures
 // ------------------------------------------------------------------------------
@@ -117,7 +120,7 @@ void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size)
 
     /*data*/
     for(i = mqttMcb.topicSize,j=0; i < mqttMcb.topicSize + (mqttMcb.totalSize - mqttMcb.topicSize) ; i++,j++) {
-        varHdrPtr[j] = mqttMcb.args[i]-'0';
+        varHdrPtr[j] = mqttMcb.args[i];
     }
 
     varLen += (mqttMcb.totalSize - mqttMcb.topicSize);
@@ -246,6 +249,7 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t *varHdrPtr;
     uint16_t varLen = 0;
     uint8_t i;
+    char clientId[] = "sadhan/0123456789ABCDEF";
 
     #if 0
     mqttMcb.data[0] = 0x10;
@@ -327,10 +331,10 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     varLen += 2;
 
     /*client ID */
-    for(i = 12; i < 35; i++) {
-        *(varHdrPtr + i)    = i - 12;
-    }
-    varLen += (i-12);
+    varHdrPtr += 12;
+
+    strncpy((char*)varHdrPtr,clientId,strlen(clientId));
+    varLen += strlen(clientId);
     
     mqtt->remLength = varLen; /*var header + payload lenght */
     mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
@@ -511,7 +515,7 @@ void mqttHandler(etherHeader *ether )
                         varHdrPtr[1] == ((uint8_t)(mqttPktId & 0x00FF))
                     )
                     {
-                        snprintf(str, sizeof(str), "PUBLISH: success with Pkt ID:""%"PRIu16, mqttPktId);
+                        snprintf(str, sizeof(str), "PUBLISH: success with Pkt ID:""%"PRIX16"\n", mqttPktId);
                         putsUart0(str);
                         mqttMcb.mqttEvent = NOEVENT;
                     }
@@ -529,7 +533,7 @@ void mqttHandler(etherHeader *ether )
                     /* send the the topic and data with mqtt message */
                     mqttSubscribe(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = SUBSCRIBE_WAIT;
-                    snprintf(str, sizeof(str), "SUBSCRIBE: Request with Pkt ID:""%"PRIu16, mqttPktId);
+                    snprintf(str, sizeof(str), "SUBSCRIBE: Request with Pkt ID:""%"PRIX16"\n", mqttPktId);
                     putsUart0(str);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
@@ -557,10 +561,16 @@ void mqttHandler(etherHeader *ether )
                         varHdrPtr[1] == ((uint8_t)(mqttPktId & 0x00FF))
                     )
                     {
-                        snprintf(str, sizeof(str), "SUBSCRIBE: success with Pkt ID:""%"PRIu16, mqttPktId);
+                        snprintf(str, sizeof(str), "SUBSCRIBE: success with Pkt ID:""%"PRIX16"\n", mqttPktId);
                         putsUart0(str);
                         mqttMcb.mqttEvent = NOEVENT;
                     }
+                }
+                else
+                {
+                    snprintf(str, sizeof(str), "SUBSCRIBE: No SUBACK received\n");
+                    putsUart0(str);
+                    mqttMcb.mqttEvent = NOEVENT;
                 }
             } else {
                 /*wait*/
@@ -575,7 +585,7 @@ void mqttHandler(etherHeader *ether )
                     /* send the the topic and data with mqtt message */
                     mqttUnSubscribe(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = NOEVENT;
-                    snprintf(str, sizeof(str), "UNSUBSCRIBE: Request with Pkt ID:""%"PRIu16, mqttPktId);
+                    snprintf(str, sizeof(str), "UNSUBSCRIBE: Request with Pkt ID:""%"PRIX16"\n", mqttPktId);
                     putsUart0(str);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
@@ -604,7 +614,7 @@ void mqttHandler(etherHeader *ether )
                         varHdrPtr[1] == ((uint8_t)(mqttPktId & 0x00FF))
                     )
                     {
-                        snprintf(str, sizeof(str), "UNSUBSCRIBE: success with Pkt ID:""%"PRIu16, mqttPktId);
+                        snprintf(str, sizeof(str), "UNSUBSCRIBE: success with Pkt ID:""%"PRIX16"\n", mqttPktId);
                         putsUart0(str);
                         mqttMcb.mqttEvent = NOEVENT;
                     }
@@ -623,6 +633,7 @@ void mqttHandler(etherHeader *ether )
                     mqttConnect(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = CONNECT_WAIT;
                     /*TODO start the timer*/
+                    startPeriodicTimer(mqttConTimerCb,3);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */ 
@@ -635,9 +646,13 @@ void mqttHandler(etherHeader *ether )
         case CONNECT_WAIT:
         {
             /*wait  */
+            if(mqttConTimerFlag) {
+                mqttLogConnectEvent();
+            }
             /*wait for sub ack */
-            if(mqttRxBuffer.receviedData) {
+            else if(mqttRxBuffer.receviedData) {
                 mqttRxBuffer.receviedData = false;
+                stopTimer(mqttConTimerCb);
                 mqttHeader *mqtt = (mqttHeader*)mqttRxBuffer.data;
                 uint8_t *varHdrPtr;
 
@@ -685,6 +700,7 @@ void mqttHandler(etherHeader *ether )
                     putsUart0(str);
                     mqttMcb.mqttEvent = NOEVENT;
                     mqttConnStatus = MQTT_DISCONNECTED;
+                    stopTimer(mqttKeepAliveTimeCb);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */
@@ -702,8 +718,310 @@ void mqttHandler(etherHeader *ether )
 
 
         case NOEVENT:
+        {
+            mqttHandleAllRxMsgs(ether);
+        }break;
         default: break;
     }
+}
+
+/**
+ * @brief mqttHandleAllRxMsgs
+ * 
+ * @param ether 
+ */
+void mqttHandleAllRxMsgs(etherHeader *ether)
+{
+    char str[35];
+
+    if(!mqttRxBuffer.receviedData) { 
+        /*Do nothing */
+        return ;
+    }
+
+    mqttRxBuffer.receviedData = false;
+    mqttHeader *mqtt = (mqttHeader*)mqttRxBuffer.data;
+
+    switch(mqtt->controlPacket) {
+
+        case MQ_CONNECT:
+        {
+            /*TODO need to handle pub ack as well */
+            mqttHandleConnectServer(ether);
+            mqttConnAck(ether);
+        }break;
+
+        case MQ_PUBLISH:
+        {
+            /*only process if the connection is alive*/
+            //if(!ismqttConnected()) {return;}
+            if(!mqttGetConnState()) {return;}
+            /*TODO need to handle pub ack as well */
+            mqttHandlePubServer(ether);
+            mqttPubAck(ether);
+        }break;
+
+        case MQ_PINGREQ:
+        {
+            /*if it's here, ping request packet is detected*/
+            startOneshotTimer(&mqttKeepAliveTimeCb,keepAliveTimer);
+            mqttPingResp(ether);
+
+        }break;
+
+        case MQ_DISCONNECT:
+        {
+            stopTimer(mqttKeepAliveTimeCb);
+            snprintf(str, sizeof(str), "DISCONNECT: from server received");
+            putsUart0(str);
+            mqttLogDisConnectEvent();
+
+        }break;
+
+        case MQ_SUBSCRIBE:
+        {
+            /*only process if the connection is alive*/
+            if(!ismqttConnected()) {return; }
+
+            mqttHandleSubServer(ether);
+            mqttSubAck(ether);
+
+        }break;
+
+        default: break;
+        
+    } 
+}
+
+/**
+ * @brief mqttHandlePubServer
+ * 
+ * @param ether 
+ */
+void mqttHandlePubServer(etherHeader *ether)
+{
+    char str[35];
+    uint8_t *varHdrPtr;
+    uint16_t topicSize = 0;
+    uint8_t dataSize = 0;
+
+    mqttHeader *mqtt = (mqttHeader*)mqttRxBuffer.data;
+
+    varHdrPtr = mqtt->data;
+
+    topicSize = *(varHdrPtr + 0);
+    topicSize = (topicSize << 8) | *(varHdrPtr + 1);
+
+    varHdrPtr += (uint8_t)2;
+
+    snprintf(str, sizeof(str), "PUBLISH from server:");
+    putsUart0(str);
+    memset(str,0,sizeof(str));
+    strncpy(str,(char*)varHdrPtr,topicSize);
+    putsUart0(str);
+    putsUart0("\n");
+
+    varHdrPtr += topicSize; /*topicsize + no msgId?? */
+
+    dataSize = mqtt->remLength - 2 - topicSize; /* topiclensize(2bytes) - topiclenValue*/
+    /*TODO do we need to display data?*/
+    putsUart0("data: ");
+    memset(str,0,sizeof(str));
+    strncpy(str,(char*)varHdrPtr,dataSize);
+    putsUart0(str);
+    putsUart0("\n");
+}
+
+/**
+ * @brief mqttHandleSubServer
+ * 
+ * @param ether 
+ */
+void mqttHandleSubServer(etherHeader *ether)
+{
+    char str[35];
+    uint8_t *varHdrPtr;
+    uint16_t topicSize = 0;
+    uint16_t packetId = 0;
+
+    mqttHeader *mqtt = (mqttHeader*)mqttRxBuffer.data;
+
+    varHdrPtr = mqtt->data;
+
+    packetId = *(varHdrPtr + 0);
+    packetId = (packetId << 8) | *(varHdrPtr + 1);
+
+    varHdrPtr += (uint8_t)2;
+
+    topicSize = *(varHdrPtr + 0);
+    topicSize = (topicSize << 8) | *(varHdrPtr + 1);
+
+    varHdrPtr += (uint8_t)2;
+
+    snprintf(str, sizeof(str), "SUBSCRIBE: from server ");
+    putsUart0(str);
+    strncpy(str,(char*)varHdrPtr,topicSize);
+    putsUart0(str);
+    putsUart0("\n");
+
+    /*TODO do we need to display data?*/
+
+}
+
+/**
+ * @brief mqttHandleConnectServer
+ * 
+ * @param ether 
+ */
+void mqttHandleConnectServer(etherHeader *ether)
+{
+    char str[60];
+    uint8_t *varHdrPtr;
+
+    mqttHeader *mqtt = (mqttHeader*)mqttRxBuffer.data;
+
+    varHdrPtr = mqtt->data;
+
+    keepAliveTimer = *(varHdrPtr+8);
+    keepAliveTimer = (keepAliveTimer << 8) | *(varHdrPtr+9);
+
+    startOneshotTimer(mqttKeepAliveTimeCb,keepAliveTimer);
+    mqttServerConnectStatus = true;
+
+    snprintf(str, sizeof(str), "CONNECT: connect session started with" PRIu16" keep alive timer\n",keepAliveTimer);
+    putsUart0(str);
+}
+
+/**
+ * @brief arpRespTimeoutCb
+ * 
+ * @return _callback 
+ */
+_callback mqttKeepAliveTimeCb()
+{
+    mqttServerConnectStatus = false;
+}
+
+bool ismqttConnected(void)
+{
+    return mqttServerConnectStatus;
+}
+/**
+ * @brief mqttPubAck
+ * 
+ * @param ether 
+ */
+void mqttPubAck(etherHeader *ether)
+{
+    uint8_t *varHdrPtr;
+    uint16_t varLen = 0;
+
+    mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
+    mqtt->controlPacket = MQ_PUBACK;
+    mqtt->dup = 0; /*first try*/
+    mqtt->qosLevel = MQ_FIRE_FORGET;
+    mqtt->retain = 1;
+
+    varHdrPtr = mqtt->data;
+
+    /*packet Identifier*/
+    *(varHdrPtr + 0)= (mqttPktId & 0xFF00) >> 8;
+    *(varHdrPtr+ 1) = (uint8_t)(mqttPktId & 0x00FF);
+    varLen += 2;
+
+    /*message length*/
+    mqtt->remLength =  varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+
+    mqttSetTxStatus(true);
+
+}
+
+/**
+ * @brief mqttSubAck
+ * 
+ * @param ether 
+ */
+void mqttSubAck(etherHeader *ether)
+{
+    uint8_t *varHdrPtr;
+    uint16_t varLen = 0;
+
+    mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
+    mqtt->controlPacket = MQ_SUBACK;
+    mqtt->dup = 0; /*first try*/
+    mqtt->qosLevel = MQ_FIRE_FORGET;
+    mqtt->retain = 1;
+
+    varHdrPtr = mqtt->data;
+
+    /*packet Identifier*/
+    *(varHdrPtr + 0)= (mqttPktId & 0xFF00) >> 8;
+    *(varHdrPtr+ 1) = (uint8_t)(mqttPktId & 0x00FF);
+    varLen += 2;
+
+    /*success qos 0*/
+    *(varHdrPtr + 0)= 0;
+    varLen += 1;
+    
+    /*message length*/
+    mqtt->remLength =  varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+
+    mqttSetTxStatus(true);
+
+}
+
+/**
+ * @brief mqttConnAck
+ * 
+ * @param ether 
+ */
+void mqttConnAck(etherHeader *ether)
+{
+    uint8_t *varHdrPtr;
+    uint16_t varLen = 0;
+
+    mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
+    mqtt->controlPacket = MQ_CONNACK;
+    mqtt->dup = 0; /*first try*/
+    mqtt->qosLevel = MQ_FIRE_FORGET;
+    mqtt->retain = 0;
+
+    varHdrPtr = mqtt->data;
+
+    /*conn ack flags*/
+    *(varHdrPtr + 0)= 0;
+    *(varHdrPtr+ 1) = 0;
+    varLen += 2;
+
+    /*message length*/
+    mqtt->remLength =  varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+
+    mqttSetTxStatus(true);
+}
+
+/**
+ * @brief mqttPingResp
+ * 
+ * @param ether 
+ */
+void mqttPingResp(etherHeader *ether)
+{
+    uint16_t varLen = 0;
+
+    mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
+    mqtt->controlPacket = MQ_PINGRESP;
+    mqtt->dup = 0; /*first try*/
+    mqtt->qosLevel = MQ_FIRE_FORGET;
+    mqtt->retain = 0;
+    
+    /*message length*/
+    mqtt->remLength =  varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+
+    mqttSetTxStatus(true);
 }
 
 /**
@@ -789,11 +1107,12 @@ bool isMqtt(etherHeader *ether)
 void mqttSetRxData(etherHeader *ether)
 {
     uint8_t i;
+    char str[30];
 
     tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
 
     uint8_t *mqtt = (uint8_t*)tcp->data;
-    uint8_t remlength = mqtt[1];
+    uint8_t remlength = mqtt[1] + sizeof(mqttHeader) ;
 
     for(i = 0; i < remlength; i++)
     {
@@ -852,4 +1171,13 @@ uint8_t mqttGetConnState(void)
 void mqttSetConnState(uint8_t val)
 {
     mqttConnStatus = val;
+}
+/**
+ * @brief mqttConTimerCb
+ * 
+ * @return _callback 
+ */
+_callback mqttConTimerCb()
+{
+    mqttConTimerFlag = true;
 }

@@ -162,7 +162,7 @@ void setIpMqttBrokerAddress(const uint8_t ip[4])
 {
     uint8_t i;
     for (i = 0; i < IP_ADD_LENGTH; i++)
-        ipTimeServerAddress[i] = ip[i];
+        ipMqttBrokerAddress[i] = ip[i];
 }
 
 // Gets IP time server address
@@ -170,7 +170,7 @@ void getIpMqttBrokerAddress(uint8_t ip[4])
 {
     uint8_t i;
     for (i = 0; i < IP_ADD_LENGTH; i++)
-        ip[i] = ipTimeServerAddress[i];
+        ip[i] = ipMqttBrokerAddress[i];
 }
 
 // Calculate sum of words

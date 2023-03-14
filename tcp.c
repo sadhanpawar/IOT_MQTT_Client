@@ -36,6 +36,7 @@ static uint32_t initialSeqNo = 0;
 bool initiateFin = false;
 static uint8_t tcpTimerFlag = 0;
 static uint16_t tcpCurrWindow = 0;
+static uint8_t tcpWriteFSM = 0;
 // ------------------------------------------------------------------------------
 //  Structures
 // ------------------------------------------------------------------------------
@@ -344,14 +345,16 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
             if(true == socketConns[Idx].initConnect) {
                 
                 /* recevied arp response */
-                if(IP_NOEVENT == getIpCurrentEventStatus()) 
+                if(IP_NOEVENT == getIpCurrentEventStatus()) {
                     tcpSendSyn(ether);
                     socketConns[Idx].fsmState = TCP_SYN_SENT;
                     socketConns[Idx].initConnect = false;
                     tcpTimerFlag = 1;
-                } else {
-                    /* wait till you get arp response */  
+                    counter = random32();
                 }
+            } else {
+                /* wait till you get arp response */  
+            }
    
         }break;
 
@@ -370,22 +373,18 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
                 socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
+                tcpCheckOptionsField(ether);
                 tcpSendAck(ether, 1);
                 socketConns[Idx].fsmState = TCP_ESTABLISHED;
                 snprintf(str, sizeof(str), "\nTCP STATE: ESTABLISHED \n");
                 putsUart0(str);
+                counter = 0;
 
             } else {
-                //socketConns[Idx].fsmState = TCP_CLOSED;
-                //coming for tx not needed 
-                //perhaps we could start timer 
-                //snprintf(str, sizeof(str), "TCP STATE: UNKNOWN \n");
-                if(counter % 10000000000 == 0) {
+                if( counter <  random32() ) {
                     snprintf(str, sizeof(str), ".");
                     putsUart0(str);
-                    counter = 0;
-                } else {
-                    counter++;
+                    counter = random32();
                 }
             }
             
@@ -405,7 +404,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 snprintf(str, sizeof(str), "TCP STATE: FIN ISSUED TCP_CLOSE_WAIT\n");
                 putsUart0(str);
                 mqttSetConnState(MQTT_DISCONNECTED);
-                //mqttSetCurrState(NOEVENT);
+                mqttSetCurrState(NOEVENT);
             }
             else if(htons(tcp->offsetFields) & RST)
             {
@@ -417,7 +416,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 snprintf(str, sizeof(str), "TCP STATE: RST ISSUED TCP_CLOSED\n");
                 putsUart0(str);
                 mqttSetConnState(MQTT_DISCONNECTED);
-                //mqttSetCurrState(NOEVENT);
+                mqttSetCurrState(NOEVENT);
             }
             else if (initiateFin)
             {
@@ -432,7 +431,8 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 putsUart0(str);
                 initiateFin = false;
                 mqttSetConnState(MQTT_DISCONNECTED);
-                //mqttSetCurrState(NOEVENT);
+                mqttSetCurrState(NOEVENT);
+                counter = random32();
             }
             else {
                 tcpHandleRwTransactions(ether, flag);
@@ -447,11 +447,15 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[Idx].fsmState = TCP_FIN_WAIT_2;
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_FIN_WAIT_2\n");
                 putsUart0(str);
+                counter = random32();
             }
             else
             {
-                snprintf(str, sizeof(str), ".");
-                putsUart0(str);
+                if( counter <  random32() ) {
+                    snprintf(str, sizeof(str), ".");
+                    putsUart0(str);
+                    counter = random32();
+                }
             }
 
         }break;
@@ -467,8 +471,11 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
             }
             else
             {
-                snprintf(str, sizeof(str), ".");
-                putsUart0(str);
+                if( counter <  random32() ) {
+                    snprintf(str, sizeof(str), ".");
+                    putsUart0(str);
+                    counter = random32();
+                }
             }
 
         }break;
@@ -742,8 +749,8 @@ void tcpSendAck(etherHeader *ether, uint8_t ackVal)
     uint16_t tcpHdrlen;
     uint8_t ipHeaderLength;
     /*uint8_t optionsField[] = {0x1,0x1,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,
-                                0x9,0x10};
-    uint8_t *ptr;*/
+                                0x9,0x10};*/
+    uint8_t *ptr;
 
     // Ether frame
     getEtherMacAddress(localHwAddress);
@@ -791,19 +798,33 @@ void tcpSendAck(etherHeader *ether, uint8_t ackVal)
     SETBIT(tcp->offsetFields,ACK);
     
     tcpLength = sizeof(tcpHeader) + /*sizeof(optionsField) +*/ 0; /*ack has no data */
-
+    #if 0
     tcp->offsetFields &= ~(0xF000);
     tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
     tcp->offsetFields |= tcpHdrlen;
-
+    
     tcp->offsetFields = htons(tcp->offsetFields);
+    #endif
 
-    /*
-    ptr = (uint8_t *)tcp->data;
-    for(i = 0; i < sizeof(optionsField); i++) {
-        ptr[i] = optionsField[i];
+    if(socketConns[0].o.optFldFlag) {
+        ptr = (uint8_t *)tcp->data;
+        for(i = 0; i < socketConns[0].o.optFldLen; i++) {
+            ptr[i] = socketConns[0].o.optFldData[i];
+        }
+        tcpLength += i;
+        socketConns[0].o.optFldFlag = false;
+
+        tcp->offsetFields &= ~(0xF000);
+        tcpHdrlen = (((sizeof(tcpHeader)/4) + (socketConns[0].o.optFldLen/4)) << OFS_SHIFT) ; /* always it's *4 */
+        tcp->offsetFields |= tcpHdrlen;
+
+    } else {
+        tcp->offsetFields &= ~(0xF000);
+        tcpHdrlen = ((sizeof(tcpHeader)/4) << OFS_SHIFT) ; /* always it's *4 */
+        tcp->offsetFields |= tcpHdrlen;
     }
-    */
+    
+    tcp->offsetFields = htons(tcp->offsetFields);
     
     ip->length = htons(sizeof(ipHeader) + tcpLength) ;
     calcIpChecksum(ip);
@@ -927,7 +948,7 @@ void tcpCreateSocket(uint16_t remotePort)
  */
 void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
 {
-    static uint8_t tcpWriteFSM = 0;
+    //static uint8_t tcpWriteFSM = 0;
     static bool tcpReadFlag = 0;
 
     if(flag == TCP_TX)
@@ -938,6 +959,7 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
             {
                 if(mqttGetTxStatus()) {
                     tcpWriteFSM = 1;
+                    tcpReadFlag = false;
                 }
             }
             break;
@@ -949,10 +971,11 @@ void tcpHandleRwTransactions(etherHeader *ether, uint8_t flag)
                     /* maintain window pointers to send next packet or retransmit the packet */
 
                     mqttGetTxData(data, &size);
-                    tcpSendSegment(ether, data, size,PSH,1);
-                    tcpWriteFSM = 2;    /*since only 2 bytes we can set it here else in 
+                    tcpSendSegment(ether, data, size,PSH,0);
+                    tcpWriteFSM = 0;    /*since only 2 bytes we can set it here else in 
                                             tcpSendSegment */
                     /*start the timer*/
+                    mqttSetTxStatus(false);
             }break;
 
             case 2:
@@ -1147,6 +1170,31 @@ bool tcpValidChecks(etherHeader *ether)
 }
 
 /**
+ * @brief tcpCheckOptionsField
+ * 
+ * @param ether 
+ */
+void tcpCheckOptionsField(etherHeader *ether)
+{
+    tcpHeader *tcp = (tcpHeader*)getTcpHeader(ether);
+    uint8_t size = tcpHeaderSize(ether);
+    uint8_t i;
+    uint8_t *ptr;
+    uint8_t optionsSize;
+
+    ptr = tcp->data;
+
+    if(size > 5) {
+        optionsSize = (size - 5)*4;
+        socketConns[0].o.optFldFlag = true;
+        for(i=0; i < optionsSize  && i < TCP_MAX_OPTIONS ; i++) {
+            socketConns[0].o.optFldData[i] = ptr[i];
+        }
+        socketConns[0].o.optFldLen = i;
+    }
+}
+
+/**
  * @brief displayStatus
  * 
  */
@@ -1191,5 +1239,11 @@ void displayStatus(void)
     snprintf(str, sizeof(str), "%s",tcpState[getTcpCurrState(0)]);
     putsUart0(str);
     putcUart0('\n');
+
+    putsUart0("  TCP WRITE STATE:         ");
+    snprintf(str, sizeof(str), "%d",tcpWriteFSM);
+    putsUart0(str);
+    putcUart0('\n');
+    
 
 }

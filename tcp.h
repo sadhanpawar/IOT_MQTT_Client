@@ -67,7 +67,6 @@ typedef struct _tcpHeader // 20 or more bytes
 #define NO_OF_SOCKETS     (1u)
 #define LOCAL_PORT        (8000u)
 #define REMOTE_PORT       (8181u)
-#define REMOTE_HW_MAC     ()
 
 #define SETBIT(x,n)       (x |= (n))
 #define CLEARBIT(x,n)     (x &= ~(n))
@@ -77,6 +76,14 @@ typedef struct _tcpHeader // 20 or more bytes
 #define TCP_NO_TX_RX      (3u)
 
 #define TCP_INV_VAL       (0xFF)
+#define TCP_MAX_OPTIONS   (12u)
+
+typedef struct 
+{
+  uint8_t optFldData[TCP_MAX_OPTIONS];
+  bool    optFldFlag;
+  uint8_t optFldLen;
+} optFld_t;
 
 typedef struct _Tcb
 {
@@ -85,6 +92,7 @@ typedef struct _Tcb
   bool    initConnect;
   uint8_t socketIdx;
   uint8_t tcpSegLen;
+  optFld_t o;
 }Tcb_t;
 
 extern Tcb_t socketConns[NO_OF_SOCKETS];
@@ -122,5 +130,6 @@ uint8_t *getTcpHeader(etherHeader *ether);
 _callback tcpSendTimerCb();
 uint8_t getTcpSegmentLength(etherHeader *ether);
 void displayStatus(void);
+void tcpCheckOptionsField(etherHeader *ether);
 #endif
 
