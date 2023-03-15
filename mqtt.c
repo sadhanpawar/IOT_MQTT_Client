@@ -91,7 +91,7 @@ void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_PUBLISH;
     mqtt->dup = 0; /*first try*/
-    mqtt->qosLevel = MQ_FIRE_FORGET;
+    mqtt->qosLevel = MQ_ACK_DELIVERY;
     mqtt->retain = 1;
 
     /*variable header*/
@@ -149,7 +149,7 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_SUBSCRIBE;
     mqtt->dup = 0; /*first try*/
-    mqtt->qosLevel = 1;
+    mqtt->qosLevel = MQ_ACK_DELIVERY;
     mqtt->retain = 0;
 
     /*variable header*/
@@ -203,7 +203,7 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_UNSUBSCRIBE;
     mqtt->dup = 0; /*first try*/
-    mqtt->qosLevel = MQ_FIRE_FORGET;
+    mqtt->qosLevel = MQ_ACK_DELIVERY;
     mqtt->retain = 0;
 
     /*variable header*/
@@ -357,7 +357,7 @@ void mqttDisConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_DISCONNECT;
     mqtt->dup = 0;
-    mqtt->qosLevel = 0;
+    mqtt->qosLevel = MQ_FIRE_FORGET;
     mqtt->retain = 0;
 
     /* No variable header*/

@@ -374,7 +374,9 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
                 socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
                 tcpCheckOptionsField(ether);
+                initialSeqNo += 1;
                 tcpSendAck(ether, 1);
+                socketConns[0].s.sequenceNumber += 1;
                 socketConns[Idx].fsmState = TCP_ESTABLISHED;
                 snprintf(str, sizeof(str), "\nTCP STATE: ESTABLISHED \n");
                 putsUart0(str);
@@ -442,7 +444,16 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_FIN_WAIT_1:
         {
-            if(htons(tcp->offsetFields) & ACK )
+            if(htons(tcp->offsetFields) & FIN )
+            {
+                initialSeqNo += 1;
+                socketConns[0].s.sequenceNumber += 1;
+                tcpSendAck(ether,0);
+                socketConns[Idx].fsmState = TCP_CLOSING;
+                snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_CLOSING\n");
+                putsUart0(str);
+            }
+            else if(htons(tcp->offsetFields) & ACK )
             {
                 socketConns[Idx].fsmState = TCP_FIN_WAIT_2;
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_FIN_WAIT_2\n");
@@ -464,6 +475,8 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
         {
             if(htons(tcp->offsetFields) & FIN)
             {
+                initialSeqNo += 1;
+                socketConns[0].s.sequenceNumber += 1;
                 tcpSendAck(ether,0);
                 socketConns[Idx].fsmState = TCP_TIME_WAIT;
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_TIME_WAIT\n");
@@ -482,6 +495,20 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_CLOSING:
         {
+            if(htons(tcp->offsetFields) & ACK)
+            {
+                socketConns[Idx].fsmState = TCP_TIME_WAIT;
+                snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_TIME_WAIT\n");
+                putsUart0(str);
+            }
+            else
+            {
+                if( counter <  random32() ) {
+                    snprintf(str, sizeof(str), ".");
+                    putsUart0(str);
+                    counter = random32();
+                }
+            }
 
         }break;
 
@@ -788,7 +815,7 @@ void tcpSendAck(etherHeader *ether, uint8_t ackVal)
     tcp->destPort = htons(socketConns[0].s.remotePort);
     tcp->acknowledgementNumber = htonl(socketConns[0].s.sequenceNumber +
                                         socketConns[0].tcpSegLen + ackVal);
-    tcp->sequenceNumber = htonl(initialSeqNo + 1);//tcp->acknowledgementNumber;
+    tcp->sequenceNumber = htonl(initialSeqNo);//tcp->acknowledgementNumber;
     
     //tcp->sequenceNumber = socketConns[0].s.sequenceNumber += 1;
     //tcp->acknowledgementNumber = socketConns[0].s.acknowledgementNumber;
@@ -891,7 +918,7 @@ void tcpSendFin(etherHeader *ether)
     tcpHeader* tcp = (tcpHeader*)((uint8_t*)ip + (ip->size * 4));
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
-    tcp->sequenceNumber = htonl(initialSeqNo + 1);
+    tcp->sequenceNumber = htonl(initialSeqNo);
     tcp->acknowledgementNumber = htonl(socketConns[0].s.sequenceNumber +
                                         socketConns[0].tcpSegLen);
     tcp->windowSize = tcpCurrWindow = tcp->windowSize;
@@ -1095,7 +1122,7 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
     tcpHeader* tcp = (tcpHeader*)((uint8_t*)ip + (ip->size * 4));
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
-    tcp->sequenceNumber = htonl(initialSeqNo + 1);
+    tcp->sequenceNumber = htonl(initialSeqNo);
     tcp->acknowledgementNumber =  htonl(socketConns[0].s.sequenceNumber +
                                         socketConns[0].tcpSegLen + ackVal);
 
