@@ -362,7 +362,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
         {
             /* awaits syn+ack from servers and sends an ack and enters established */
 
-            if( (htons(tcp->offsetFields) & ACK ) 
+            if( (flag == TCP_RX) && (htons(tcp->offsetFields) & ACK ) 
                  && (htons(tcp->offsetFields) & SYN)
                 // TODO (htons(tcp->offsetFields) & SYN)
                 //mqtt server only sends ack not syn+ack
@@ -395,7 +395,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
         case TCP_ESTABLISHED:
         {
             /* received fin ? */
-            if(htons(tcp->offsetFields) & FIN)
+            if((flag == TCP_RX) && (htons(tcp->offsetFields) & FIN))
             {
                 socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
@@ -408,7 +408,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 mqttSetConnState(MQTT_DISCONNECTED);
                 mqttSetCurrState(NOEVENT);
             }
-            else if(htons(tcp->offsetFields) & RST)
+            else if( (flag == TCP_RX) && (htons(tcp->offsetFields) & RST) )
             {
                 socketConns[0].s.acknowledgementNumber = htonl(tcp->acknowledgementNumber);
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
@@ -444,7 +444,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_FIN_WAIT_1:
         {
-            if(htons(tcp->offsetFields) & FIN )
+            if((flag == TCP_RX) && (htons(tcp->offsetFields) & FIN ) )
             {
                 initialSeqNo += 1;
                 socketConns[0].s.sequenceNumber += 1;
@@ -453,7 +453,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_CLOSING\n");
                 putsUart0(str);
             }
-            else if(htons(tcp->offsetFields) & ACK )
+            else if ( (flag == TCP_RX) && (htons(tcp->offsetFields) & ACK ) )
             {
                 socketConns[Idx].fsmState = TCP_FIN_WAIT_2;
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_FIN_WAIT_2\n");
@@ -473,7 +473,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_FIN_WAIT_2:
         {
-            if(htons(tcp->offsetFields) & FIN)
+            if((flag == TCP_RX) && (htons(tcp->offsetFields) & FIN) )
             {
                 initialSeqNo += 1;
                 socketConns[0].s.sequenceNumber += 1;
@@ -495,7 +495,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_CLOSING:
         {
-            if(htons(tcp->offsetFields) & ACK)
+            if((flag == TCP_RX) && (htons(tcp->offsetFields) & ACK))
             {
                 socketConns[Idx].fsmState = TCP_TIME_WAIT;
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_TIME_WAIT\n");
@@ -523,7 +523,7 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_LAST_ACK:
         {
-            if(htons(tcp->offsetFields) & ACK)
+            if((flag == TCP_RX) && (htons(tcp->offsetFields) & ACK) )
             {
                 socketConns[Idx].fsmState = TCP_CLOSED;
                 snprintf(str, sizeof(str), "TCP STATE: TCP_CLOSED\n");

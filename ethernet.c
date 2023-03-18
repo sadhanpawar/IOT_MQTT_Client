@@ -401,9 +401,8 @@ int main(void)
 {
     uint8_t* udpData;
     uint8_t buffer_rx[MAX_PACKET_SIZE];
-    uint8_t buffer_tx[MAX_PACKET_SIZE];
     etherHeader *data = (etherHeader*) buffer_rx;
-    etherHeader *TransBuffer = (etherHeader*) buffer_tx;
+    etherHeader *TransBuffer = (etherHeader*) data;
     socket s;
 
     // Init controller
@@ -501,6 +500,8 @@ int main(void)
         mqttHandler(TransBuffer);
         tcpHandlerTx(TransBuffer);
         ipHandlerTx(TransBuffer);
+
+        memset(buffer_rx,0,sizeof(buffer_rx));
         
     }
 }
