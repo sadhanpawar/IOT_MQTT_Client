@@ -34,10 +34,12 @@ static mqttRxBf_t mqttRxBuffer = {0};
 static bool initiateTcpConnectReq = false;
 static uint8_t mqttConnStatus = MQTT_DISCONNECTED;
 static bool mqttServerConnectStatus = false;
-static uint16_t keepAliveTimer = 0;
+static uint16_t keepAliveSrvTimer = 0;
 static bool mqttConTimerFlag = false;
 static char mqttCurSubTopics[MQTT_NO_SUB_TOPICS][MQTT_TOPIC_LEN] = {0};
 static uint8_t topicIdx = 0;
+static uint16_t keepAliveCliTimer = 0;
+
 // ------------------------------------------------------------------------------
 //  Structures
 // ------------------------------------------------------------------------------
@@ -71,7 +73,9 @@ char *mqttFsmState[] = {
     "CONNECT",
     "CONNECT_WAIT",
     "DISCONNECT",
-    "DISCONNECT_WAIT"
+    "DISCONNECT_WAIT",
+    "PING_REQUEST",
+    "PING_RESPONSE"
 };
 //-----------------------------------------------------------------------------
 // Subroutines
@@ -286,6 +290,10 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     *(varHdrPtr + 9)    = 0x14; /*20 secs*/
     varLen += 2;
 
+    keepAliveCliTimer = *(varHdrPtr + 8);
+    keepAliveCliTimer = (keepAliveCliTimer << 8) | *(varHdrPtr + 9);
+    startPeriodicTimer(mqttKeepAliveTimeCliCb,keepAliveCliTimer - 1);
+
     /*client ID length*/
     *(varHdrPtr + 10)    = 0x0;
     *(varHdrPtr + 11)    = 0x17;
@@ -326,8 +334,28 @@ void mqttDisConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
 
     initiateFin = true;
+}
 
-    //mqttSetTxStatus(true);
+/**
+ * @brief mqttPingRequest
+ * 
+ * @param ether 
+ */
+void mqttPingRequest(etherHeader *ether, uint8_t *data, uint16_t size)
+{
+    uint16_t varLen = 0;
+
+    mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
+    mqtt->controlPacket = MQ_PINGREQ;
+    mqtt->dup = 0; /*first try*/
+    mqtt->qosLevel = MQ_FIRE_FORGET;
+    mqtt->retain = 0;
+    
+    /*message length*/
+    mqtt->remLength =  varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+
+    mqttSetTxStatus(true);
 }
 
 /*TODO : might have to implement a state machine to split the larger data packets 
@@ -660,7 +688,8 @@ void mqttHandler(etherHeader *ether )
                     putsUart0(str);
                     mqttMcb.mqttEvent = NOEVENT;
                     mqttConnStatus = MQTT_DISCONNECTED;
-                    stopTimer(mqttKeepAliveTimeCb);
+                    stopTimer(mqttKeepAliveTimeSrvCb);
+                    stopTimer(mqttKeepAliveTimeCliCb);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
                 /* create a socket and bind it to initiate socket communication */
@@ -676,6 +705,38 @@ void mqttHandler(etherHeader *ether )
 
         }break;
 
+        case PING_REQUEST:
+        {
+            if(getTcpCurrState(0) == TCP_ESTABLISHED) {
+                    /* send the ping request mqtt message */
+                    mqttPingRequest(ether, mqttMcb.data, mqttMcb.totalSize);
+                    snprintf(str, sizeof(str), "PING_REQ: MQTT broker\n");
+                    putsUart0(str);
+                    mqttMcb.mqttEvent = PING_RESPONSE;
+            } else {
+                /*leave it */
+            }
+
+        }break;
+
+        case PING_RESPONSE:
+        {
+            if(mqttRxBuffer.receviedData) {
+                mqttRxBuffer.receviedData = false;
+                mqttHeader *mqtt = (mqttHeader*)mqttRxBuffer.data;
+
+                if( (mqtt->controlPacket == MQ_PINGRESP) 
+                )
+                {
+                        snprintf(str, sizeof(str), "PING_RESP: MQTT broker\n");
+                        putsUart0(str);
+                        mqttMcb.mqttEvent = NOEVENT;
+                }
+            } else {
+                /*wait*/
+            }
+            
+        }break;
 
         case NOEVENT:
         {
@@ -722,14 +783,14 @@ void mqttHandleAllRxMsgs(etherHeader *ether)
         case MQ_PINGREQ:
         {
             /*if it's here, ping request packet is detected*/
-            startOneshotTimer(&mqttKeepAliveTimeCb,keepAliveTimer);
+            startOneshotTimer(&mqttKeepAliveTimeSrvCb,keepAliveSrvTimer);
             mqttPingResp(ether);
 
         }break;
 
         case MQ_DISCONNECT:
         {
-            stopTimer(mqttKeepAliveTimeCb);
+            stopTimer(mqttKeepAliveTimeSrvCb);
             snprintf(str, sizeof(str), "DISCONNECT: from server received");
             putsUart0(str);
             mqttLogDisConnectEvent();
@@ -856,24 +917,36 @@ void mqttHandleConnectServer(etherHeader *ether)
 
     varHdrPtr = mqtt->data;
 
-    keepAliveTimer = *(varHdrPtr+8);
-    keepAliveTimer = (keepAliveTimer << 8) | *(varHdrPtr+9);
+    keepAliveSrvTimer = *(varHdrPtr+8);
+    keepAliveSrvTimer = (keepAliveSrvTimer << 8) | *(varHdrPtr+9);
 
-    startOneshotTimer(mqttKeepAliveTimeCb,keepAliveTimer);
+    startOneshotTimer(mqttKeepAliveTimeSrvCb,keepAliveSrvTimer);
     mqttServerConnectStatus = true;
 
-    snprintf(str, sizeof(str), "CONNECT: connect session started with" PRIu16" keep alive timer\n",keepAliveTimer);
+    snprintf(str, sizeof(str), "CONNECT: connect session started with" PRIu16" keep alive timer\n",keepAliveSrvTimer);
     putsUart0(str);
 }
 
 /**
- * @brief arpRespTimeoutCb
+ * @brief mqttKeepAliveTimeSrvCb
  * 
  * @return _callback 
  */
-_callback mqttKeepAliveTimeCb()
+_callback mqttKeepAliveTimeSrvCb()
 {
     mqttServerConnectStatus = false;
+}
+/**
+ * @brief mqttKeepAliveTimeCliCb
+ * 
+ * @return _callback 
+ */
+_callback mqttKeepAliveTimeCliCb()
+{
+    mqttMcb.mqttEvent = PING_REQUEST;
+    mqttMcb.topicSize = 0;
+    mqttMcb.dataSize = 0;
+    mqttMcb.totalSize = 0;
 }
 
 bool ismqttConnected(void)

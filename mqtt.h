@@ -81,7 +81,9 @@ typedef enum
     CONNECT,
     CONNECT_WAIT,
     DISCONNECT,
-    DISCONNECT_WAIT
+    DISCONNECT_WAIT,
+    PING_REQUEST,
+    PING_RESPONSE
 }mqttEvent_t;
 
 typedef struct _mqttMcb_t
@@ -110,6 +112,7 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttUnsubscribe(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size);
 void mqttDisconnect(etherHeader *ether, uint8_t *data, uint16_t size);
+void mqttPingRequest(etherHeader *ether, uint8_t *data, uint16_t size);
 
 void mqttLogPublishEvent(char *data, uint16_t size, bool flag);
 void mqttLogSubscribeEvent(char *data, uint16_t size);
@@ -138,6 +141,7 @@ void mqttConnAck(etherHeader *ether);
 void mqttPingResp(etherHeader *ether);
 bool ismqttConnected(void);
 
-_callback mqttKeepAliveTimeCb();
+_callback mqttKeepAliveTimeSrvCb();
+_callback mqttKeepAliveTimeCliCb();
 _callback mqttConTimerCb();
 #endif /* MQTT_H_ */
