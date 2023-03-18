@@ -1170,8 +1170,7 @@ void tcpSendSegment(etherHeader *ether, uint8_t *data, uint16_t size, uint16_t f
 
     putEtherPacket(ether, sizeof(etherHeader) + ipHeaderLength + tcpLength);
 
-    //TODO socketConns[0].s.acknowledgementNumber += tcpLength;
-    initialSeqNo += (size);/* -1 due to +1 is added above */
+    initialSeqNo += (size);
 }
 
 /**

@@ -36,6 +36,8 @@ static uint8_t mqttConnStatus = MQTT_DISCONNECTED;
 static bool mqttServerConnectStatus = false;
 static uint16_t keepAliveTimer = 0;
 static bool mqttConTimerFlag = false;
+static char mqttCurSubTopics[MQTT_NO_SUB_TOPICS][MQTT_TOPIC_LEN] = {0};
+static uint8_t topicIdx = 0;
 // ------------------------------------------------------------------------------
 //  Structures
 // ------------------------------------------------------------------------------
@@ -177,6 +179,8 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     varLen += mqttMcb.topicSize;
     varHdrPtr += i;
 
+    strncpy(mqttCurSubTopics[topicIdx],mqttMcb.args,mqttMcb.topicSize);
+
     /*requested qos*/
     *varHdrPtr = reqQos;
     varLen += 1;
@@ -251,49 +255,6 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t i;
     char clientId[] = "sadhan/0123456789ABCDEF";
 
-    #if 0
-    mqttMcb.data[0] = 0x10;
-    mqttMcb.data[1] = 0x25;
-    mqttMcb.data[2] = 0x0;
-    mqttMcb.data[3] = 0x6;
-    mqttMcb.data[4] = 0x4d;
-    mqttMcb.data[5] = 0x51;
-    mqttMcb.data[6] = 0x49;
-    mqttMcb.data[7] = 0x73;
-    mqttMcb.data[8] = 0x64;
-    mqttMcb.data[9] = 0x70;
-    mqttMcb.data[10] = 0x03;
-    mqttMcb.data[11] = 0x02;
-    mqttMcb.data[12] = 0x00;
-    mqttMcb.data[13] = 0x05;
-    mqttMcb.data[14] = 0x00;
-    mqttMcb.data[15] = 0x17;
-    mqttMcb.data[16] = 0x70;
-    mqttMcb.data[17] = 0x61;
-    mqttMcb.data[18] = 0x68;
-    mqttMcb.data[19] = 0x6f;
-    mqttMcb.data[20] = 0x2f;
-    mqttMcb.data[21] = 0x33;
-    mqttMcb.data[22] = 0x34;
-    mqttMcb.data[23] = 0x41;
-    mqttMcb.data[24] = 0x41;
-    mqttMcb.data[25] = 0x45;
-    mqttMcb.data[26] = 0x35;
-    mqttMcb.data[27] = 0x34;
-    mqttMcb.data[28] = 0x41;
-    mqttMcb.data[29] = 0x37;
-    mqttMcb.data[30] = 0x35;
-    mqttMcb.data[30] = 0x35;
-    mqttMcb.data[30] = 0x35;
-    mqttMcb.data[30] = 0x35;
-    mqttMcb.data[30] = 0x35;
-    mqttMcb.data[30] = 0x35;
-    mqttMcb.data[30] = 0x35;
-    mqttMcb.data[30] = 0x35;
-    mqttMcb.totalSize = MQTT_SIZE;
-    #endif
-
-    #if 1
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_CONNECT;
     mqtt->dup = 0; /*first try*/
@@ -338,7 +299,6 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     
     mqtt->remLength = varLen; /*var header + payload lenght */
     mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
-    #endif
 
     mqttSetTxStatus(true);
 }
@@ -584,7 +544,7 @@ void mqttHandler(etherHeader *ether )
             if(getTcpCurrState(0) == TCP_ESTABLISHED) {
                     /* send the the topic and data with mqtt message */
                     mqttUnSubscribe(ether, mqttMcb.data, mqttMcb.totalSize);
-                    mqttMcb.mqttEvent = NOEVENT;
+                    mqttMcb.mqttEvent = UNSUBSCRIBE_WAIT;
                     snprintf(str, sizeof(str), "UNSUBSCRIBE: Request with Pkt ID:""%"PRIX16"\n", mqttPktId);
                     putsUart0(str);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
@@ -632,7 +592,7 @@ void mqttHandler(etherHeader *ether )
                     /* send the the topic and data with mqtt message */
                     mqttConnect(ether, mqttMcb.data, mqttMcb.totalSize);
                     mqttMcb.mqttEvent = CONNECT_WAIT;
-                    /*TODO start the timer*/
+                    /* start the timer*/
                     startPeriodicTimer(mqttConTimerCb,3);
             } else if (getTcpCurrState(0) == TCP_CLOSED && initiateTcpConnectReq) {
                
@@ -746,7 +706,6 @@ void mqttHandleAllRxMsgs(etherHeader *ether)
 
         case MQ_CONNECT:
         {
-            /*TODO need to handle pub ack as well */
             mqttHandleConnectServer(ether);
             mqttConnAck(ether);
         }break;
@@ -754,9 +713,8 @@ void mqttHandleAllRxMsgs(etherHeader *ether)
         case MQ_PUBLISH:
         {
             /*only process if the connection is alive*/
-            //if(!ismqttConnected()) {return;}
             if(!mqttGetConnState()) {return;}
-            /*TODO need to handle pub ack as well */
+
             mqttHandlePubServer(ether);
             mqttPubAck(ether);
         }break;
@@ -804,6 +762,8 @@ void mqttHandlePubServer(etherHeader *ether)
     uint8_t *varHdrPtr;
     uint16_t topicSize = 0;
     uint8_t dataSize = 0;
+    uint8_t i;
+    bool flag = false;
 
     mqttHeader *mqtt = (mqttHeader*)mqttRxBuffer.data;
 
@@ -814,22 +774,36 @@ void mqttHandlePubServer(etherHeader *ether)
 
     varHdrPtr += (uint8_t)2;
 
-    snprintf(str, sizeof(str), "PUBLISH from server:");
-    putsUart0(str);
-    memset(str,0,sizeof(str));
     strncpy(str,(char*)varHdrPtr,topicSize);
-    putsUart0(str);
-    putsUart0("\n");
 
-    varHdrPtr += topicSize; /*topicsize + no msgId?? */
+    for(i = 0; i < MQTT_NO_SUB_TOPICS; i++) {
+        if(strcmp(str,mqttCurSubTopics[i] == 0)) {
+            flag = true;
+            break;
+        }
+    }
 
-    dataSize = mqtt->remLength - 2 - topicSize; /* topiclensize(2bytes) - topiclenValue*/
-    /*TODO do we need to display data?*/
-    putsUart0("data: ");
-    memset(str,0,sizeof(str));
-    strncpy(str,(char*)varHdrPtr,dataSize);
-    putsUart0(str);
-    putsUart0("\n");
+    if(!flag) {
+        snprintf(str, sizeof(str), "waiting...\n ");
+        putsUart0(str);
+    } else {
+        snprintf(str, sizeof(str), "PUBLISH from server:");
+        putsUart0(str);
+        memset(str,0,sizeof(str));
+        strncpy(str,(char*)varHdrPtr,topicSize);
+        putsUart0(str);
+        putsUart0("\n");
+
+        varHdrPtr += topicSize; /*topicsize + no msgId?? */
+
+        dataSize = mqtt->remLength - 2 - topicSize; /* topiclensize(2bytes) - topiclenValue*/
+
+        putsUart0("data: ");
+        memset(str,0,sizeof(str));
+        strncpy(str,(char*)varHdrPtr,dataSize);
+        putsUart0(str);
+        putsUart0("\n");
+    }
 }
 
 /**

@@ -56,6 +56,9 @@
 #define MQTT_DISCONNECTED   0u
 #define MQTT_CONNECTED      1u
 
+#define MQTT_NO_SUB_TOPICS  (2u)
+#define MQTT_TOPIC_LEN      (23u)
+
 typedef struct _mqttHeader
 {
     uint8_t retain:1;
