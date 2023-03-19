@@ -97,6 +97,7 @@ typedef struct _Tcb
 
 extern Tcb_t socketConns[NO_OF_SOCKETS];
 extern bool initiateFin;
+extern bool enableRetransFlag;
 //-----------------------------------------------------------------------------
 // Subroutines
 //-----------------------------------------------------------------------------

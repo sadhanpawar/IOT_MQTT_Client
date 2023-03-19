@@ -93,6 +93,9 @@ void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t *varHdrPtr;
     uint8_t i,j;
     uint16_t varLen = 0;
+    uint8_t idx = 0;
+    uint32_t encodedRemLen = 4 + mqttMcb.topicSize 
+                            + (mqttMcb.totalSize - mqttMcb.topicSize);
 
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_PUBLISH;
@@ -100,15 +103,18 @@ void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size)
     mqtt->qosLevel = MQ_ACK_DELIVERY;
     mqtt->retain = 1;
 
+    mqttCalcDynLength(&mqtt->remLength,encodedRemLen,&idx);
+    if (idx > 0 ) idx -= 1;
+    
     /*variable header*/
 
     /*topic length*/
     varHdrPtr = mqtt->data;
-    *varHdrPtr = (mqttMcb.topicSize & 0xFF00) >> 8;
-    *(varHdrPtr+ 1) = (uint8_t)(mqttMcb.topicSize & 0x00FF);
+    *(varHdrPtr + idx + 0) = (mqttMcb.topicSize & 0xFF00) >> 8;
+    *(varHdrPtr + idx + 1) = (uint8_t)(mqttMcb.topicSize & 0x00FF);
     varLen += 2;
 
-    varHdrPtr += (uint8_t)2;
+    varHdrPtr = varHdrPtr + idx + (uint8_t)2;
 
     /*topic name*/
     for(i = 0 ; i < mqttMcb.topicSize; i ++) {
@@ -132,8 +138,8 @@ void mqttPublish(etherHeader *ether, uint8_t *data, uint16_t size)
     varLen += (mqttMcb.totalSize - mqttMcb.topicSize);
     
     /*message length*/
-    mqtt->remLength =  varLen;
-    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+    //mqtt->remLength =  varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen + idx;
 
     mqttSetTxStatus(true);
 }
@@ -150,7 +156,11 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t *varHdrPtr;
     uint8_t i;
     uint16_t varLen = 0;
+    uint8_t idx = 0;
     uint8_t reqQos = MQ_FIRE_FORGET;
+    uint32_t encodedRemLen = 4 + mqttMcb.topicSize 
+                            + 1;
+
 
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_SUBSCRIBE;
@@ -158,16 +168,19 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     mqtt->qosLevel = MQ_ACK_DELIVERY;
     mqtt->retain = 0;
 
+    mqttCalcDynLength(&mqtt->remLength,encodedRemLen,&idx);
+    if (idx > 0 ) idx -= 1;
+
     /*variable header*/
 
     varHdrPtr = mqtt->data;
 
     /*packet ID/Message Identifier*/
-    *(varHdrPtr + 0)= (mqttPktId & 0xFF00) >> 8;
-    *(varHdrPtr+ 1) = (uint8_t)(mqttPktId & 0x00FF);
+    *(varHdrPtr + idx + 0)= (mqttPktId & 0xFF00) >> 8;
+    *(varHdrPtr + idx + 1) = (uint8_t)(mqttPktId & 0x00FF);
 
     varLen += 2;
-    varHdrPtr += 2;
+    varHdrPtr = varHdrPtr + idx + 2;
 
     /*topic length*/
     *varHdrPtr = (mqttMcb.topicSize & 0xFF00) >> 8;
@@ -189,8 +202,8 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     *varHdrPtr = reqQos;
     varLen += 1;
     
-    mqtt->remLength = varLen;
-    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+    //mqtt->remLength = varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen + idx;
 
     mqttSetTxStatus(true);
 }
@@ -207,6 +220,8 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t *varHdrPtr;
     uint8_t i;
     uint16_t varLen = 0;
+    uint8_t idx = 0;
+    uint32_t encodedRemLen = 4 + mqttMcb.topicSize;
 
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_UNSUBSCRIBE;
@@ -214,16 +229,19 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     mqtt->qosLevel = MQ_ACK_DELIVERY;
     mqtt->retain = 0;
 
+    mqttCalcDynLength(&mqtt->remLength,encodedRemLen,&idx);
+    if (idx > 0 ) idx -= 1;
+
     /*variable header*/
 
     varHdrPtr = mqtt->data;
 
     /*packet ID*/
-    *(varHdrPtr + 0)= (mqttPktId & 0xFF00) >> 8;
-    *(varHdrPtr+ 1) = (uint8_t)(mqttPktId & 0x00FF);
+    *(varHdrPtr + idx + 0)= (mqttPktId & 0xFF00) >> 8;
+    *(varHdrPtr + idx + 1) = (uint8_t)(mqttPktId & 0x00FF);
 
     varLen += 2;
-    varHdrPtr += 2;
+    varHdrPtr = varHdrPtr + idx + 2;
 
     /*topic length*/
     *varHdrPtr = (mqttMcb.topicSize & 0xFF00) >> 8;
@@ -239,8 +257,8 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     varLen += mqttMcb.topicSize;
     varHdrPtr += i;
     
-    mqtt->remLength = varLen;
-    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+    //mqtt->remLength = varLen;
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen + idx;
 
     mqttSetTxStatus(true);
 }
@@ -257,58 +275,91 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
     uint8_t *varHdrPtr;
     uint16_t varLen = 0;
     uint8_t i;
+    uint8_t byte = 0;
+    uint8_t idx = 0;
     char clientId[] = "sadhan/0123456789ABCDEF";
+    uint32_t encodedRemLen = 12 + strlen(clientId); /*add here if new data is added */
+    uint8_t *ptr;
 
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_CONNECT;
     mqtt->dup = 0; /*first try*/
-    mqtt->qosLevel = 0;
+    mqtt->qosLevel = MQ_FIRE_FORGET;
     mqtt->retain = 0;
+
+    mqttCalcDynLength(&mqtt->remLength,encodedRemLen,&idx);
+    if(idx > 0) idx -= 1; /*remove already allocated byte in struct header*/
 
     /*variable header*/
     varHdrPtr = mqtt->data;
 
     /*protocol name*/
-    *(varHdrPtr + 0)    = 0;
-    *(varHdrPtr + 1)    = 4;
-    *(varHdrPtr + 2)    = 'M';
-    *(varHdrPtr + 3)    = 'Q';
-    *(varHdrPtr + 4)    = 'T';
-    *(varHdrPtr + 5)    = 'T';
+    *(varHdrPtr + idx + 0)    = 0;
+    *(varHdrPtr + idx + 1)    = 4;
+    *(varHdrPtr + idx + 2)    = 'M';
+    *(varHdrPtr + idx + 3)    = 'Q';
+    *(varHdrPtr + idx + 4)    = 'T';
+    *(varHdrPtr + idx + 5)    = 'T';
     varLen += 6;
 
     /*protocol level*/
-    *(varHdrPtr + 6)    = 4;
+    *(varHdrPtr + idx + 6)    = 4;
     varLen += 1;
 
     /* connect flag */
-    *(varHdrPtr + 7)    = 0x2;
+    *(varHdrPtr + idx + 7)    = 0x2;
     varLen += 1;
 
     /*keep alive*/
-    *(varHdrPtr + 8)    = 0x0;
-    *(varHdrPtr + 9)    = 0x14; /*20 secs*/
+    *(varHdrPtr + idx + 8)    = 0x0;
+    *(varHdrPtr + idx + 9)    = 0x14; /*20 secs*/
     varLen += 2;
 
-    keepAliveCliTimer = *(varHdrPtr + 8);
-    keepAliveCliTimer = (keepAliveCliTimer << 8) | *(varHdrPtr + 9);
+    keepAliveCliTimer = *(varHdrPtr + idx + 8);
+    keepAliveCliTimer = (keepAliveCliTimer << 8) | *(varHdrPtr + idx + 9);
     startPeriodicTimer(mqttKeepAliveTimeCliCb,keepAliveCliTimer - 1);
 
     /*client ID length*/
-    *(varHdrPtr + 10)    = 0x0;
-    *(varHdrPtr + 11)    = 0x17;
+    *(varHdrPtr + idx + 10)    = 0x0;
+    *(varHdrPtr + idx + 11)    = 0x17;
     varLen += 2;
 
     /*client ID */
-    varHdrPtr += 12;
+    varHdrPtr = varHdrPtr + idx + 12;
 
     strncpy((char*)varHdrPtr,clientId,strlen(clientId));
     varLen += strlen(clientId);
     
-    mqtt->remLength = varLen; /*var header + payload lenght */
-    mqttMcb.totalSize = sizeof(mqttHeader) + varLen;
+    //mqtt->remLength = varLen; /*var header + payload lenght */
+    mqttMcb.totalSize = sizeof(mqttHeader) + varLen + idx; /* add dyn len size */
 
     mqttSetTxStatus(true);
+}
+
+/**
+ * @brief mqttCalcDynLength
+ * 
+ * @param ptr 
+ * @param enclen 
+ * @param noOfBytes 
+ */
+void mqttCalcDynLength(uint8_t *ptr, uint32_t enclen, uint8_t *noOfBytes)
+{
+    uint8_t byte = 0;
+    uint8_t idx = 0;
+
+    do {
+        byte = enclen % 128;
+        enclen /= 128;
+        if(enclen > 0) {
+             byte |= 0x80;
+        }
+        *ptr = byte;
+        ++ptr;
+        ++idx;
+    } while(enclen > 0);
+
+    *noOfBytes = idx;
 }
 
 /**

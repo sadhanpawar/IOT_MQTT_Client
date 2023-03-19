@@ -140,6 +140,7 @@ void mqttHandleConnectServer(etherHeader *ether);
 void mqttConnAck(etherHeader *ether);
 void mqttPingResp(etherHeader *ether);
 bool ismqttConnected(void);
+void mqttCalcDynLength(uint8_t *ptr, uint32_t enclen, uint8_t *noOfBytes);
 
 _callback mqttKeepAliveTimeSrvCb();
 _callback mqttKeepAliveTimeCliCb();

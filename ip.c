@@ -46,7 +46,8 @@ bool isIp(etherHeader *ether)
     uint32_t sum = 0;
     bool ok;
     ok = (ether->frameType == htons(TYPE_IP));
-    /*if (ok)
+    /*if (ok) TODO had to do it since checksum is incorrect for most of packets coming
+        from PC/rasberryPi
     {
         sumIpWords(ip, ipHeaderLength, &sum);
         ok = (getIpChecksum(sum) == 0);

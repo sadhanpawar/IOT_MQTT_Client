@@ -29,12 +29,13 @@
 // ------------------------------------------------------------------------------
 //  Globals
 // ------------------------------------------------------------------------------
+bool enableRetransFlag = true;
+static uint8_t tcpTimerFlag = 0;
+static uint8_t tcpTimerIdx = 1;
 Tcb_t socketConns[NO_OF_SOCKETS] = {0};
-//socket tcpSocket = {0};
 static uint32_t initialAckNo = 0;
 static uint32_t initialSeqNo = 0;
 bool initiateFin = false;
-static uint8_t tcpTimerFlag = 0;
 static uint16_t tcpCurrWindow = 0;
 static uint8_t tcpWriteFSM = 0;
 // ------------------------------------------------------------------------------
@@ -163,71 +164,6 @@ uint8_t tcpHeaderSize(etherHeader *ether)
 }
 
 /***************************************************RX*******************************/
-#if 0
-void tcpFsmStateMachineServer(etherHeader *ether,uint8_t state)
-{
-    switch(state)
-    {
-        case TCP_CLOSED:
-        {
-            
-        }break;
-
-        case TCP_LISTEN:
-        {
-
-        }break;
-
-        case TCP_SYN_RECEIVED:
-        {
-
-        }break;
-
-        case TCP_SYN_SENT:
-        {
-
-            
-        }break;
-
-        case TCP_ESTABLISHED:
-        {
-
-        }break;
-
-        case TCP_FIN_WAIT_1:
-        {
-
-        }break;
-
-        case TCP_FIN_WAIT_2:
-        {
-
-        }break;
-
-        case TCP_CLOSING:
-        {
-
-        }break;
-
-        case TCP_CLOSE_WAIT:
-        {
-
-        }break;
-
-        case TCP_LAST_ACK:
-        {
-
-        }break;
-
-        case TCP_TIME_WAIT:
-        {
-
-        }break;
-
-        default: break;
-    }
-}
-#endif
 
 /**
  * @brief genRandNum
@@ -322,7 +258,7 @@ void tcpHandlerTx(etherHeader *ether)
  */
 _callback tcpSendTimerCb()
 {
-    tcpTimerFlag = 2;
+    tcpTimerFlag = 1;
 }
 
 /**
@@ -349,7 +285,15 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                     tcpSendSyn(ether);
                     socketConns[Idx].fsmState = TCP_SYN_SENT;
                     socketConns[Idx].initConnect = false;
-                    tcpTimerFlag = 1;
+                    
+                    if(enableRetransFlag)
+                    {
+                        tcpTimerFlag = 0;
+                        tcpTimerIdx = 1;
+                        stopTimer(tcpSendTimerCb);
+                        startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                        ++tcpTimerIdx;
+                    }
                     counter = random32();
                 }
             } else {
@@ -361,7 +305,6 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
         case TCP_SYN_SENT:
         {
             /* awaits syn+ack from servers and sends an ack and enters established */
-
             if( (flag == TCP_RX) && (htons(tcp->offsetFields) & ACK ) 
                  && (htons(tcp->offsetFields) & SYN)
                 // TODO (htons(tcp->offsetFields) & SYN)
@@ -381,8 +324,25 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 snprintf(str, sizeof(str), "\nTCP STATE: ESTABLISHED \n");
                 putsUart0(str);
                 counter = 0;
-
-            } else {
+                //socketConns[Idx].initConnect = false;
+                stopTimer(tcpSendTimerCb);
+            }
+            else if(tcpTimerFlag == 1)
+            {
+                /*re-send */
+                if(tcpTimerIdx < 6) {
+                    tcpSendSyn(ether);
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    snprintf(str, sizeof(str), "\nTCP STATE: RE_TRANS at %"PRIu8" secs\n",2*(tcpTimerIdx-1));
+                    putsUart0(str);
+                    ++tcpTimerIdx;
+                } else {
+                    stopTimer(tcpSendTimerCb);
+                    socketConns[Idx].fsmState = TCP_CLOSED;
+                }
+                tcpTimerFlag = 0;
+            }
+            else {
                 if( counter <  random32() ) {
                     snprintf(str, sizeof(str), ".");
                     putsUart0(str);
@@ -401,12 +361,20 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[0].s.sequenceNumber = htonl(tcp->sequenceNumber);
                 socketConns[0].tcpSegLen = getTcpSegmentLength(ether);
                 /*get length of packet to add it to seq no for ack no*/
+                socketConns[0].s.sequenceNumber += 1;
                 tcpSendAck(ether,0);
                 socketConns[Idx].fsmState = TCP_CLOSE_WAIT;
                 snprintf(str, sizeof(str), "TCP STATE: FIN ISSUED TCP_CLOSE_WAIT\n");
                 putsUart0(str);
                 mqttSetConnState(MQTT_DISCONNECTED);
                 mqttSetCurrState(NOEVENT);
+                if(enableRetransFlag)
+                {
+                    tcpTimerFlag = 0;
+                    tcpTimerIdx = 1;
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    ++tcpTimerIdx;
+                }
             }
             else if( (flag == TCP_RX) && (htons(tcp->offsetFields) & RST) )
             {
@@ -435,6 +403,16 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 mqttSetConnState(MQTT_DISCONNECTED);
                 mqttSetCurrState(NOEVENT);
                 counter = random32();
+
+                if(enableRetransFlag)
+                {
+                    tcpTimerFlag = 0;
+                    tcpTimerIdx = 1;
+                    stopTimer(tcpSendTimerCb);
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    ++tcpTimerIdx;
+                }
+                
             }
             else {
                 tcpHandleRwTransactions(ether, flag);
@@ -452,6 +430,16 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[Idx].fsmState = TCP_CLOSING;
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_CLOSING\n");
                 putsUart0(str);
+                counter = random32();
+
+                if(enableRetransFlag)
+                {
+                    stopTimer(tcpSendTimerCb);
+                    tcpTimerFlag = 0;
+                    tcpTimerIdx = 1;
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    ++tcpTimerIdx;
+                }
             }
             else if ( (flag == TCP_RX) && (htons(tcp->offsetFields) & ACK ) )
             {
@@ -459,6 +447,31 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_FIN_WAIT_2\n");
                 putsUart0(str);
                 counter = random32();
+
+                if(enableRetransFlag)
+                {
+                    stopTimer(tcpSendTimerCb);
+                    tcpTimerFlag = 0;
+                    tcpTimerIdx = 1;
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    ++tcpTimerIdx;
+                }
+
+            }
+            else if(tcpTimerFlag == 1)
+            {
+                /*re-send */
+                if(tcpTimerIdx < 6) {
+                    tcpSendFin(ether);
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    snprintf(str, sizeof(str), "\nTCP STATE: RE_TRANS at %"PRIu8" secs\n",2*(tcpTimerIdx-1));
+                    putsUart0(str);
+                    ++tcpTimerIdx;
+                } else {
+                    stopTimer(tcpSendTimerCb);
+                    socketConns[Idx].fsmState = TCP_CLOSED;
+                }
+                tcpTimerFlag = 0;
             }
             else
             {
@@ -481,6 +494,22 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[Idx].fsmState = TCP_TIME_WAIT;
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_TIME_WAIT\n");
                 putsUart0(str);
+                stopTimer(tcpSendTimerCb);
+            }
+            else if(tcpTimerFlag == 1)
+            {
+                /*re-send */
+                if(tcpTimerIdx < 6) {
+                    tcpSendFin(ether);
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    snprintf(str, sizeof(str), "\nTCP STATE: RE_TRANS at %"PRIu8" secs\n",2*(tcpTimerIdx-1));
+                    putsUart0(str);
+                    ++tcpTimerIdx;
+                } else {
+                    stopTimer(tcpSendTimerCb);
+                    socketConns[Idx].fsmState = TCP_CLOSED;
+                }
+                tcpTimerFlag = 0;
             }
             else
             {
@@ -500,6 +529,31 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[Idx].fsmState = TCP_TIME_WAIT;
                 snprintf(str, sizeof(str), "TCP STATE: FIN START TCP_TIME_WAIT\n");
                 putsUart0(str);
+                stopTimer(tcpSendTimerCb);
+            }
+            else if((flag == TCP_RX) && (htons(tcp->offsetFields) & RST))
+            {
+                socketConns[Idx].fsmState = TCP_TIME_WAIT;
+                snprintf(str, sizeof(str), "TCP STATE: TCP_CLOSED\n");
+                putsUart0(str);
+                stopTimer(tcpSendTimerCb);
+                socketConns[Idx].fsmState = TCP_CLOSED;
+            }
+            else if(tcpTimerFlag == 1)
+            {
+                /*re-send */
+                if(tcpTimerIdx < 6) {
+                    //tcpSendAck(ether,0);
+                    tcpSendFin(ether);
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    snprintf(str, sizeof(str), "\nTCP STATE: RE_TRANS at %"PRIu8" secs\n",2*(tcpTimerIdx-1));
+                    putsUart0(str);
+                    ++tcpTimerIdx;
+                } else {
+                    stopTimer(tcpSendTimerCb);
+                    socketConns[Idx].fsmState = TCP_CLOSED;
+                }
+                tcpTimerFlag = 0;
             }
             else
             {
@@ -514,10 +568,20 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_CLOSE_WAIT:
         {
+            
             tcpSendFin(ether);
             socketConns[Idx].fsmState = TCP_LAST_ACK;
             snprintf(str, sizeof(str), "TCP STATE: TCP_LAST_ACK\n");
             putsUart0(str);
+
+            if(enableRetransFlag)
+            {
+                stopTimer(tcpSendTimerCb);
+                tcpTimerFlag = 0;
+                tcpTimerIdx = 1;
+                startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                ++tcpTimerIdx;
+            }
 
         }break;
 
@@ -528,6 +592,23 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 socketConns[Idx].fsmState = TCP_CLOSED;
                 snprintf(str, sizeof(str), "TCP STATE: TCP_CLOSED\n");
                 putsUart0(str);
+                stopTimer(tcpSendTimerCb);
+            }
+            else if(tcpTimerFlag == 1)
+            {
+                /*re-send */
+                if(tcpTimerIdx < 6) {
+                    //tcpSendAck(ether,0);
+                    tcpSendFin(ether);
+                    startOneshotTimer(tcpSendTimerCb,2*tcpTimerIdx);
+                    snprintf(str, sizeof(str), "\nTCP STATE: RE_TRANS at %"PRIu8" secs\n",2*(tcpTimerIdx-1));
+                    putsUart0(str);
+                    ++tcpTimerIdx;
+                } else {
+                    stopTimer(tcpSendTimerCb);
+                    socketConns[Idx].fsmState = TCP_CLOSED;
+                }
+                tcpTimerFlag = 0;
             }
 
         }break;
@@ -591,48 +672,6 @@ uint8_t getTcpSegmentLength(etherHeader *ether)
 
     return len;
 }
-
-#if 0
-void tcpMakeSegment(etherHeader *ether, socket s)
-{
-    uint8_t i;
-    uint32_t sum;
-    uint16_t tmp16;
-    uint16_t udpLength;
-    uint8_t *copyData;
-    uint8_t localHwAddress[6];
-    uint8_t localIpAddress[4];
-
-    // Ether frame
-    getEtherMacAddress(localHwAddress);
-    getIpAddress(localIpAddress);
-
-    for (i = 0; i < HW_ADD_LENGTH; i++)
-    {
-        ether->destAddress[i] = tcpSocket.remoteHwAddress[i];
-        ether->sourceAddress[i] = localHwAddress[i];
-    }
-    ether->frameType = htons(TYPE_IP);
-
-    // IP header
-    ipHeader* ip = (ipHeader*)ether->data;
-    uint8_t ipHeaderLength = ip->size * 4;
-    ip->rev = 0x4;
-    ip->size = 0x5;
-    ip->typeOfService = 0;
-    ip->id = 0;
-    ip->flagsAndOffset = 0;
-    ip->ttl = 128;
-    ip->protocol = PROTOCOL_TCP;
-    ip->headerChecksum = 0;
-     
-    for (i = 0; i < IP_ADD_LENGTH; i++)
-    {
-        ip->destIp[i] = tcpSocket.remoteIpAddress[i];
-        ip->sourceIp[i] = localIpAddress[i];
-    }
-}
-#endif
 
 /**
  * @brief Get the Tcp Message Socket object
@@ -708,7 +747,7 @@ void tcpSendSyn(etherHeader *ether)
     tcp->sourcePort = htons(socketConns[0].s.localPort);
     tcp->destPort = htons(socketConns[0].s.remotePort);
     initialSeqNo = tmp32 = genRandNum();
-    tcp->sequenceNumber = htonl(tmp32); /*TODO needed htonl ?*/
+    tcp->sequenceNumber = htonl(tmp32);
     tcp->acknowledgementNumber = 0;
     tcp->windowSize = 0; /* htons(MSS);  */
     tcp->urgentPointer = 0;
@@ -921,7 +960,7 @@ void tcpSendFin(etherHeader *ether)
     tcp->sequenceNumber = htonl(initialSeqNo);
     tcp->acknowledgementNumber = htonl(socketConns[0].s.sequenceNumber +
                                         socketConns[0].tcpSegLen);
-    tcp->windowSize = tcpCurrWindow = tcp->windowSize;
+    tcp->windowSize = tcpCurrWindow;
     tcp->urgentPointer = 0;
     tcp->offsetFields = 0;
     SETBIT(tcp->offsetFields,FIN);
