@@ -274,12 +274,9 @@ void mqttConnect(etherHeader *ether, uint8_t *data, uint16_t size)
 {
     uint8_t *varHdrPtr;
     uint16_t varLen = 0;
-    uint8_t i;
-    uint8_t byte = 0;
     uint8_t idx = 0;
     char clientId[] = "sadhan/0123456789ABCDEF";
     uint32_t encodedRemLen = 12 + strlen(clientId); /*add here if new data is added */
-    uint8_t *ptr;
 
     mqttHeader *mqtt = (mqttHeader*)mqttMcb.data;
     mqtt->controlPacket = MQ_CONNECT;
@@ -949,8 +946,6 @@ void mqttHandleSubServer(etherHeader *ether)
     strncpy(str,(char*)varHdrPtr,topicSize);
     putsUart0(str);
     putsUart0("\n");
-
-    /*TODO do we need to display data?*/
 
 }
 

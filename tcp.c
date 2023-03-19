@@ -307,9 +307,6 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
             /* awaits syn+ack from servers and sends an ack and enters established */
             if( (flag == TCP_RX) && (htons(tcp->offsetFields) & ACK ) 
                  && (htons(tcp->offsetFields) & SYN)
-                // TODO (htons(tcp->offsetFields) & SYN)
-                //mqtt server only sends ack not syn+ack
-               //(socketConns[0].s.sequenceNumber + 1 == htonl(tcp->acknowledgementNumber))
             )
             {  
                 /*send ack */
@@ -997,7 +994,6 @@ void tcpSendFin(etherHeader *ether)
  */
 void tcpCreateSocket(uint16_t remotePort)
 {
-    /* TODO need to come up with generic socket no instead of 0 */
     socketConns[0].s.localPort     = LOCAL_PORT;
     socketConns[0].s.remotePort    = remotePort;
 
