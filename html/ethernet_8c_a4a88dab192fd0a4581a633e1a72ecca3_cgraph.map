@@ -1,9 +1,0 @@
-<map id="readConfiguration" name="readConfiguration">
-<area shape="rect" id="node2" href="$eeprom_8c.html#ae2498080898399278f2bb70a8987118a" title="readEeprom" alt="" coords="215,5,307,32"/>
-<area shape="rect" id="node3" href="$ip_8c.html#a4470f7ddfb4687e752946f15ade40c53" title="setIpAddress" alt="" coords="211,56,310,83"/>
-<area shape="rect" id="node4" href="$ip_8c.html#ad2e400b03d52cc56587e04703c6d0920" title="setIpSubnetMask" alt="" coords="199,107,323,133"/>
-<area shape="rect" id="node5" href="$ip_8c.html#a1eaa07e58e77b3d08419bebe6f69c313" title="setIpGatewayAddress" alt="" coords="185,157,336,184"/>
-<area shape="rect" id="node6" href="$ip_8c.html#aa646d37e90b1712a76e0a7c03c594b06" title="setIpDnsAddress" alt="" coords="199,208,322,235"/>
-<area shape="rect" id="node7" href="$ip_8c.html#af51149e4290ecaab1a077ec7d0055452" title="setIpTimeServerAddress" alt="" coords="177,259,344,285"/>
-<area shape="rect" id="node8" href="$ip_8c.html#a8791cef85893a0737d56a5790926c990" title="setIpMqttBrokerAddress" alt="" coords="179,309,342,336"/>
-</map>

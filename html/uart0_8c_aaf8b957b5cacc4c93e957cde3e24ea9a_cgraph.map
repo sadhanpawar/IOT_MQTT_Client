@@ -1,6 +1,0 @@
-<map id="initUart0" name="initUart0">
-<area shape="rect" id="node2" href="$gpio_8c.html#a559f2df5463450eaf46e9c44d4c86551" title="enablePort" alt="" coords="165,5,249,32"/>
-<area shape="rect" id="node3" href="$gpio_8c.html#a7be5030f98516485e0f32aace2a9dbf2" title="selectPinPushPullOutput" alt="" coords="124,56,291,83"/>
-<area shape="rect" id="node4" href="$gpio_8c.html#ae9f4dbc88be2adca83589a8c6652f9d2" title="selectPinDigitalInput" alt="" coords="136,107,279,133"/>
-<area shape="rect" id="node5" href="$gpio_8c.html#ae33ec6b75af4c832c276f82dd97393c8" title="setPinAuxFunction" alt="" coords="141,157,273,184"/>
-</map>

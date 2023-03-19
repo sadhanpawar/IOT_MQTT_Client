@@ -1,6 +1,0 @@
-<map id="tcpSendTimerCb" name="tcpSendTimerCb">
-<area shape="rect" id="node2" href="$tcp_8h.html#a0c1266b1cbfa4647dc5b4b7b419bb459" title="tcpFsmStateMachineClient " alt="" coords="173,31,353,57"/>
-<area shape="rect" id="node3" href="$tcp_8h.html#a5dab6f4625c1210a018296689981683e" title="tcpHandlerRx " alt="" coords="401,5,504,32"/>
-<area shape="rect" id="node5" href="$tcp_8h.html#a75e52507034e38f1f3be362bcd3f1b6e" title="tcpHandlerTx " alt="" coords="403,56,503,83"/>
-<area shape="rect" id="node4" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="552,31,603,57"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="readEtherPhy" name="readEtherPhy">
-<area shape="rect" id="node2" href="$eth0_8h.html#a3bbcc2a0d14181ed2dc3f1e221997ee5" title="isEtherLinkUp" alt="" coords="155,5,259,32"/>
-<area shape="rect" id="node3" href="$ethernet_8c.html#a9adc2dd1318583612cac250116a519d6" title="displayConnectionInfo" alt="" coords="307,5,457,32"/>
-<area shape="rect" id="node4" href="$ethernet_8c.html#af6f1c3a0953d95dd428f20f02d5f5227" title="processShell" alt="" coords="505,5,603,32"/>
-<area shape="rect" id="node5" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="651,5,701,32"/>
-</map>

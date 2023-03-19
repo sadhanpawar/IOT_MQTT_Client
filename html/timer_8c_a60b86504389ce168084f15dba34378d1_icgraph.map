@@ -1,9 +1,0 @@
-<map id="stopTimer" name="stopTimer">
-<area shape="rect" id="node2" href="$ip__custom__layer_8h.html#a8ddce59a70a2586bd431b76066d5fb1e" title="ipHandlerRx " alt="" coords="176,5,271,32"/>
-<area shape="rect" id="node4" href="$mqtt_8h.html#a7950a2c34b22ef8b0f0ed7851d1151e1" title="mqttHandler " alt="" coords="366,56,459,83"/>
-<area shape="rect" id="node5" href="$mqtt_8h.html#a8dfd888736a978be32aef39f07e88e78" title="mqttHandleAllRxMsgs " alt="" coords="147,107,300,133"/>
-<area shape="rect" id="node6" href="$tcp_8h.html#a0c1266b1cbfa4647dc5b4b7b419bb459" title="tcpFsmStateMachineClient " alt="" coords="133,157,313,184"/>
-<area shape="rect" id="node3" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="512,81,563,108"/>
-<area shape="rect" id="node7" href="$tcp_8h.html#a5dab6f4625c1210a018296689981683e" title="tcpHandlerRx " alt="" coords="361,107,464,133"/>
-<area shape="rect" id="node8" href="$tcp_8h.html#a75e52507034e38f1f3be362bcd3f1b6e" title="tcpHandlerTx " alt="" coords="363,157,463,184"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="getIpMqttBrokerAddress" name="getIpMqttBrokerAddress">
-<area shape="rect" id="node2" href="$ethernet_8c.html#a9adc2dd1318583612cac250116a519d6" title="displayConnectionInfo" alt="" coords="216,5,367,32"/>
-<area shape="rect" id="node5" href="$ip__custom__layer_8h.html#a339da0050575be347091d65c8d08fc63" title="ipHandlerTx " alt="" coords="415,56,507,83"/>
-<area shape="rect" id="node6" href="$tcp_8h.html#a5e796422c87e0abd9cc145d9cfaf6610" title="tcpCreateSocket " alt="" coords="231,107,351,133"/>
-<area shape="rect" id="node3" href="$ethernet_8c.html#af6f1c3a0953d95dd428f20f02d5f5227" title="processShell" alt="" coords="555,5,652,32"/>
-<area shape="rect" id="node4" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="700,56,751,83"/>
-<area shape="rect" id="node7" href="$mqtt_8h.html#a7bcc7e2a7323b7c2a44795623b7a4ae0" title="mqttInit " alt="" coords="427,107,494,133"/>
-<area shape="rect" id="node8" href="$mqtt_8h.html#a47ed1e535fd6629e5366687dbf036d23" title="appInit" alt="" coords="573,107,634,133"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="tcpCreateSocket" name="tcpCreateSocket">
-<area shape="rect" id="node2" href="$mqtt_8h.html#a7bcc7e2a7323b7c2a44795623b7a4ae0" title="mqttInit " alt="" coords="173,5,240,32"/>
-<area shape="rect" id="node3" href="$mqtt_8h.html#a47ed1e535fd6629e5366687dbf036d23" title="appInit" alt="" coords="288,5,349,32"/>
-<area shape="rect" id="node4" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="397,5,448,32"/>
-</map>

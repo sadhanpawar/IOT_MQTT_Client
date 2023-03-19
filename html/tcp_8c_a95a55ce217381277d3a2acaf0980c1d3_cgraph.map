@@ -1,8 +1,0 @@
-<map id="displayStatus" name="displayStatus">
-<area shape="rect" id="node2" href="$ip_8c.html#a4dc5ba009f5f69f7196aab876f97dcfd" title="getIpAddress" alt="" coords="171,5,269,32"/>
-<area shape="rect" id="node3" href="$uart0_8c.html#af4adb618930ee1a928705aec083cf726" title="putsUart0" alt="" coords="181,56,259,83"/>
-<area shape="rect" id="node4" href="$uart0_8c.html#a27ebab6950bfb65d641dd04feb03906f" title="putcUart0" alt="" coords="333,81,412,108"/>
-<area shape="rect" id="node5" href="$mqtt_8c.html#a5b68c8493f34f5288d377767814d5883" title="mqttGetConnState " alt="" coords="155,157,285,184"/>
-<area shape="rect" id="node6" href="$mqtt_8c.html#aa656a4ac4adca0ac7867681fb32874ef" title="mqttGetCurrState " alt="" coords="157,208,283,235"/>
-<area shape="rect" id="node7" href="$tcp_8c.html#adadaa9cf1b6f7833741294a50bc9e356" title="Get the Tcp Curr State object. " alt="" coords="161,259,279,285"/>
-</map>

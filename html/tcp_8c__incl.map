@@ -1,9 +1,0 @@
-<map id="tcp.c" name="tcp.c">
-<area shape="rect" id="node6" href="$tcp_8h.html" title="tcp.h" alt="" coords="361,155,412,181"/>
-<area shape="rect" id="node11" href="$timer_8h.html" title="timer.h" alt="" coords="529,229,591,256"/>
-<area shape="rect" id="node12" href="$mqtt_8h.html" title="mqtt.h" alt="" coords="424,80,483,107"/>
-<area shape="rect" id="node13" href="$ip__custom__layer_8h.html" title="ip_custom_layer.h" alt="" coords="436,155,564,181"/>
-<area shape="rect" id="node14" href="$uart0_8h.html" title="uart0.h" alt="" coords="709,80,771,107"/>
-<area shape="rect" id="node9" href="$ip_8h.html" title="ip.h" alt="" coords="336,229,379,256"/>
-<area shape="rect" id="node10" href="$eth0_8h.html" title="eth0.h" alt="" coords="293,304,352,331"/>
-</map>

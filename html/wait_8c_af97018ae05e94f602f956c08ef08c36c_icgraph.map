@@ -1,8 +1,0 @@
-<map id="waitMicrosecond" name="waitMicrosecond">
-<area shape="rect" id="node2" href="$eth0_8c.html#a794aa232a607af373be4e2abffb74ef8" title="readEtherPhy" alt="" coords="173,5,275,32"/>
-<area shape="rect" id="node6" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="819,56,869,83"/>
-<area shape="rect" id="node7" href="$eth0_8h.html#aecae72b4579b409c7c7c90c2c12237f1" title="initEther" alt="" coords="339,107,410,133"/>
-<area shape="rect" id="node3" href="$eth0_8h.html#a3bbcc2a0d14181ed2dc3f1e221997ee5" title="isEtherLinkUp" alt="" coords="323,5,427,32"/>
-<area shape="rect" id="node4" href="$ethernet_8c.html#a9adc2dd1318583612cac250116a519d6" title="displayConnectionInfo" alt="" coords="475,5,625,32"/>
-<area shape="rect" id="node5" href="$ethernet_8c.html#af6f1c3a0953d95dd428f20f02d5f5227" title="processShell" alt="" coords="673,5,771,32"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="startEtherMemRead" name="startEtherMemRead">
-<area shape="rect" id="node2" href="$eth0_8c.html#a710f2a378c0c955c211f9e4670ade7ed" title="enableEtherCs" alt="" coords="192,5,300,32"/>
-<area shape="rect" id="node4" href="$spi0_8c.html#aeb845d4e36ea3a559bf3ce3fd9bfe832" title="writeSpi0Data" alt="" coords="194,56,298,83"/>
-<area shape="rect" id="node5" href="$spi0_8c.html#a7d14193a061bb777d242d572e5a4e1e5" title="readSpi0Data" alt="" coords="195,107,297,133"/>
-<area shape="rect" id="node3" href="$gpio_8c.html#ac4f40226199e0901f3ef20eb1a5791eb" title="setPinValue" alt="" coords="348,5,440,32"/>
-</map>

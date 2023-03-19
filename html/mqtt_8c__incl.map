@@ -1,8 +1,0 @@
-<map id="mqtt.c" name="mqtt.c">
-<area shape="rect" id="node5" href="$mqtt_8h.html" title="mqtt.h" alt="" coords="335,80,393,107"/>
-<area shape="rect" id="node8" href="$tcp_8h.html" title="tcp.h" alt="" coords="273,155,324,181"/>
-<area shape="rect" id="node11" href="$timer_8h.html" title="timer.h" alt="" coords="402,229,465,256"/>
-<area shape="rect" id="node12" href="$uart0_8h.html" title="uart0.h" alt="" coords="469,80,531,107"/>
-<area shape="rect" id="node9" href="$ip_8h.html" title="ip.h" alt="" coords="192,229,235,256"/>
-<area shape="rect" id="node10" href="$eth0_8h.html" title="eth0.h" alt="" coords="167,304,225,331"/>
-</map>

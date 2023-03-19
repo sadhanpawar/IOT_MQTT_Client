@@ -1,5 +1,0 @@
-<map id="tcpGetMatchingSocket" name="tcpGetMatchingSocket">
-<area shape="rect" id="node2" href="$tcp_8c.html#aa266ef95152bfeea81a5a76486938eed" title="Get the Tcp Header object. " alt="" coords="208,5,312,32"/>
-<area shape="rect" id="node3" href="$ip_8c.html#a4dc5ba009f5f69f7196aab876f97dcfd" title="getIpAddress" alt="" coords="211,56,309,83"/>
-<area shape="rect" id="node4" href="$eth0_8c.html#af86d9622798ed7e76bd7de347df940ae" title="htons" alt="" coords="233,107,287,133"/>
-</map>

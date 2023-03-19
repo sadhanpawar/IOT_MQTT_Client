@@ -1,6 +1,0 @@
-<map id="startPeriodicTimer" name="startPeriodicTimer">
-<area shape="rect" id="node2" href="$ip__custom__layer_8h.html#a339da0050575be347091d65c8d08fc63" title="ipHandlerTx " alt="" coords="327,5,419,32"/>
-<area shape="rect" id="node4" href="$mqtt_8h.html#a561077e5b72215b491600fd5bfad9a2f" title="mqttConnect " alt="" coords="181,56,279,83"/>
-<area shape="rect" id="node5" href="$mqtt_8h.html#a7950a2c34b22ef8b0f0ed7851d1151e1" title="mqttHandler " alt="" coords="327,56,420,83"/>
-<area shape="rect" id="node3" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="468,31,519,57"/>
-</map>

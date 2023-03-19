@@ -1,7 +1,0 @@
-<map id="mqttGetConnState" name="mqttGetConnState">
-<area shape="rect" id="node2" href="$mqtt_8h.html#a8dfd888736a978be32aef39f07e88e78" title="mqttHandleAllRxMsgs " alt="" coords="184,5,337,32"/>
-<area shape="rect" id="node5" href="$tcp_8h.html#a95a55ce217381277d3a2acaf0980c1d3" title="displayStatus " alt="" coords="210,56,311,83"/>
-<area shape="rect" id="node3" href="$mqtt_8h.html#a7950a2c34b22ef8b0f0ed7851d1151e1" title="mqttHandler " alt="" coords="387,5,481,32"/>
-<area shape="rect" id="node4" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="531,31,581,57"/>
-<area shape="rect" id="node6" href="$ethernet_8c.html#af6f1c3a0953d95dd428f20f02d5f5227" title="processShell" alt="" coords="385,56,483,83"/>
-</map>

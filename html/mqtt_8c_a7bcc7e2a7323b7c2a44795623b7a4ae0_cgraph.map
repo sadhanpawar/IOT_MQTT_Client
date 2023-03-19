@@ -1,4 +1,0 @@
-<map id="mqttInit" name="mqttInit">
-<area shape="rect" id="node2" href="$tcp_8c.html#a5e796422c87e0abd9cc145d9cfaf6610" title="tcpCreateSocket " alt="" coords="120,5,240,32"/>
-<area shape="rect" id="node3" href="$ip_8c.html#a243e35508e7db3e4a33479e2f107a39c" title="getIpMqttBrokerAddress" alt="" coords="288,5,451,32"/>
-</map>

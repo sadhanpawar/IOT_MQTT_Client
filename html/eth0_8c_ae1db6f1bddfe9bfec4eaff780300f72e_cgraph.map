@@ -1,9 +1,0 @@
-<map id="setEtherBank" name="setEtherBank">
-<area shape="rect" id="node2" href="$eth0_8c.html#a38241c09b42791119c8dbab457febeda" title="clearEtherReg" alt="" coords="155,56,260,83"/>
-<area shape="rect" id="node8" href="$eth0_8c.html#a3e736df66218730f1339d440c4b05cae" title="setEtherReg" alt="" coords="160,107,255,133"/>
-<area shape="rect" id="node3" href="$eth0_8c.html#a710f2a378c0c955c211f9e4670ade7ed" title="enableEtherCs" alt="" coords="309,107,417,133"/>
-<area shape="rect" id="node5" href="$spi0_8c.html#aeb845d4e36ea3a559bf3ce3fd9bfe832" title="writeSpi0Data" alt="" coords="311,5,415,32"/>
-<area shape="rect" id="node6" href="$spi0_8c.html#a7d14193a061bb777d242d572e5a4e1e5" title="readSpi0Data" alt="" coords="313,56,414,83"/>
-<area shape="rect" id="node7" href="$eth0_8c.html#a159404cc749fadcacda50a180a5adbd7" title="disableEtherCs" alt="" coords="308,157,419,184"/>
-<area shape="rect" id="node4" href="$gpio_8c.html#ac4f40226199e0901f3ef20eb1a5791eb" title="setPinValue" alt="" coords="467,132,559,159"/>
-</map>

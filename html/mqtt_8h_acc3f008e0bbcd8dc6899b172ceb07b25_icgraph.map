@@ -1,5 +1,0 @@
-<map id="mqttKeepAliveTimeCliCb" name="mqttKeepAliveTimeCliCb">
-<area shape="rect" id="node2" href="$mqtt_8h.html#a561077e5b72215b491600fd5bfad9a2f" title="mqttConnect " alt="" coords="223,5,320,32"/>
-<area shape="rect" id="node3" href="$mqtt_8h.html#a7950a2c34b22ef8b0f0ed7851d1151e1" title="mqttHandler " alt="" coords="368,31,461,57"/>
-<area shape="rect" id="node4" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="509,31,560,57"/>
-</map>
