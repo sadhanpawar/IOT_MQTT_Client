@@ -1,0 +1,5 @@
+<map id="wait.h" name="wait.h">
+<area shape="rect" id="node2" href="$eth0_8c.html" title="eth0.c" alt="" coords="5,80,64,107"/>
+<area shape="rect" id="node3" href="$ethernet_8c.html" title="ethernet.c" alt="" coords="88,80,168,107"/>
+<area shape="rect" id="node4" href="$wait_8c.html" title="wait.c" alt="" coords="193,80,250,107"/>
+</map>

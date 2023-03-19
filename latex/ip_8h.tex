@@ -1,0 +1,471 @@
+\hypertarget{ip_8h}{}\section{ip.\+h File Reference}
+\label{ip_8h}\index{ip.\+h@{ip.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}eth0.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ip.\+h\char`\"{}}\newline
+Include dependency graph for ip.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{ip_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__ipHeader}{\+\_\+ip\+Header}
+\item 
+struct \hyperlink{struct__socket}{\+\_\+socket}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ip_8h_a590bbdbf754cdee36e2feff48b8311c9}{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+I\+C\+MP}~1
+\item 
+\#define \hyperlink{ip_8h_ac26595bc18d9bc6f62228de2c6b5105f}{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+T\+CP}~6
+\item 
+\#define \hyperlink{ip_8h_a63ba0784cf8a369ac23e5a361ec476f8}{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+U\+DP}~17
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct__ipHeader}{\+\_\+ip\+Header} \hyperlink{ip_8h_adc61f34c53dc4fe5495eebdcc2343165}{ip\+Header}
+\item 
+typedef struct \hyperlink{struct__socket}{\+\_\+socket} \hyperlink{ip_8h_ae41acc846b3288ddd9085d96c8db0496}{socket}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{ip_8h_a461ce730184cf58c5746eb4b144b8add}{is\+Ip} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\item 
+bool \hyperlink{ip_8h_a3e1d3c1f808c16fe784faae0decb728a}{is\+Ip\+Unicast} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\item 
+bool \hyperlink{ip_8h_a6e5413cd507bf504eb91e55192cae7a7}{is\+Ip\+Valid} ()
+\item 
+void \hyperlink{ip_8h_a4470f7ddfb4687e752946f15ade40c53}{set\+Ip\+Address} (const uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_a4dc5ba009f5f69f7196aab876f97dcfd}{get\+Ip\+Address} (uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_ad2e400b03d52cc56587e04703c6d0920}{set\+Ip\+Subnet\+Mask} (const uint8\+\_\+t mask\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_aeac784dd1b1c79d3164942569e710f6e}{get\+Ip\+Subnet\+Mask} (uint8\+\_\+t mask\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_a1eaa07e58e77b3d08419bebe6f69c313}{set\+Ip\+Gateway\+Address} (const uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_ae6273bf946fa76e3ec9dd3810d7637e0}{get\+Ip\+Gateway\+Address} (uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_aa646d37e90b1712a76e0a7c03c594b06}{set\+Ip\+Dns\+Address} (const uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_ae9ae5c4b1fedf2d681ab2f07fa1ec19a}{get\+Ip\+Dns\+Address} (uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_af51149e4290ecaab1a077ec7d0055452}{set\+Ip\+Time\+Server\+Address} (const uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_ae29615d9fdf6a7e61f9534cab67d1817}{get\+Ip\+Time\+Server\+Address} (uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_a8791cef85893a0737d56a5790926c990}{set\+Ip\+Mqtt\+Broker\+Address} (const uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_a243e35508e7db3e4a33479e2f107a39c}{get\+Ip\+Mqtt\+Broker\+Address} (uint8\+\_\+t ip\mbox{[}4\mbox{]})
+\item 
+void \hyperlink{ip_8h_ae7650170671c3d5075aaaa51c2232997}{sum\+Ip\+Words} (void $\ast$data, uint16\+\_\+t size\+In\+Bytes, uint32\+\_\+t $\ast$sum)
+\item 
+void \hyperlink{ip_8h_a3831075b42a47e20b482479d48509696}{calc\+Ip\+Checksum} (\hyperlink{ip_8h_adc61f34c53dc4fe5495eebdcc2343165}{ip\+Header} $\ast$ip)
+\item 
+uint16\+\_\+t \hyperlink{ip_8h_a348b5687c8bf2bd21ca995491c7bf5ce}{get\+Ip\+Checksum} (uint32\+\_\+t sum)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{ip_8h_a590bbdbf754cdee36e2feff48b8311c9}\label{ip_8h_a590bbdbf754cdee36e2feff48b8311c9}} 
+\index{ip.\+h@{ip.\+h}!P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+I\+C\+MP@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+I\+C\+MP}}
+\index{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+I\+C\+MP@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+I\+C\+MP}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+I\+C\+MP}{PROTOCOL\_ICMP}}
+{\footnotesize\ttfamily \#define P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+I\+C\+MP~1}
+
+
+
+Definition at line 47 of file ip.\+h.
+
+\mbox{\Hypertarget{ip_8h_ac26595bc18d9bc6f62228de2c6b5105f}\label{ip_8h_ac26595bc18d9bc6f62228de2c6b5105f}} 
+\index{ip.\+h@{ip.\+h}!P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+T\+CP@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+T\+CP}}
+\index{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+T\+CP@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+T\+CP}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+T\+CP}{PROTOCOL\_TCP}}
+{\footnotesize\ttfamily \#define P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+T\+CP~6}
+
+
+
+Definition at line 48 of file ip.\+h.
+
+\mbox{\Hypertarget{ip_8h_a63ba0784cf8a369ac23e5a361ec476f8}\label{ip_8h_a63ba0784cf8a369ac23e5a361ec476f8}} 
+\index{ip.\+h@{ip.\+h}!P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+U\+DP@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+U\+DP}}
+\index{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+U\+DP@{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+U\+DP}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+U\+DP}{PROTOCOL\_UDP}}
+{\footnotesize\ttfamily \#define P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+U\+DP~17}
+
+
+
+Definition at line 49 of file ip.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{ip_8h_adc61f34c53dc4fe5495eebdcc2343165}\label{ip_8h_adc61f34c53dc4fe5495eebdcc2343165}} 
+\index{ip.\+h@{ip.\+h}!ip\+Header@{ip\+Header}}
+\index{ip\+Header@{ip\+Header}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{ip\+Header}{ipHeader}}
+{\footnotesize\ttfamily typedef struct \hyperlink{struct__ipHeader}{\+\_\+ip\+Header}  \hyperlink{ip_8h_adc61f34c53dc4fe5495eebdcc2343165}{ip\+Header}}
+
+\mbox{\Hypertarget{ip_8h_ae41acc846b3288ddd9085d96c8db0496}\label{ip_8h_ae41acc846b3288ddd9085d96c8db0496}} 
+\index{ip.\+h@{ip.\+h}!socket@{socket}}
+\index{socket@{socket}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{socket}{socket}}
+{\footnotesize\ttfamily typedef struct \hyperlink{struct__socket}{\+\_\+socket}  \hyperlink{ip_8h_ae41acc846b3288ddd9085d96c8db0496}{socket}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{ip_8h_a3831075b42a47e20b482479d48509696}\label{ip_8h_a3831075b42a47e20b482479d48509696}} 
+\index{ip.\+h@{ip.\+h}!calc\+Ip\+Checksum@{calc\+Ip\+Checksum}}
+\index{calc\+Ip\+Checksum@{calc\+Ip\+Checksum}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{calc\+Ip\+Checksum()}{calcIpChecksum()}}
+{\footnotesize\ttfamily void calc\+Ip\+Checksum (\begin{DoxyParamCaption}\item[{\hyperlink{ip_8h_adc61f34c53dc4fe5495eebdcc2343165}{ip\+Header} $\ast$}]{ip }\end{DoxyParamCaption})}
+
+
+
+Definition at line 210 of file ip.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{ip_8h_a3831075b42a47e20b482479d48509696_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_a3831075b42a47e20b482479d48509696_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_a4dc5ba009f5f69f7196aab876f97dcfd}\label{ip_8h_a4dc5ba009f5f69f7196aab876f97dcfd}} 
+\index{ip.\+h@{ip.\+h}!get\+Ip\+Address@{get\+Ip\+Address}}
+\index{get\+Ip\+Address@{get\+Ip\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{get\+Ip\+Address()}{getIpAddress()}}
+{\footnotesize\ttfamily void get\+Ip\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_a4dc5ba009f5f69f7196aab876f97dcfd_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_a348b5687c8bf2bd21ca995491c7bf5ce}\label{ip_8h_a348b5687c8bf2bd21ca995491c7bf5ce}} 
+\index{ip.\+h@{ip.\+h}!get\+Ip\+Checksum@{get\+Ip\+Checksum}}
+\index{get\+Ip\+Checksum@{get\+Ip\+Checksum}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{get\+Ip\+Checksum()}{getIpChecksum()}}
+{\footnotesize\ttfamily uint16\+\_\+t get\+Ip\+Checksum (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{sum }\end{DoxyParamCaption})}
+
+
+
+Definition at line 200 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_a348b5687c8bf2bd21ca995491c7bf5ce_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_ae9ae5c4b1fedf2d681ab2f07fa1ec19a}\label{ip_8h_ae9ae5c4b1fedf2d681ab2f07fa1ec19a}} 
+\index{ip.\+h@{ip.\+h}!get\+Ip\+Dns\+Address@{get\+Ip\+Dns\+Address}}
+\index{get\+Ip\+Dns\+Address@{get\+Ip\+Dns\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{get\+Ip\+Dns\+Address()}{getIpDnsAddress()}}
+{\footnotesize\ttfamily void get\+Ip\+Dns\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 138 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_ae9ae5c4b1fedf2d681ab2f07fa1ec19a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_ae6273bf946fa76e3ec9dd3810d7637e0}\label{ip_8h_ae6273bf946fa76e3ec9dd3810d7637e0}} 
+\index{ip.\+h@{ip.\+h}!get\+Ip\+Gateway\+Address@{get\+Ip\+Gateway\+Address}}
+\index{get\+Ip\+Gateway\+Address@{get\+Ip\+Gateway\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{get\+Ip\+Gateway\+Address()}{getIpGatewayAddress()}}
+{\footnotesize\ttfamily void get\+Ip\+Gateway\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 122 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_ae6273bf946fa76e3ec9dd3810d7637e0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_a243e35508e7db3e4a33479e2f107a39c}\label{ip_8h_a243e35508e7db3e4a33479e2f107a39c}} 
+\index{ip.\+h@{ip.\+h}!get\+Ip\+Mqtt\+Broker\+Address@{get\+Ip\+Mqtt\+Broker\+Address}}
+\index{get\+Ip\+Mqtt\+Broker\+Address@{get\+Ip\+Mqtt\+Broker\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{get\+Ip\+Mqtt\+Broker\+Address()}{getIpMqttBrokerAddress()}}
+{\footnotesize\ttfamily void get\+Ip\+Mqtt\+Broker\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 170 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_a243e35508e7db3e4a33479e2f107a39c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_aeac784dd1b1c79d3164942569e710f6e}\label{ip_8h_aeac784dd1b1c79d3164942569e710f6e}} 
+\index{ip.\+h@{ip.\+h}!get\+Ip\+Subnet\+Mask@{get\+Ip\+Subnet\+Mask}}
+\index{get\+Ip\+Subnet\+Mask@{get\+Ip\+Subnet\+Mask}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{get\+Ip\+Subnet\+Mask()}{getIpSubnetMask()}}
+{\footnotesize\ttfamily void get\+Ip\+Subnet\+Mask (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mask\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_aeac784dd1b1c79d3164942569e710f6e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_ae29615d9fdf6a7e61f9534cab67d1817}\label{ip_8h_ae29615d9fdf6a7e61f9534cab67d1817}} 
+\index{ip.\+h@{ip.\+h}!get\+Ip\+Time\+Server\+Address@{get\+Ip\+Time\+Server\+Address}}
+\index{get\+Ip\+Time\+Server\+Address@{get\+Ip\+Time\+Server\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{get\+Ip\+Time\+Server\+Address()}{getIpTimeServerAddress()}}
+{\footnotesize\ttfamily void get\+Ip\+Time\+Server\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 154 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_ae29615d9fdf6a7e61f9534cab67d1817_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_a461ce730184cf58c5746eb4b144b8add}\label{ip_8h_a461ce730184cf58c5746eb4b144b8add}} 
+\index{ip.\+h@{ip.\+h}!is\+Ip@{is\+Ip}}
+\index{is\+Ip@{is\+Ip}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{is\+Ip()}{isIp()}}
+{\footnotesize\ttfamily bool is\+Ip (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+Definition at line 42 of file ip.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=189pt]{ip_8h_a461ce730184cf58c5746eb4b144b8add_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{ip_8h_a461ce730184cf58c5746eb4b144b8add_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_a3e1d3c1f808c16fe784faae0decb728a}\label{ip_8h_a3e1d3c1f808c16fe784faae0decb728a}} 
+\index{ip.\+h@{ip.\+h}!is\+Ip\+Unicast@{is\+Ip\+Unicast}}
+\index{is\+Ip\+Unicast@{is\+Ip\+Unicast}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{is\+Ip\+Unicast()}{isIpUnicast()}}
+{\footnotesize\ttfamily bool is\+Ip\+Unicast (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+Definition at line 61 of file ip.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{ip_8h_a3e1d3c1f808c16fe784faae0decb728a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{ip_8h_a3e1d3c1f808c16fe784faae0decb728a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_a6e5413cd507bf504eb91e55192cae7a7}\label{ip_8h_a6e5413cd507bf504eb91e55192cae7a7}} 
+\index{ip.\+h@{ip.\+h}!is\+Ip\+Valid@{is\+Ip\+Valid}}
+\index{is\+Ip\+Valid@{is\+Ip\+Valid}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{is\+Ip\+Valid()}{isIpValid()}}
+{\footnotesize\ttfamily bool is\+Ip\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ip_8h_a4470f7ddfb4687e752946f15ade40c53}\label{ip_8h_a4470f7ddfb4687e752946f15ade40c53}} 
+\index{ip.\+h@{ip.\+h}!set\+Ip\+Address@{set\+Ip\+Address}}
+\index{set\+Ip\+Address@{set\+Ip\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{set\+Ip\+Address()}{setIpAddress()}}
+{\footnotesize\ttfamily void set\+Ip\+Address (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 82 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_a4470f7ddfb4687e752946f15ade40c53_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_aa646d37e90b1712a76e0a7c03c594b06}\label{ip_8h_aa646d37e90b1712a76e0a7c03c594b06}} 
+\index{ip.\+h@{ip.\+h}!set\+Ip\+Dns\+Address@{set\+Ip\+Dns\+Address}}
+\index{set\+Ip\+Dns\+Address@{set\+Ip\+Dns\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{set\+Ip\+Dns\+Address()}{setIpDnsAddress()}}
+{\footnotesize\ttfamily void set\+Ip\+Dns\+Address (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 130 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_aa646d37e90b1712a76e0a7c03c594b06_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_a1eaa07e58e77b3d08419bebe6f69c313}\label{ip_8h_a1eaa07e58e77b3d08419bebe6f69c313}} 
+\index{ip.\+h@{ip.\+h}!set\+Ip\+Gateway\+Address@{set\+Ip\+Gateway\+Address}}
+\index{set\+Ip\+Gateway\+Address@{set\+Ip\+Gateway\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{set\+Ip\+Gateway\+Address()}{setIpGatewayAddress()}}
+{\footnotesize\ttfamily void set\+Ip\+Gateway\+Address (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 114 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_a1eaa07e58e77b3d08419bebe6f69c313_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_a8791cef85893a0737d56a5790926c990}\label{ip_8h_a8791cef85893a0737d56a5790926c990}} 
+\index{ip.\+h@{ip.\+h}!set\+Ip\+Mqtt\+Broker\+Address@{set\+Ip\+Mqtt\+Broker\+Address}}
+\index{set\+Ip\+Mqtt\+Broker\+Address@{set\+Ip\+Mqtt\+Broker\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{set\+Ip\+Mqtt\+Broker\+Address()}{setIpMqttBrokerAddress()}}
+{\footnotesize\ttfamily void set\+Ip\+Mqtt\+Broker\+Address (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 162 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_a8791cef85893a0737d56a5790926c990_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_ad2e400b03d52cc56587e04703c6d0920}\label{ip_8h_ad2e400b03d52cc56587e04703c6d0920}} 
+\index{ip.\+h@{ip.\+h}!set\+Ip\+Subnet\+Mask@{set\+Ip\+Subnet\+Mask}}
+\index{set\+Ip\+Subnet\+Mask@{set\+Ip\+Subnet\+Mask}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{set\+Ip\+Subnet\+Mask()}{setIpSubnetMask()}}
+{\footnotesize\ttfamily void set\+Ip\+Subnet\+Mask (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{mask\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 98 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_ad2e400b03d52cc56587e04703c6d0920_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_af51149e4290ecaab1a077ec7d0055452}\label{ip_8h_af51149e4290ecaab1a077ec7d0055452}} 
+\index{ip.\+h@{ip.\+h}!set\+Ip\+Time\+Server\+Address@{set\+Ip\+Time\+Server\+Address}}
+\index{set\+Ip\+Time\+Server\+Address@{set\+Ip\+Time\+Server\+Address}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{set\+Ip\+Time\+Server\+Address()}{setIpTimeServerAddress()}}
+{\footnotesize\ttfamily void set\+Ip\+Time\+Server\+Address (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{ip\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 146 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_af51149e4290ecaab1a077ec7d0055452_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ip_8h_ae7650170671c3d5075aaaa51c2232997}\label{ip_8h_ae7650170671c3d5075aaaa51c2232997}} 
+\index{ip.\+h@{ip.\+h}!sum\+Ip\+Words@{sum\+Ip\+Words}}
+\index{sum\+Ip\+Words@{sum\+Ip\+Words}!ip.\+h@{ip.\+h}}
+\subsubsection{\texorpdfstring{sum\+Ip\+Words()}{sumIpWords()}}
+{\footnotesize\ttfamily void sum\+Ip\+Words (\begin{DoxyParamCaption}\item[{void $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size\+In\+Bytes,  }\item[{uint32\+\_\+t $\ast$}]{sum }\end{DoxyParamCaption})}
+
+
+
+Definition at line 179 of file ip.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip_8h_ae7650170671c3d5075aaaa51c2232997_icgraph}
+\end{center}
+\end{figure}

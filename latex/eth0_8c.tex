@@ -1,0 +1,1715 @@
+\hypertarget{eth0_8c}{}\section{eth0.\+c File Reference}
+\label{eth0_8c}\index{eth0.\+c@{eth0.\+c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}tm4c123gh6pm.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}wait.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}gpio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}spi0.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}eth0.\+h\char`\"{}}\newline
+Include dependency graph for eth0.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{eth0_8c_a3780e2fe762dc532df7d0f030b55caa0}{CS}~\hyperlink{gpio_8h_a26254f886d2dced3476c09635a7e5d5bae3201f6e0d0c1e138c60903276bb3859}{P\+O\+R\+TA},3
+\item 
+\#define \hyperlink{eth0_8c_a766daf7210b73953ce55988d8bd0e3b8}{W\+OL}~\hyperlink{gpio_8h_a26254f886d2dced3476c09635a7e5d5bae51dea4a37f3e2ede7ba6f27c563f6a4}{P\+O\+R\+TB},3
+\item 
+\#define \hyperlink{eth0_8c_afeeffe52c8fd59db7c61cf8b02042dbf}{I\+NT}~\hyperlink{gpio_8h_a26254f886d2dced3476c09635a7e5d5bafcec7c36cc8137e94db854fdec9d2d50}{P\+O\+R\+TC},6
+\item 
+\#define \hyperlink{eth0_8c_a04e5f3a270ebf2b1a1121b38fef2a62e}{E\+R\+D\+P\+TL}~0x00
+\item 
+\#define \hyperlink{eth0_8c_a63011487c82b6f6d1fcc749b55e5511e}{E\+R\+D\+P\+TH}~0x01
+\item 
+\#define \hyperlink{eth0_8c_a684dfa8cb9097ee131a2c9d2ee65d573}{E\+W\+R\+P\+TL}~0x02
+\item 
+\#define \hyperlink{eth0_8c_a7bda37d486623efbe3ac2055198d356a}{E\+W\+R\+P\+TH}~0x03
+\item 
+\#define \hyperlink{eth0_8c_a45a38712c4d618bb5cb013e3d781db46}{E\+T\+X\+S\+TL}~0x04
+\item 
+\#define \hyperlink{eth0_8c_adfc695618aa5a32160cc9e2b0234c714}{E\+T\+X\+S\+TH}~0x05
+\item 
+\#define \hyperlink{eth0_8c_ad79a19cc60b7dc19cec9df691e658714}{E\+T\+X\+N\+DL}~0x06
+\item 
+\#define \hyperlink{eth0_8c_a24597e8d914818adae20bf39c4ac7d0e}{E\+T\+X\+N\+DH}~0x07
+\item 
+\#define \hyperlink{eth0_8c_a387e1ac675539e1c0c7f158f59eafd51}{E\+R\+X\+S\+TL}~0x08
+\item 
+\#define \hyperlink{eth0_8c_ad4c2a40d74ded1e155f7eb18effb76ba}{E\+R\+X\+S\+TH}~0x09
+\item 
+\#define \hyperlink{eth0_8c_a9fa6592ccdfa66aa5a1854dd95b6329c}{E\+R\+X\+N\+DL}~0x0A
+\item 
+\#define \hyperlink{eth0_8c_a19ee05a22525dcd9e4124734a3aec1b0}{E\+R\+X\+N\+DH}~0x0B
+\item 
+\#define \hyperlink{eth0_8c_a0e4345b59cc531bd8daee2cd8c8e906b}{E\+R\+X\+R\+D\+P\+TL}~0x0C
+\item 
+\#define \hyperlink{eth0_8c_a1668b845f0bc37dbb515c2358357a690}{E\+R\+X\+R\+D\+P\+TH}~0x0D
+\item 
+\#define \hyperlink{eth0_8c_a7d78e648da085c6fdf006d75b3c99a7a}{E\+R\+X\+W\+R\+P\+TL}~0x0E
+\item 
+\#define \hyperlink{eth0_8c_a9c9ff6952a5cb0c0b420bc6a405d726c}{E\+R\+X\+W\+R\+P\+TH}~0x0F
+\item 
+\#define \hyperlink{eth0_8c_a72ac42db94893a565a52821f5ae95856}{E\+IE}~0x1B
+\item 
+\#define \hyperlink{eth0_8c_a303aba585a8da3f8dc80315dc94cb0e5}{E\+IR}~0x1C
+\item 
+\#define \hyperlink{eth0_8c_adb3411c72b313ba961c0cf775cf9db02}{R\+X\+E\+R\+IF}~0x01
+\item 
+\#define \hyperlink{eth0_8c_a7a0f9cb1aef73f027e31bd01426f2d7a}{T\+X\+E\+R\+IF}~0x02
+\item 
+\#define \hyperlink{eth0_8c_ac765fb3c77a3c11ddd4e7ac9ea7b4bed}{T\+X\+IF}~0x08
+\item 
+\#define \hyperlink{eth0_8c_a567e73e06d0b2569df3aa2c53c4540bb}{P\+K\+T\+IF}~0x40
+\item 
+\#define \hyperlink{eth0_8c_ad05043a04b51b3953259c24040e2e99f}{E\+S\+T\+AT}~0x1D
+\item 
+\#define \hyperlink{eth0_8c_ab8108f29c6eb17edb95d8e3e86269ae2}{C\+L\+K\+R\+DY}~0x01
+\item 
+\#define \hyperlink{eth0_8c_a6dae2de25c84b91c5d49a3145cf04305}{T\+X\+A\+B\+O\+RT}~0x02
+\item 
+\#define \hyperlink{eth0_8c_a86d77e305cc8d23f335fb733870a873c}{E\+C\+O\+N2}~0x1E
+\item 
+\#define \hyperlink{eth0_8c_a2749c0d85a8e2a2686eb6c05ccae2087}{P\+K\+T\+D\+EC}~0x40
+\item 
+\#define \hyperlink{eth0_8c_a461b29cd8a06dc2f331f664eb0f9165a}{E\+C\+O\+N1}~0x1F
+\item 
+\#define \hyperlink{eth0_8c_a5a1bf6f4852d0c813756b783ff285bab}{R\+X\+EN}~0x04
+\item 
+\#define \hyperlink{eth0_8c_ac97c83c67cb160908e4f640370155c2a}{T\+X\+R\+TS}~0x08
+\item 
+\#define \hyperlink{eth0_8c_ac5ff36d9b43977e5dd6548170ec93ddc}{E\+R\+X\+F\+C\+ON}~0x38
+\item 
+\#define \hyperlink{eth0_8c_a029f8b5f05e4e5182aa9a73e31c4a4f0}{E\+P\+K\+T\+C\+NT}~0x39
+\item 
+\#define \hyperlink{eth0_8c_ab64add14e73a7308bd32343c45caf79d}{M\+A\+C\+O\+N1}~0x40
+\item 
+\#define \hyperlink{eth0_8c_a5bafdeaf62f6f1040d02c76869a7e6ad}{M\+A\+R\+X\+EN}~0x01
+\item 
+\#define \hyperlink{eth0_8c_a13e2c5a266fa002bd903394ea9313708}{R\+X\+P\+A\+US}~0x04
+\item 
+\#define \hyperlink{eth0_8c_aa96ab16a2dddfccd77b723367e7d9acd}{T\+X\+P\+A\+US}~0x08
+\item 
+\#define \hyperlink{eth0_8c_a01501b400de6174cd44cd52cf9da0950}{M\+A\+C\+O\+N2}~0x41
+\item 
+\#define \hyperlink{eth0_8c_ac8c4de938f683881693704da4844c807}{M\+A\+R\+ST}~0x80
+\item 
+\#define \hyperlink{eth0_8c_a37e80f66673c39e7db383e0b11a159ea}{M\+A\+C\+O\+N3}~0x42
+\item 
+\#define \hyperlink{eth0_8c_a5349c2f5efe2df5d38830819f44393c9}{F\+U\+L\+D\+PX}~0x01
+\item 
+\#define \hyperlink{eth0_8c_a9ffd80c58ad749f063047912daf64748}{F\+R\+M\+L\+N\+EN}~0x02
+\item 
+\#define \hyperlink{eth0_8c_a835f9be221794e025cde45d42fe95794}{T\+X\+C\+R\+C\+EN}~0x10
+\item 
+\#define \hyperlink{eth0_8c_ab67a61415d9fda853ce94354a4b7c6a3}{P\+A\+D60}~0x20
+\item 
+\#define \hyperlink{eth0_8c_a53c0d8f74a3ba17d1337e297ef749a22}{M\+A\+C\+O\+N4}~0x43
+\item 
+\#define \hyperlink{eth0_8c_a0aa3bb65f69bc921f3b4020410f7efc2}{M\+A\+B\+B\+I\+PG}~0x44
+\item 
+\#define \hyperlink{eth0_8c_a8daa7f7ef529828ef4cc3d90a48ff730}{M\+A\+I\+P\+GL}~0x46
+\item 
+\#define \hyperlink{eth0_8c_a70b21ea01d623429bf3bd1abf583c80f}{M\+A\+I\+P\+GH}~0x47
+\item 
+\#define \hyperlink{eth0_8c_af78bae411a3ae7fe363ad63e93a2e618}{M\+A\+C\+L\+C\+O\+N1}~0x48
+\item 
+\#define \hyperlink{eth0_8c_acf3356546b7e518a4cf8b368d48a2710}{M\+A\+C\+L\+C\+O\+N2}~0x49
+\item 
+\#define \hyperlink{eth0_8c_a4ed708903a040c0ea4fc071707863ffc}{M\+A\+M\+X\+F\+LL}~0x4A
+\item 
+\#define \hyperlink{eth0_8c_a294e961d04adc72cbc8b866bb6506e8d}{M\+A\+M\+X\+F\+LH}~0x4B
+\item 
+\#define \hyperlink{eth0_8c_a6ca2ed513306c83432028d8ad3d49354}{M\+I\+C\+MD}~0x52
+\item 
+\#define \hyperlink{eth0_8c_ae1a002121a1c33e90b17872514ce137a}{M\+I\+I\+RD}~0x01
+\item 
+\#define \hyperlink{eth0_8c_a01fb4e4ea7a7b71cbf2b341b0ebd77a3}{M\+I\+R\+E\+G\+A\+DR}~0x54
+\item 
+\#define \hyperlink{eth0_8c_a18aba35be6189e6150a9b4e2c2c29b69}{M\+I\+W\+RL}~0x56
+\item 
+\#define \hyperlink{eth0_8c_af5d129bad4e0df51b5a2f9f7ee0f2da4}{M\+I\+W\+RH}~0x57
+\item 
+\#define \hyperlink{eth0_8c_adc002e2f058cbc1cf556b4a33d0c401c}{M\+I\+R\+DL}~0x58
+\item 
+\#define \hyperlink{eth0_8c_ab2316c2a713dc20c6d0f892faa5c618b}{M\+I\+R\+DH}~0x59
+\item 
+\#define \hyperlink{eth0_8c_ae90f98e596cd117bc03ec08e12303948}{M\+A\+A\+D\+R1}~0x60
+\item 
+\#define \hyperlink{eth0_8c_a120bccb0df5d68a311c7030cfb96cb60}{M\+A\+A\+D\+R0}~0x61
+\item 
+\#define \hyperlink{eth0_8c_adab05794c311d260abaaec301a942be5}{M\+A\+A\+D\+R3}~0x62
+\item 
+\#define \hyperlink{eth0_8c_a12821080889b4c07b4d6592fbcb67aca}{M\+A\+A\+D\+R2}~0x63
+\item 
+\#define \hyperlink{eth0_8c_ab09dce1b21cca7564099bf5c2977027d}{M\+A\+A\+D\+R5}~0x64
+\item 
+\#define \hyperlink{eth0_8c_ab5bd94627c03b8c599997934df7f0091}{M\+A\+A\+D\+R4}~0x65
+\item 
+\#define \hyperlink{eth0_8c_abd6aab564bb58e789243684804aff335}{M\+I\+S\+T\+AT}~0x6A
+\item 
+\#define \hyperlink{eth0_8c_ace0861848e80b098118097a57737bade}{M\+I\+B\+U\+SY}~0x01
+\item 
+\#define \hyperlink{eth0_8c_a023f4ef8ad02a85b4dcfae743368eb87}{E\+C\+O\+C\+ON}~0x75
+\item 
+\#define \hyperlink{eth0_8c_a03e10f035e4f21f0d422a10037bd484c}{P\+H\+C\+O\+N1}~0x00
+\item 
+\#define \hyperlink{eth0_8c_ad5ab5d28ca8a473a8c2403b399f286ad}{P\+D\+P\+X\+MD}~0x0100
+\item 
+\#define \hyperlink{eth0_8c_a050305807ece6fe1683464afecf06e6e}{P\+H\+S\+T\+A\+T1}~0x01
+\item 
+\#define \hyperlink{eth0_8c_ab713fa9322902da83e1e80b0dc0392ac}{L\+S\+T\+AT}~0x0400
+\item 
+\#define \hyperlink{eth0_8c_a9cf7f25d840eaf2d2101797ee0e2e29e}{P\+H\+C\+O\+N2}~0x10
+\item 
+\#define \hyperlink{eth0_8c_a2ebc9382e95cccc40b7801bcf2b8416d}{H\+D\+L\+D\+IS}~0x0100
+\item 
+\#define \hyperlink{eth0_8c_a311d5ecccdeb773484bf84f33f0f0b37}{P\+H\+L\+C\+ON}~0x14
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{eth0_8c_a710f2a378c0c955c211f9e4670ade7ed}{enable\+Ether\+Cs} (void)
+\item 
+void \hyperlink{eth0_8c_a159404cc749fadcacda50a180a5adbd7}{disable\+Ether\+Cs} (void)
+\item 
+void \hyperlink{eth0_8c_a5308b6a5c80e4a964ce8dcf3d0bb44e2}{write\+Ether\+Reg} (uint8\+\_\+t reg, uint8\+\_\+t data)
+\item 
+uint8\+\_\+t \hyperlink{eth0_8c_aceaa52a49cf227193b6a1b49cfc03d84}{read\+Ether\+Reg} (uint8\+\_\+t reg)
+\item 
+void \hyperlink{eth0_8c_a3e736df66218730f1339d440c4b05cae}{set\+Ether\+Reg} (uint8\+\_\+t reg, uint8\+\_\+t mask)
+\item 
+void \hyperlink{eth0_8c_a38241c09b42791119c8dbab457febeda}{clear\+Ether\+Reg} (uint8\+\_\+t reg, uint8\+\_\+t mask)
+\item 
+void \hyperlink{eth0_8c_ae1db6f1bddfe9bfec4eaff780300f72e}{set\+Ether\+Bank} (uint8\+\_\+t reg)
+\item 
+void \hyperlink{eth0_8c_ae383ebcd73e965e4898e09917391e9ef}{write\+Ether\+Phy} (uint8\+\_\+t reg, uint16\+\_\+t data)
+\item 
+uint16\+\_\+t \hyperlink{eth0_8c_a794aa232a607af373be4e2abffb74ef8}{read\+Ether\+Phy} (uint8\+\_\+t reg)
+\item 
+void \hyperlink{eth0_8c_a91e1a45ccece2fd39a19008997207360}{start\+Ether\+Mem\+Write} (void)
+\item 
+void \hyperlink{eth0_8c_a11eacf1c697bbcc4dc95a7ab702e6ba5}{write\+Ether\+Mem} (uint8\+\_\+t data)
+\item 
+void \hyperlink{eth0_8c_a481f721b62dec9128c72100875103a8a}{stop\+Ether\+Mem\+Write} (void)
+\item 
+void \hyperlink{eth0_8c_a4f9c299a7f58fb3d1d6b75e6986ecb01}{start\+Ether\+Mem\+Read} (void)
+\item 
+uint8\+\_\+t \hyperlink{eth0_8c_aaa4099eb7c6e6b9ef1cc0214e3736c0b}{read\+Ether\+Mem} (void)
+\item 
+void \hyperlink{eth0_8c_a6faaebe4427947ea9f7e420d420f9b62}{stop\+Ether\+Mem\+Read} (void)
+\item 
+void \hyperlink{eth0_8c_aecae72b4579b409c7c7c90c2c12237f1}{init\+Ether} (uint16\+\_\+t mode)
+\item 
+bool \hyperlink{eth0_8c_a3bbcc2a0d14181ed2dc3f1e221997ee5}{is\+Ether\+Link\+Up} (void)
+\item 
+bool \hyperlink{eth0_8c_abbc16de0f8318b921e173fdea69650f0}{is\+Ether\+Data\+Available} (void)
+\item 
+bool \hyperlink{eth0_8c_a0ca653f48ca731d0be8fcb8af85c54bf}{is\+Ether\+Overflow} (void)
+\item 
+uint16\+\_\+t \hyperlink{eth0_8c_a3c910947910e057b2307632295be61de}{get\+Ether\+Packet} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether, uint16\+\_\+t max\+Size)
+\item 
+bool \hyperlink{eth0_8c_a9908befa3f95ad0b652ef68a53000634}{put\+Ether\+Packet} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether, uint16\+\_\+t size)
+\item 
+uint16\+\_\+t \hyperlink{eth0_8c_af86d9622798ed7e76bd7de347df940ae}{htons} (uint16\+\_\+t value)
+\item 
+uint32\+\_\+t \hyperlink{eth0_8c_a0e7477edd2a29331acedcd4f1d8b0d1a}{htonl} (uint32\+\_\+t value)
+\item 
+uint16\+\_\+t \hyperlink{eth0_8c_a8faf425b2ef6ee8b0d0634e656e45139}{get\+Ether\+Id} (void)
+\item 
+void \hyperlink{eth0_8c_aafe022cdee56a8cfeb19b3a40d1ff768}{inc\+Ether\+Id} (void)
+\item 
+void \hyperlink{eth0_8c_afcc4d6e0bb55eb862abfd8da36d1cd6d}{set\+Ether\+Mac\+Address} (uint8\+\_\+t mac0, uint8\+\_\+t mac1, uint8\+\_\+t mac2, uint8\+\_\+t mac3, uint8\+\_\+t mac4, uint8\+\_\+t mac5)
+\item 
+void \hyperlink{eth0_8c_a2310c30c40c60e9f61edbc0c9509c65e}{get\+Ether\+Mac\+Address} (uint8\+\_\+t mac\mbox{[}\hyperlink{eth0_8h_a636be4362c6d2cc570e9a8e6a8519d88}{H\+W\+\_\+\+A\+D\+D\+\_\+\+L\+E\+N\+G\+TH}\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \hyperlink{eth0_8c_a4b89283ff8dba420cacfc5605c2473ed}{next\+Packet\+Lsb} = 0x00
+\item 
+uint8\+\_\+t \hyperlink{eth0_8c_ae8972404b25e6b04501d0e964388c43f}{next\+Packet\+Msb} = 0x00
+\item 
+uint8\+\_\+t \hyperlink{eth0_8c_ae406c54a3f430f53b7036a3233d9238b}{sequence\+Id} = 1
+\item 
+uint8\+\_\+t \hyperlink{eth0_8c_a0822e070c34d5ebc6c0ca92050293261}{hw\+Address} \mbox{[}\hyperlink{eth0_8h_a636be4362c6d2cc570e9a8e6a8519d88}{H\+W\+\_\+\+A\+D\+D\+\_\+\+L\+E\+N\+G\+TH}\mbox{]} = \{2,3,4,5,6,7\}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{eth0_8c_ab8108f29c6eb17edb95d8e3e86269ae2}\label{eth0_8c_ab8108f29c6eb17edb95d8e3e86269ae2}} 
+\index{eth0.\+c@{eth0.\+c}!C\+L\+K\+R\+DY@{C\+L\+K\+R\+DY}}
+\index{C\+L\+K\+R\+DY@{C\+L\+K\+R\+DY}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+K\+R\+DY}{CLKRDY}}
+{\footnotesize\ttfamily \#define C\+L\+K\+R\+DY~0x01}
+
+
+
+Definition at line 62 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a3780e2fe762dc532df7d0f030b55caa0}\label{eth0_8c_a3780e2fe762dc532df7d0f030b55caa0}} 
+\index{eth0.\+c@{eth0.\+c}!CS@{CS}}
+\index{CS@{CS}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{CS}{CS}}
+{\footnotesize\ttfamily \#define CS~\hyperlink{gpio_8h_a26254f886d2dced3476c09635a7e5d5bae3201f6e0d0c1e138c60903276bb3859}{P\+O\+R\+TA},3}
+
+
+
+Definition at line 34 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a023f4ef8ad02a85b4dcfae743368eb87}\label{eth0_8c_a023f4ef8ad02a85b4dcfae743368eb87}} 
+\index{eth0.\+c@{eth0.\+c}!E\+C\+O\+C\+ON@{E\+C\+O\+C\+ON}}
+\index{E\+C\+O\+C\+ON@{E\+C\+O\+C\+ON}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+C\+O\+C\+ON}{ECOCON}}
+{\footnotesize\ttfamily \#define E\+C\+O\+C\+ON~0x75}
+
+
+
+Definition at line 105 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a461b29cd8a06dc2f331f664eb0f9165a}\label{eth0_8c_a461b29cd8a06dc2f331f664eb0f9165a}} 
+\index{eth0.\+c@{eth0.\+c}!E\+C\+O\+N1@{E\+C\+O\+N1}}
+\index{E\+C\+O\+N1@{E\+C\+O\+N1}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+C\+O\+N1}{ECON1}}
+{\footnotesize\ttfamily \#define E\+C\+O\+N1~0x1F}
+
+
+
+Definition at line 66 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a86d77e305cc8d23f335fb733870a873c}\label{eth0_8c_a86d77e305cc8d23f335fb733870a873c}} 
+\index{eth0.\+c@{eth0.\+c}!E\+C\+O\+N2@{E\+C\+O\+N2}}
+\index{E\+C\+O\+N2@{E\+C\+O\+N2}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+C\+O\+N2}{ECON2}}
+{\footnotesize\ttfamily \#define E\+C\+O\+N2~0x1E}
+
+
+
+Definition at line 64 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a72ac42db94893a565a52821f5ae95856}\label{eth0_8c_a72ac42db94893a565a52821f5ae95856}} 
+\index{eth0.\+c@{eth0.\+c}!E\+IE@{E\+IE}}
+\index{E\+IE@{E\+IE}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+IE}{EIE}}
+{\footnotesize\ttfamily \#define E\+IE~0x1B}
+
+
+
+Definition at line 55 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a303aba585a8da3f8dc80315dc94cb0e5}\label{eth0_8c_a303aba585a8da3f8dc80315dc94cb0e5}} 
+\index{eth0.\+c@{eth0.\+c}!E\+IR@{E\+IR}}
+\index{E\+IR@{E\+IR}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+IR}{EIR}}
+{\footnotesize\ttfamily \#define E\+IR~0x1C}
+
+
+
+Definition at line 56 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a029f8b5f05e4e5182aa9a73e31c4a4f0}\label{eth0_8c_a029f8b5f05e4e5182aa9a73e31c4a4f0}} 
+\index{eth0.\+c@{eth0.\+c}!E\+P\+K\+T\+C\+NT@{E\+P\+K\+T\+C\+NT}}
+\index{E\+P\+K\+T\+C\+NT@{E\+P\+K\+T\+C\+NT}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+P\+K\+T\+C\+NT}{EPKTCNT}}
+{\footnotesize\ttfamily \#define E\+P\+K\+T\+C\+NT~0x39}
+
+
+
+Definition at line 70 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a63011487c82b6f6d1fcc749b55e5511e}\label{eth0_8c_a63011487c82b6f6d1fcc749b55e5511e}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+D\+P\+TH@{E\+R\+D\+P\+TH}}
+\index{E\+R\+D\+P\+TH@{E\+R\+D\+P\+TH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+D\+P\+TH}{ERDPTH}}
+{\footnotesize\ttfamily \#define E\+R\+D\+P\+TH~0x01}
+
+
+
+Definition at line 40 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a04e5f3a270ebf2b1a1121b38fef2a62e}\label{eth0_8c_a04e5f3a270ebf2b1a1121b38fef2a62e}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+D\+P\+TL@{E\+R\+D\+P\+TL}}
+\index{E\+R\+D\+P\+TL@{E\+R\+D\+P\+TL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+D\+P\+TL}{ERDPTL}}
+{\footnotesize\ttfamily \#define E\+R\+D\+P\+TL~0x00}
+
+
+
+Definition at line 39 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ac5ff36d9b43977e5dd6548170ec93ddc}\label{eth0_8c_ac5ff36d9b43977e5dd6548170ec93ddc}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+F\+C\+ON@{E\+R\+X\+F\+C\+ON}}
+\index{E\+R\+X\+F\+C\+ON@{E\+R\+X\+F\+C\+ON}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+F\+C\+ON}{ERXFCON}}
+{\footnotesize\ttfamily \#define E\+R\+X\+F\+C\+ON~0x38}
+
+
+
+Definition at line 69 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a19ee05a22525dcd9e4124734a3aec1b0}\label{eth0_8c_a19ee05a22525dcd9e4124734a3aec1b0}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+N\+DH@{E\+R\+X\+N\+DH}}
+\index{E\+R\+X\+N\+DH@{E\+R\+X\+N\+DH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+N\+DH}{ERXNDH}}
+{\footnotesize\ttfamily \#define E\+R\+X\+N\+DH~0x0B}
+
+
+
+Definition at line 50 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a9fa6592ccdfa66aa5a1854dd95b6329c}\label{eth0_8c_a9fa6592ccdfa66aa5a1854dd95b6329c}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+N\+DL@{E\+R\+X\+N\+DL}}
+\index{E\+R\+X\+N\+DL@{E\+R\+X\+N\+DL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+N\+DL}{ERXNDL}}
+{\footnotesize\ttfamily \#define E\+R\+X\+N\+DL~0x0A}
+
+
+
+Definition at line 49 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a1668b845f0bc37dbb515c2358357a690}\label{eth0_8c_a1668b845f0bc37dbb515c2358357a690}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+R\+D\+P\+TH@{E\+R\+X\+R\+D\+P\+TH}}
+\index{E\+R\+X\+R\+D\+P\+TH@{E\+R\+X\+R\+D\+P\+TH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+R\+D\+P\+TH}{ERXRDPTH}}
+{\footnotesize\ttfamily \#define E\+R\+X\+R\+D\+P\+TH~0x0D}
+
+
+
+Definition at line 52 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a0e4345b59cc531bd8daee2cd8c8e906b}\label{eth0_8c_a0e4345b59cc531bd8daee2cd8c8e906b}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+R\+D\+P\+TL@{E\+R\+X\+R\+D\+P\+TL}}
+\index{E\+R\+X\+R\+D\+P\+TL@{E\+R\+X\+R\+D\+P\+TL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+R\+D\+P\+TL}{ERXRDPTL}}
+{\footnotesize\ttfamily \#define E\+R\+X\+R\+D\+P\+TL~0x0C}
+
+
+
+Definition at line 51 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ad4c2a40d74ded1e155f7eb18effb76ba}\label{eth0_8c_ad4c2a40d74ded1e155f7eb18effb76ba}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+S\+TH@{E\+R\+X\+S\+TH}}
+\index{E\+R\+X\+S\+TH@{E\+R\+X\+S\+TH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+S\+TH}{ERXSTH}}
+{\footnotesize\ttfamily \#define E\+R\+X\+S\+TH~0x09}
+
+
+
+Definition at line 48 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a387e1ac675539e1c0c7f158f59eafd51}\label{eth0_8c_a387e1ac675539e1c0c7f158f59eafd51}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+S\+TL@{E\+R\+X\+S\+TL}}
+\index{E\+R\+X\+S\+TL@{E\+R\+X\+S\+TL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+S\+TL}{ERXSTL}}
+{\footnotesize\ttfamily \#define E\+R\+X\+S\+TL~0x08}
+
+
+
+Definition at line 47 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a9c9ff6952a5cb0c0b420bc6a405d726c}\label{eth0_8c_a9c9ff6952a5cb0c0b420bc6a405d726c}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+W\+R\+P\+TH@{E\+R\+X\+W\+R\+P\+TH}}
+\index{E\+R\+X\+W\+R\+P\+TH@{E\+R\+X\+W\+R\+P\+TH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+W\+R\+P\+TH}{ERXWRPTH}}
+{\footnotesize\ttfamily \#define E\+R\+X\+W\+R\+P\+TH~0x0F}
+
+
+
+Definition at line 54 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a7d78e648da085c6fdf006d75b3c99a7a}\label{eth0_8c_a7d78e648da085c6fdf006d75b3c99a7a}} 
+\index{eth0.\+c@{eth0.\+c}!E\+R\+X\+W\+R\+P\+TL@{E\+R\+X\+W\+R\+P\+TL}}
+\index{E\+R\+X\+W\+R\+P\+TL@{E\+R\+X\+W\+R\+P\+TL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+X\+W\+R\+P\+TL}{ERXWRPTL}}
+{\footnotesize\ttfamily \#define E\+R\+X\+W\+R\+P\+TL~0x0E}
+
+
+
+Definition at line 53 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ad05043a04b51b3953259c24040e2e99f}\label{eth0_8c_ad05043a04b51b3953259c24040e2e99f}} 
+\index{eth0.\+c@{eth0.\+c}!E\+S\+T\+AT@{E\+S\+T\+AT}}
+\index{E\+S\+T\+AT@{E\+S\+T\+AT}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+S\+T\+AT}{ESTAT}}
+{\footnotesize\ttfamily \#define E\+S\+T\+AT~0x1D}
+
+
+
+Definition at line 61 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a24597e8d914818adae20bf39c4ac7d0e}\label{eth0_8c_a24597e8d914818adae20bf39c4ac7d0e}} 
+\index{eth0.\+c@{eth0.\+c}!E\+T\+X\+N\+DH@{E\+T\+X\+N\+DH}}
+\index{E\+T\+X\+N\+DH@{E\+T\+X\+N\+DH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+T\+X\+N\+DH}{ETXNDH}}
+{\footnotesize\ttfamily \#define E\+T\+X\+N\+DH~0x07}
+
+
+
+Definition at line 46 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ad79a19cc60b7dc19cec9df691e658714}\label{eth0_8c_ad79a19cc60b7dc19cec9df691e658714}} 
+\index{eth0.\+c@{eth0.\+c}!E\+T\+X\+N\+DL@{E\+T\+X\+N\+DL}}
+\index{E\+T\+X\+N\+DL@{E\+T\+X\+N\+DL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+T\+X\+N\+DL}{ETXNDL}}
+{\footnotesize\ttfamily \#define E\+T\+X\+N\+DL~0x06}
+
+
+
+Definition at line 45 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_adfc695618aa5a32160cc9e2b0234c714}\label{eth0_8c_adfc695618aa5a32160cc9e2b0234c714}} 
+\index{eth0.\+c@{eth0.\+c}!E\+T\+X\+S\+TH@{E\+T\+X\+S\+TH}}
+\index{E\+T\+X\+S\+TH@{E\+T\+X\+S\+TH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+T\+X\+S\+TH}{ETXSTH}}
+{\footnotesize\ttfamily \#define E\+T\+X\+S\+TH~0x05}
+
+
+
+Definition at line 44 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a45a38712c4d618bb5cb013e3d781db46}\label{eth0_8c_a45a38712c4d618bb5cb013e3d781db46}} 
+\index{eth0.\+c@{eth0.\+c}!E\+T\+X\+S\+TL@{E\+T\+X\+S\+TL}}
+\index{E\+T\+X\+S\+TL@{E\+T\+X\+S\+TL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+T\+X\+S\+TL}{ETXSTL}}
+{\footnotesize\ttfamily \#define E\+T\+X\+S\+TL~0x04}
+
+
+
+Definition at line 43 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a7bda37d486623efbe3ac2055198d356a}\label{eth0_8c_a7bda37d486623efbe3ac2055198d356a}} 
+\index{eth0.\+c@{eth0.\+c}!E\+W\+R\+P\+TH@{E\+W\+R\+P\+TH}}
+\index{E\+W\+R\+P\+TH@{E\+W\+R\+P\+TH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+W\+R\+P\+TH}{EWRPTH}}
+{\footnotesize\ttfamily \#define E\+W\+R\+P\+TH~0x03}
+
+
+
+Definition at line 42 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a684dfa8cb9097ee131a2c9d2ee65d573}\label{eth0_8c_a684dfa8cb9097ee131a2c9d2ee65d573}} 
+\index{eth0.\+c@{eth0.\+c}!E\+W\+R\+P\+TL@{E\+W\+R\+P\+TL}}
+\index{E\+W\+R\+P\+TL@{E\+W\+R\+P\+TL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{E\+W\+R\+P\+TL}{EWRPTL}}
+{\footnotesize\ttfamily \#define E\+W\+R\+P\+TL~0x02}
+
+
+
+Definition at line 41 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a9ffd80c58ad749f063047912daf64748}\label{eth0_8c_a9ffd80c58ad749f063047912daf64748}} 
+\index{eth0.\+c@{eth0.\+c}!F\+R\+M\+L\+N\+EN@{F\+R\+M\+L\+N\+EN}}
+\index{F\+R\+M\+L\+N\+EN@{F\+R\+M\+L\+N\+EN}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{F\+R\+M\+L\+N\+EN}{FRMLNEN}}
+{\footnotesize\ttfamily \#define F\+R\+M\+L\+N\+EN~0x02}
+
+
+
+Definition at line 79 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a5349c2f5efe2df5d38830819f44393c9}\label{eth0_8c_a5349c2f5efe2df5d38830819f44393c9}} 
+\index{eth0.\+c@{eth0.\+c}!F\+U\+L\+D\+PX@{F\+U\+L\+D\+PX}}
+\index{F\+U\+L\+D\+PX@{F\+U\+L\+D\+PX}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{F\+U\+L\+D\+PX}{FULDPX}}
+{\footnotesize\ttfamily \#define F\+U\+L\+D\+PX~0x01}
+
+
+
+Definition at line 78 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a2ebc9382e95cccc40b7801bcf2b8416d}\label{eth0_8c_a2ebc9382e95cccc40b7801bcf2b8416d}} 
+\index{eth0.\+c@{eth0.\+c}!H\+D\+L\+D\+IS@{H\+D\+L\+D\+IS}}
+\index{H\+D\+L\+D\+IS@{H\+D\+L\+D\+IS}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{H\+D\+L\+D\+IS}{HDLDIS}}
+{\footnotesize\ttfamily \#define H\+D\+L\+D\+IS~0x0100}
+
+
+
+Definition at line 113 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_afeeffe52c8fd59db7c61cf8b02042dbf}\label{eth0_8c_afeeffe52c8fd59db7c61cf8b02042dbf}} 
+\index{eth0.\+c@{eth0.\+c}!I\+NT@{I\+NT}}
+\index{I\+NT@{I\+NT}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{I\+NT}{INT}}
+{\footnotesize\ttfamily \#define I\+NT~\hyperlink{gpio_8h_a26254f886d2dced3476c09635a7e5d5bafcec7c36cc8137e94db854fdec9d2d50}{P\+O\+R\+TC},6}
+
+
+
+Definition at line 36 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ab713fa9322902da83e1e80b0dc0392ac}\label{eth0_8c_ab713fa9322902da83e1e80b0dc0392ac}} 
+\index{eth0.\+c@{eth0.\+c}!L\+S\+T\+AT@{L\+S\+T\+AT}}
+\index{L\+S\+T\+AT@{L\+S\+T\+AT}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{L\+S\+T\+AT}{LSTAT}}
+{\footnotesize\ttfamily \#define L\+S\+T\+AT~0x0400}
+
+
+
+Definition at line 111 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a120bccb0df5d68a311c7030cfb96cb60}\label{eth0_8c_a120bccb0df5d68a311c7030cfb96cb60}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+A\+D\+R0@{M\+A\+A\+D\+R0}}
+\index{M\+A\+A\+D\+R0@{M\+A\+A\+D\+R0}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+A\+D\+R0}{MAADR0}}
+{\footnotesize\ttfamily \#define M\+A\+A\+D\+R0~0x61}
+
+
+
+Definition at line 98 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ae90f98e596cd117bc03ec08e12303948}\label{eth0_8c_ae90f98e596cd117bc03ec08e12303948}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+A\+D\+R1@{M\+A\+A\+D\+R1}}
+\index{M\+A\+A\+D\+R1@{M\+A\+A\+D\+R1}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+A\+D\+R1}{MAADR1}}
+{\footnotesize\ttfamily \#define M\+A\+A\+D\+R1~0x60}
+
+
+
+Definition at line 97 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a12821080889b4c07b4d6592fbcb67aca}\label{eth0_8c_a12821080889b4c07b4d6592fbcb67aca}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+A\+D\+R2@{M\+A\+A\+D\+R2}}
+\index{M\+A\+A\+D\+R2@{M\+A\+A\+D\+R2}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+A\+D\+R2}{MAADR2}}
+{\footnotesize\ttfamily \#define M\+A\+A\+D\+R2~0x63}
+
+
+
+Definition at line 100 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_adab05794c311d260abaaec301a942be5}\label{eth0_8c_adab05794c311d260abaaec301a942be5}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+A\+D\+R3@{M\+A\+A\+D\+R3}}
+\index{M\+A\+A\+D\+R3@{M\+A\+A\+D\+R3}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+A\+D\+R3}{MAADR3}}
+{\footnotesize\ttfamily \#define M\+A\+A\+D\+R3~0x62}
+
+
+
+Definition at line 99 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ab5bd94627c03b8c599997934df7f0091}\label{eth0_8c_ab5bd94627c03b8c599997934df7f0091}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+A\+D\+R4@{M\+A\+A\+D\+R4}}
+\index{M\+A\+A\+D\+R4@{M\+A\+A\+D\+R4}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+A\+D\+R4}{MAADR4}}
+{\footnotesize\ttfamily \#define M\+A\+A\+D\+R4~0x65}
+
+
+
+Definition at line 102 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ab09dce1b21cca7564099bf5c2977027d}\label{eth0_8c_ab09dce1b21cca7564099bf5c2977027d}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+A\+D\+R5@{M\+A\+A\+D\+R5}}
+\index{M\+A\+A\+D\+R5@{M\+A\+A\+D\+R5}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+A\+D\+R5}{MAADR5}}
+{\footnotesize\ttfamily \#define M\+A\+A\+D\+R5~0x64}
+
+
+
+Definition at line 101 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a0aa3bb65f69bc921f3b4020410f7efc2}\label{eth0_8c_a0aa3bb65f69bc921f3b4020410f7efc2}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+B\+B\+I\+PG@{M\+A\+B\+B\+I\+PG}}
+\index{M\+A\+B\+B\+I\+PG@{M\+A\+B\+B\+I\+PG}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+B\+B\+I\+PG}{MABBIPG}}
+{\footnotesize\ttfamily \#define M\+A\+B\+B\+I\+PG~0x44}
+
+
+
+Definition at line 83 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_af78bae411a3ae7fe363ad63e93a2e618}\label{eth0_8c_af78bae411a3ae7fe363ad63e93a2e618}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+C\+L\+C\+O\+N1@{M\+A\+C\+L\+C\+O\+N1}}
+\index{M\+A\+C\+L\+C\+O\+N1@{M\+A\+C\+L\+C\+O\+N1}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+C\+L\+C\+O\+N1}{MACLCON1}}
+{\footnotesize\ttfamily \#define M\+A\+C\+L\+C\+O\+N1~0x48}
+
+
+
+Definition at line 86 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_acf3356546b7e518a4cf8b368d48a2710}\label{eth0_8c_acf3356546b7e518a4cf8b368d48a2710}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+C\+L\+C\+O\+N2@{M\+A\+C\+L\+C\+O\+N2}}
+\index{M\+A\+C\+L\+C\+O\+N2@{M\+A\+C\+L\+C\+O\+N2}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+C\+L\+C\+O\+N2}{MACLCON2}}
+{\footnotesize\ttfamily \#define M\+A\+C\+L\+C\+O\+N2~0x49}
+
+
+
+Definition at line 87 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ab64add14e73a7308bd32343c45caf79d}\label{eth0_8c_ab64add14e73a7308bd32343c45caf79d}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+C\+O\+N1@{M\+A\+C\+O\+N1}}
+\index{M\+A\+C\+O\+N1@{M\+A\+C\+O\+N1}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+C\+O\+N1}{MACON1}}
+{\footnotesize\ttfamily \#define M\+A\+C\+O\+N1~0x40}
+
+
+
+Definition at line 71 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a01501b400de6174cd44cd52cf9da0950}\label{eth0_8c_a01501b400de6174cd44cd52cf9da0950}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+C\+O\+N2@{M\+A\+C\+O\+N2}}
+\index{M\+A\+C\+O\+N2@{M\+A\+C\+O\+N2}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+C\+O\+N2}{MACON2}}
+{\footnotesize\ttfamily \#define M\+A\+C\+O\+N2~0x41}
+
+
+
+Definition at line 75 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a37e80f66673c39e7db383e0b11a159ea}\label{eth0_8c_a37e80f66673c39e7db383e0b11a159ea}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+C\+O\+N3@{M\+A\+C\+O\+N3}}
+\index{M\+A\+C\+O\+N3@{M\+A\+C\+O\+N3}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+C\+O\+N3}{MACON3}}
+{\footnotesize\ttfamily \#define M\+A\+C\+O\+N3~0x42}
+
+
+
+Definition at line 77 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a53c0d8f74a3ba17d1337e297ef749a22}\label{eth0_8c_a53c0d8f74a3ba17d1337e297ef749a22}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+C\+O\+N4@{M\+A\+C\+O\+N4}}
+\index{M\+A\+C\+O\+N4@{M\+A\+C\+O\+N4}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+C\+O\+N4}{MACON4}}
+{\footnotesize\ttfamily \#define M\+A\+C\+O\+N4~0x43}
+
+
+
+Definition at line 82 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a70b21ea01d623429bf3bd1abf583c80f}\label{eth0_8c_a70b21ea01d623429bf3bd1abf583c80f}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+I\+P\+GH@{M\+A\+I\+P\+GH}}
+\index{M\+A\+I\+P\+GH@{M\+A\+I\+P\+GH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+I\+P\+GH}{MAIPGH}}
+{\footnotesize\ttfamily \#define M\+A\+I\+P\+GH~0x47}
+
+
+
+Definition at line 85 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a8daa7f7ef529828ef4cc3d90a48ff730}\label{eth0_8c_a8daa7f7ef529828ef4cc3d90a48ff730}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+I\+P\+GL@{M\+A\+I\+P\+GL}}
+\index{M\+A\+I\+P\+GL@{M\+A\+I\+P\+GL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+I\+P\+GL}{MAIPGL}}
+{\footnotesize\ttfamily \#define M\+A\+I\+P\+GL~0x46}
+
+
+
+Definition at line 84 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a294e961d04adc72cbc8b866bb6506e8d}\label{eth0_8c_a294e961d04adc72cbc8b866bb6506e8d}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+M\+X\+F\+LH@{M\+A\+M\+X\+F\+LH}}
+\index{M\+A\+M\+X\+F\+LH@{M\+A\+M\+X\+F\+LH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+M\+X\+F\+LH}{MAMXFLH}}
+{\footnotesize\ttfamily \#define M\+A\+M\+X\+F\+LH~0x4B}
+
+
+
+Definition at line 89 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a4ed708903a040c0ea4fc071707863ffc}\label{eth0_8c_a4ed708903a040c0ea4fc071707863ffc}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+M\+X\+F\+LL@{M\+A\+M\+X\+F\+LL}}
+\index{M\+A\+M\+X\+F\+LL@{M\+A\+M\+X\+F\+LL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+M\+X\+F\+LL}{MAMXFLL}}
+{\footnotesize\ttfamily \#define M\+A\+M\+X\+F\+LL~0x4A}
+
+
+
+Definition at line 88 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ac8c4de938f683881693704da4844c807}\label{eth0_8c_ac8c4de938f683881693704da4844c807}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+R\+ST@{M\+A\+R\+ST}}
+\index{M\+A\+R\+ST@{M\+A\+R\+ST}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+R\+ST}{MARST}}
+{\footnotesize\ttfamily \#define M\+A\+R\+ST~0x80}
+
+
+
+Definition at line 76 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a5bafdeaf62f6f1040d02c76869a7e6ad}\label{eth0_8c_a5bafdeaf62f6f1040d02c76869a7e6ad}} 
+\index{eth0.\+c@{eth0.\+c}!M\+A\+R\+X\+EN@{M\+A\+R\+X\+EN}}
+\index{M\+A\+R\+X\+EN@{M\+A\+R\+X\+EN}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+R\+X\+EN}{MARXEN}}
+{\footnotesize\ttfamily \#define M\+A\+R\+X\+EN~0x01}
+
+
+
+Definition at line 72 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ace0861848e80b098118097a57737bade}\label{eth0_8c_ace0861848e80b098118097a57737bade}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+B\+U\+SY@{M\+I\+B\+U\+SY}}
+\index{M\+I\+B\+U\+SY@{M\+I\+B\+U\+SY}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+B\+U\+SY}{MIBUSY}}
+{\footnotesize\ttfamily \#define M\+I\+B\+U\+SY~0x01}
+
+
+
+Definition at line 104 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a6ca2ed513306c83432028d8ad3d49354}\label{eth0_8c_a6ca2ed513306c83432028d8ad3d49354}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+C\+MD@{M\+I\+C\+MD}}
+\index{M\+I\+C\+MD@{M\+I\+C\+MD}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+C\+MD}{MICMD}}
+{\footnotesize\ttfamily \#define M\+I\+C\+MD~0x52}
+
+
+
+Definition at line 90 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ae1a002121a1c33e90b17872514ce137a}\label{eth0_8c_ae1a002121a1c33e90b17872514ce137a}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+I\+RD@{M\+I\+I\+RD}}
+\index{M\+I\+I\+RD@{M\+I\+I\+RD}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+I\+RD}{MIIRD}}
+{\footnotesize\ttfamily \#define M\+I\+I\+RD~0x01}
+
+
+
+Definition at line 91 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ab2316c2a713dc20c6d0f892faa5c618b}\label{eth0_8c_ab2316c2a713dc20c6d0f892faa5c618b}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+R\+DH@{M\+I\+R\+DH}}
+\index{M\+I\+R\+DH@{M\+I\+R\+DH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+R\+DH}{MIRDH}}
+{\footnotesize\ttfamily \#define M\+I\+R\+DH~0x59}
+
+
+
+Definition at line 96 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_adc002e2f058cbc1cf556b4a33d0c401c}\label{eth0_8c_adc002e2f058cbc1cf556b4a33d0c401c}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+R\+DL@{M\+I\+R\+DL}}
+\index{M\+I\+R\+DL@{M\+I\+R\+DL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+R\+DL}{MIRDL}}
+{\footnotesize\ttfamily \#define M\+I\+R\+DL~0x58}
+
+
+
+Definition at line 95 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a01fb4e4ea7a7b71cbf2b341b0ebd77a3}\label{eth0_8c_a01fb4e4ea7a7b71cbf2b341b0ebd77a3}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+R\+E\+G\+A\+DR@{M\+I\+R\+E\+G\+A\+DR}}
+\index{M\+I\+R\+E\+G\+A\+DR@{M\+I\+R\+E\+G\+A\+DR}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+R\+E\+G\+A\+DR}{MIREGADR}}
+{\footnotesize\ttfamily \#define M\+I\+R\+E\+G\+A\+DR~0x54}
+
+
+
+Definition at line 92 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_abd6aab564bb58e789243684804aff335}\label{eth0_8c_abd6aab564bb58e789243684804aff335}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+S\+T\+AT@{M\+I\+S\+T\+AT}}
+\index{M\+I\+S\+T\+AT@{M\+I\+S\+T\+AT}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+S\+T\+AT}{MISTAT}}
+{\footnotesize\ttfamily \#define M\+I\+S\+T\+AT~0x6A}
+
+
+
+Definition at line 103 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_af5d129bad4e0df51b5a2f9f7ee0f2da4}\label{eth0_8c_af5d129bad4e0df51b5a2f9f7ee0f2da4}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+W\+RH@{M\+I\+W\+RH}}
+\index{M\+I\+W\+RH@{M\+I\+W\+RH}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+W\+RH}{MIWRH}}
+{\footnotesize\ttfamily \#define M\+I\+W\+RH~0x57}
+
+
+
+Definition at line 94 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a18aba35be6189e6150a9b4e2c2c29b69}\label{eth0_8c_a18aba35be6189e6150a9b4e2c2c29b69}} 
+\index{eth0.\+c@{eth0.\+c}!M\+I\+W\+RL@{M\+I\+W\+RL}}
+\index{M\+I\+W\+RL@{M\+I\+W\+RL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+W\+RL}{MIWRL}}
+{\footnotesize\ttfamily \#define M\+I\+W\+RL~0x56}
+
+
+
+Definition at line 93 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ab67a61415d9fda853ce94354a4b7c6a3}\label{eth0_8c_ab67a61415d9fda853ce94354a4b7c6a3}} 
+\index{eth0.\+c@{eth0.\+c}!P\+A\+D60@{P\+A\+D60}}
+\index{P\+A\+D60@{P\+A\+D60}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{P\+A\+D60}{PAD60}}
+{\footnotesize\ttfamily \#define P\+A\+D60~0x20}
+
+
+
+Definition at line 81 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ad5ab5d28ca8a473a8c2403b399f286ad}\label{eth0_8c_ad5ab5d28ca8a473a8c2403b399f286ad}} 
+\index{eth0.\+c@{eth0.\+c}!P\+D\+P\+X\+MD@{P\+D\+P\+X\+MD}}
+\index{P\+D\+P\+X\+MD@{P\+D\+P\+X\+MD}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{P\+D\+P\+X\+MD}{PDPXMD}}
+{\footnotesize\ttfamily \#define P\+D\+P\+X\+MD~0x0100}
+
+
+
+Definition at line 109 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a03e10f035e4f21f0d422a10037bd484c}\label{eth0_8c_a03e10f035e4f21f0d422a10037bd484c}} 
+\index{eth0.\+c@{eth0.\+c}!P\+H\+C\+O\+N1@{P\+H\+C\+O\+N1}}
+\index{P\+H\+C\+O\+N1@{P\+H\+C\+O\+N1}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{P\+H\+C\+O\+N1}{PHCON1}}
+{\footnotesize\ttfamily \#define P\+H\+C\+O\+N1~0x00}
+
+
+
+Definition at line 108 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a9cf7f25d840eaf2d2101797ee0e2e29e}\label{eth0_8c_a9cf7f25d840eaf2d2101797ee0e2e29e}} 
+\index{eth0.\+c@{eth0.\+c}!P\+H\+C\+O\+N2@{P\+H\+C\+O\+N2}}
+\index{P\+H\+C\+O\+N2@{P\+H\+C\+O\+N2}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{P\+H\+C\+O\+N2}{PHCON2}}
+{\footnotesize\ttfamily \#define P\+H\+C\+O\+N2~0x10}
+
+
+
+Definition at line 112 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a311d5ecccdeb773484bf84f33f0f0b37}\label{eth0_8c_a311d5ecccdeb773484bf84f33f0f0b37}} 
+\index{eth0.\+c@{eth0.\+c}!P\+H\+L\+C\+ON@{P\+H\+L\+C\+ON}}
+\index{P\+H\+L\+C\+ON@{P\+H\+L\+C\+ON}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{P\+H\+L\+C\+ON}{PHLCON}}
+{\footnotesize\ttfamily \#define P\+H\+L\+C\+ON~0x14}
+
+
+
+Definition at line 114 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a050305807ece6fe1683464afecf06e6e}\label{eth0_8c_a050305807ece6fe1683464afecf06e6e}} 
+\index{eth0.\+c@{eth0.\+c}!P\+H\+S\+T\+A\+T1@{P\+H\+S\+T\+A\+T1}}
+\index{P\+H\+S\+T\+A\+T1@{P\+H\+S\+T\+A\+T1}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{P\+H\+S\+T\+A\+T1}{PHSTAT1}}
+{\footnotesize\ttfamily \#define P\+H\+S\+T\+A\+T1~0x01}
+
+
+
+Definition at line 110 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a2749c0d85a8e2a2686eb6c05ccae2087}\label{eth0_8c_a2749c0d85a8e2a2686eb6c05ccae2087}} 
+\index{eth0.\+c@{eth0.\+c}!P\+K\+T\+D\+EC@{P\+K\+T\+D\+EC}}
+\index{P\+K\+T\+D\+EC@{P\+K\+T\+D\+EC}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{P\+K\+T\+D\+EC}{PKTDEC}}
+{\footnotesize\ttfamily \#define P\+K\+T\+D\+EC~0x40}
+
+
+
+Definition at line 65 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a567e73e06d0b2569df3aa2c53c4540bb}\label{eth0_8c_a567e73e06d0b2569df3aa2c53c4540bb}} 
+\index{eth0.\+c@{eth0.\+c}!P\+K\+T\+IF@{P\+K\+T\+IF}}
+\index{P\+K\+T\+IF@{P\+K\+T\+IF}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{P\+K\+T\+IF}{PKTIF}}
+{\footnotesize\ttfamily \#define P\+K\+T\+IF~0x40}
+
+
+
+Definition at line 60 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a5a1bf6f4852d0c813756b783ff285bab}\label{eth0_8c_a5a1bf6f4852d0c813756b783ff285bab}} 
+\index{eth0.\+c@{eth0.\+c}!R\+X\+EN@{R\+X\+EN}}
+\index{R\+X\+EN@{R\+X\+EN}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{R\+X\+EN}{RXEN}}
+{\footnotesize\ttfamily \#define R\+X\+EN~0x04}
+
+
+
+Definition at line 67 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_adb3411c72b313ba961c0cf775cf9db02}\label{eth0_8c_adb3411c72b313ba961c0cf775cf9db02}} 
+\index{eth0.\+c@{eth0.\+c}!R\+X\+E\+R\+IF@{R\+X\+E\+R\+IF}}
+\index{R\+X\+E\+R\+IF@{R\+X\+E\+R\+IF}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{R\+X\+E\+R\+IF}{RXERIF}}
+{\footnotesize\ttfamily \#define R\+X\+E\+R\+IF~0x01}
+
+
+
+Definition at line 57 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a13e2c5a266fa002bd903394ea9313708}\label{eth0_8c_a13e2c5a266fa002bd903394ea9313708}} 
+\index{eth0.\+c@{eth0.\+c}!R\+X\+P\+A\+US@{R\+X\+P\+A\+US}}
+\index{R\+X\+P\+A\+US@{R\+X\+P\+A\+US}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{R\+X\+P\+A\+US}{RXPAUS}}
+{\footnotesize\ttfamily \#define R\+X\+P\+A\+US~0x04}
+
+
+
+Definition at line 73 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a6dae2de25c84b91c5d49a3145cf04305}\label{eth0_8c_a6dae2de25c84b91c5d49a3145cf04305}} 
+\index{eth0.\+c@{eth0.\+c}!T\+X\+A\+B\+O\+RT@{T\+X\+A\+B\+O\+RT}}
+\index{T\+X\+A\+B\+O\+RT@{T\+X\+A\+B\+O\+RT}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{T\+X\+A\+B\+O\+RT}{TXABORT}}
+{\footnotesize\ttfamily \#define T\+X\+A\+B\+O\+RT~0x02}
+
+
+
+Definition at line 63 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a835f9be221794e025cde45d42fe95794}\label{eth0_8c_a835f9be221794e025cde45d42fe95794}} 
+\index{eth0.\+c@{eth0.\+c}!T\+X\+C\+R\+C\+EN@{T\+X\+C\+R\+C\+EN}}
+\index{T\+X\+C\+R\+C\+EN@{T\+X\+C\+R\+C\+EN}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{T\+X\+C\+R\+C\+EN}{TXCRCEN}}
+{\footnotesize\ttfamily \#define T\+X\+C\+R\+C\+EN~0x10}
+
+
+
+Definition at line 80 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a7a0f9cb1aef73f027e31bd01426f2d7a}\label{eth0_8c_a7a0f9cb1aef73f027e31bd01426f2d7a}} 
+\index{eth0.\+c@{eth0.\+c}!T\+X\+E\+R\+IF@{T\+X\+E\+R\+IF}}
+\index{T\+X\+E\+R\+IF@{T\+X\+E\+R\+IF}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{T\+X\+E\+R\+IF}{TXERIF}}
+{\footnotesize\ttfamily \#define T\+X\+E\+R\+IF~0x02}
+
+
+
+Definition at line 58 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ac765fb3c77a3c11ddd4e7ac9ea7b4bed}\label{eth0_8c_ac765fb3c77a3c11ddd4e7ac9ea7b4bed}} 
+\index{eth0.\+c@{eth0.\+c}!T\+X\+IF@{T\+X\+IF}}
+\index{T\+X\+IF@{T\+X\+IF}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{T\+X\+IF}{TXIF}}
+{\footnotesize\ttfamily \#define T\+X\+IF~0x08}
+
+
+
+Definition at line 59 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_aa96ab16a2dddfccd77b723367e7d9acd}\label{eth0_8c_aa96ab16a2dddfccd77b723367e7d9acd}} 
+\index{eth0.\+c@{eth0.\+c}!T\+X\+P\+A\+US@{T\+X\+P\+A\+US}}
+\index{T\+X\+P\+A\+US@{T\+X\+P\+A\+US}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{T\+X\+P\+A\+US}{TXPAUS}}
+{\footnotesize\ttfamily \#define T\+X\+P\+A\+US~0x08}
+
+
+
+Definition at line 74 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ac97c83c67cb160908e4f640370155c2a}\label{eth0_8c_ac97c83c67cb160908e4f640370155c2a}} 
+\index{eth0.\+c@{eth0.\+c}!T\+X\+R\+TS@{T\+X\+R\+TS}}
+\index{T\+X\+R\+TS@{T\+X\+R\+TS}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{T\+X\+R\+TS}{TXRTS}}
+{\footnotesize\ttfamily \#define T\+X\+R\+TS~0x08}
+
+
+
+Definition at line 68 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a766daf7210b73953ce55988d8bd0e3b8}\label{eth0_8c_a766daf7210b73953ce55988d8bd0e3b8}} 
+\index{eth0.\+c@{eth0.\+c}!W\+OL@{W\+OL}}
+\index{W\+OL@{W\+OL}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{W\+OL}{WOL}}
+{\footnotesize\ttfamily \#define W\+OL~\hyperlink{gpio_8h_a26254f886d2dced3476c09635a7e5d5bae51dea4a37f3e2ede7ba6f27c563f6a4}{P\+O\+R\+TB},3}
+
+
+
+Definition at line 35 of file eth0.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{eth0_8c_a38241c09b42791119c8dbab457febeda}\label{eth0_8c_a38241c09b42791119c8dbab457febeda}} 
+\index{eth0.\+c@{eth0.\+c}!clear\+Ether\+Reg@{clear\+Ether\+Reg}}
+\index{clear\+Ether\+Reg@{clear\+Ether\+Reg}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{clear\+Ether\+Reg()}{clearEtherReg()}}
+{\footnotesize\ttfamily void clear\+Ether\+Reg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg,  }\item[{uint8\+\_\+t}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 180 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a38241c09b42791119c8dbab457febeda_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a38241c09b42791119c8dbab457febeda_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a159404cc749fadcacda50a180a5adbd7}\label{eth0_8c_a159404cc749fadcacda50a180a5adbd7}} 
+\index{eth0.\+c@{eth0.\+c}!disable\+Ether\+Cs@{disable\+Ether\+Cs}}
+\index{disable\+Ether\+Cs@{disable\+Ether\+Cs}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{disable\+Ether\+Cs()}{disableEtherCs()}}
+{\footnotesize\ttfamily void disable\+Ether\+Cs (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 143 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{eth0_8c_a159404cc749fadcacda50a180a5adbd7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a159404cc749fadcacda50a180a5adbd7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a710f2a378c0c955c211f9e4670ade7ed}\label{eth0_8c_a710f2a378c0c955c211f9e4670ade7ed}} 
+\index{eth0.\+c@{eth0.\+c}!enable\+Ether\+Cs@{enable\+Ether\+Cs}}
+\index{enable\+Ether\+Cs@{enable\+Ether\+Cs}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{enable\+Ether\+Cs()}{enableEtherCs()}}
+{\footnotesize\ttfamily void enable\+Ether\+Cs (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 137 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{eth0_8c_a710f2a378c0c955c211f9e4670ade7ed_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a710f2a378c0c955c211f9e4670ade7ed_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a8faf425b2ef6ee8b0d0634e656e45139}\label{eth0_8c_a8faf425b2ef6ee8b0d0634e656e45139}} 
+\index{eth0.\+c@{eth0.\+c}!get\+Ether\+Id@{get\+Ether\+Id}}
+\index{get\+Ether\+Id@{get\+Ether\+Id}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{get\+Ether\+Id()}{getEtherId()}}
+{\footnotesize\ttfamily uint16\+\_\+t get\+Ether\+Id (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 486 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{eth0_8c_a8faf425b2ef6ee8b0d0634e656e45139_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a2310c30c40c60e9f61edbc0c9509c65e}\label{eth0_8c_a2310c30c40c60e9f61edbc0c9509c65e}} 
+\index{eth0.\+c@{eth0.\+c}!get\+Ether\+Mac\+Address@{get\+Ether\+Mac\+Address}}
+\index{get\+Ether\+Mac\+Address@{get\+Ether\+Mac\+Address}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{get\+Ether\+Mac\+Address()}{getEtherMacAddress()}}
+{\footnotesize\ttfamily void get\+Ether\+Mac\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mac\mbox{[}\+H\+W\+\_\+\+A\+D\+D\+\_\+\+L\+E\+N\+G\+T\+H\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 515 of file eth0.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a2310c30c40c60e9f61edbc0c9509c65e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a3c910947910e057b2307632295be61de}\label{eth0_8c_a3c910947910e057b2307632295be61de}} 
+\index{eth0.\+c@{eth0.\+c}!get\+Ether\+Packet@{get\+Ether\+Packet}}
+\index{get\+Ether\+Packet@{get\+Ether\+Packet}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{get\+Ether\+Packet()}{getEtherPacket()}}
+{\footnotesize\ttfamily uint16\+\_\+t get\+Ether\+Packet (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether,  }\item[{uint16\+\_\+t}]{max\+Size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 382 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a3c910947910e057b2307632295be61de_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{eth0_8c_a3c910947910e057b2307632295be61de_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a0e7477edd2a29331acedcd4f1d8b0d1a}\label{eth0_8c_a0e7477edd2a29331acedcd4f1d8b0d1a}} 
+\index{eth0.\+c@{eth0.\+c}!htonl@{htonl}}
+\index{htonl@{htonl}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{htonl()}{htonl()}}
+{\footnotesize\ttfamily uint32\+\_\+t htonl (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 480 of file eth0.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a0e7477edd2a29331acedcd4f1d8b0d1a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_af86d9622798ed7e76bd7de347df940ae}\label{eth0_8c_af86d9622798ed7e76bd7de347df940ae}} 
+\index{eth0.\+c@{eth0.\+c}!htons@{htons}}
+\index{htons@{htons}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{htons()}{htons()}}
+{\footnotesize\ttfamily uint16\+\_\+t htons (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 475 of file eth0.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_af86d9622798ed7e76bd7de347df940ae_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_aafe022cdee56a8cfeb19b3a40d1ff768}\label{eth0_8c_aafe022cdee56a8cfeb19b3a40d1ff768}} 
+\index{eth0.\+c@{eth0.\+c}!inc\+Ether\+Id@{inc\+Ether\+Id}}
+\index{inc\+Ether\+Id@{inc\+Ether\+Id}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{inc\+Ether\+Id()}{incEtherId()}}
+{\footnotesize\ttfamily void inc\+Ether\+Id (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 491 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_aecae72b4579b409c7c7c90c2c12237f1}\label{eth0_8c_aecae72b4579b409c7c7c90c2c12237f1}} 
+\index{eth0.\+c@{eth0.\+c}!init\+Ether@{init\+Ether}}
+\index{init\+Ether@{init\+Ether}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{init\+Ether()}{initEther()}}
+{\footnotesize\ttfamily void init\+Ether (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+
+
+Definition at line 259 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_aecae72b4579b409c7c7c90c2c12237f1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{eth0_8c_aecae72b4579b409c7c7c90c2c12237f1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_abbc16de0f8318b921e173fdea69650f0}\label{eth0_8c_abbc16de0f8318b921e173fdea69650f0}} 
+\index{eth0.\+c@{eth0.\+c}!is\+Ether\+Data\+Available@{is\+Ether\+Data\+Available}}
+\index{is\+Ether\+Data\+Available@{is\+Ether\+Data\+Available}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{is\+Ether\+Data\+Available()}{isEtherDataAvailable()}}
+{\footnotesize\ttfamily bool is\+Ether\+Data\+Available (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 364 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_abbc16de0f8318b921e173fdea69650f0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{eth0_8c_abbc16de0f8318b921e173fdea69650f0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a3bbcc2a0d14181ed2dc3f1e221997ee5}\label{eth0_8c_a3bbcc2a0d14181ed2dc3f1e221997ee5}} 
+\index{eth0.\+c@{eth0.\+c}!is\+Ether\+Link\+Up@{is\+Ether\+Link\+Up}}
+\index{is\+Ether\+Link\+Up@{is\+Ether\+Link\+Up}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{is\+Ether\+Link\+Up()}{isEtherLinkUp()}}
+{\footnotesize\ttfamily bool is\+Ether\+Link\+Up (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 358 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a3bbcc2a0d14181ed2dc3f1e221997ee5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a3bbcc2a0d14181ed2dc3f1e221997ee5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a0ca653f48ca731d0be8fcb8af85c54bf}\label{eth0_8c_a0ca653f48ca731d0be8fcb8af85c54bf}} 
+\index{eth0.\+c@{eth0.\+c}!is\+Ether\+Overflow@{is\+Ether\+Overflow}}
+\index{is\+Ether\+Overflow@{is\+Ether\+Overflow}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{is\+Ether\+Overflow()}{isEtherOverflow()}}
+{\footnotesize\ttfamily bool is\+Ether\+Overflow (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 370 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a0ca653f48ca731d0be8fcb8af85c54bf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{eth0_8c_a0ca653f48ca731d0be8fcb8af85c54bf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a9908befa3f95ad0b652ef68a53000634}\label{eth0_8c_a9908befa3f95ad0b652ef68a53000634}} 
+\index{eth0.\+c@{eth0.\+c}!put\+Ether\+Packet@{put\+Ether\+Packet}}
+\index{put\+Ether\+Packet@{put\+Ether\+Packet}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{put\+Ether\+Packet()}{putEtherPacket()}}
+{\footnotesize\ttfamily bool put\+Ether\+Packet (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 428 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a9908befa3f95ad0b652ef68a53000634_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a9908befa3f95ad0b652ef68a53000634_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_aaa4099eb7c6e6b9ef1cc0214e3736c0b}\label{eth0_8c_aaa4099eb7c6e6b9ef1cc0214e3736c0b}} 
+\index{eth0.\+c@{eth0.\+c}!read\+Ether\+Mem@{read\+Ether\+Mem}}
+\index{read\+Ether\+Mem@{read\+Ether\+Mem}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{read\+Ether\+Mem()}{readEtherMem()}}
+{\footnotesize\ttfamily uint8\+\_\+t read\+Ether\+Mem (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 246 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{eth0_8c_aaa4099eb7c6e6b9ef1cc0214e3736c0b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_aaa4099eb7c6e6b9ef1cc0214e3736c0b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a794aa232a607af373be4e2abffb74ef8}\label{eth0_8c_a794aa232a607af373be4e2abffb74ef8}} 
+\index{eth0.\+c@{eth0.\+c}!read\+Ether\+Phy@{read\+Ether\+Phy}}
+\index{read\+Ether\+Phy@{read\+Ether\+Phy}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{read\+Ether\+Phy()}{readEtherPhy()}}
+{\footnotesize\ttfamily uint16\+\_\+t read\+Ether\+Phy (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 204 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a794aa232a607af373be4e2abffb74ef8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a794aa232a607af373be4e2abffb74ef8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_aceaa52a49cf227193b6a1b49cfc03d84}\label{eth0_8c_aceaa52a49cf227193b6a1b49cfc03d84}} 
+\index{eth0.\+c@{eth0.\+c}!read\+Ether\+Reg@{read\+Ether\+Reg}}
+\index{read\+Ether\+Reg@{read\+Ether\+Reg}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{read\+Ether\+Reg()}{readEtherReg()}}
+{\footnotesize\ttfamily uint8\+\_\+t read\+Ether\+Reg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 158 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_aceaa52a49cf227193b6a1b49cfc03d84_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_aceaa52a49cf227193b6a1b49cfc03d84_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_ae1db6f1bddfe9bfec4eaff780300f72e}\label{eth0_8c_ae1db6f1bddfe9bfec4eaff780300f72e}} 
+\index{eth0.\+c@{eth0.\+c}!set\+Ether\+Bank@{set\+Ether\+Bank}}
+\index{set\+Ether\+Bank@{set\+Ether\+Bank}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{set\+Ether\+Bank()}{setEtherBank()}}
+{\footnotesize\ttfamily void set\+Ether\+Bank (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 190 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_ae1db6f1bddfe9bfec4eaff780300f72e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_ae1db6f1bddfe9bfec4eaff780300f72e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_afcc4d6e0bb55eb862abfd8da36d1cd6d}\label{eth0_8c_afcc4d6e0bb55eb862abfd8da36d1cd6d}} 
+\index{eth0.\+c@{eth0.\+c}!set\+Ether\+Mac\+Address@{set\+Ether\+Mac\+Address}}
+\index{set\+Ether\+Mac\+Address@{set\+Ether\+Mac\+Address}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{set\+Ether\+Mac\+Address()}{setEtherMacAddress()}}
+{\footnotesize\ttfamily void set\+Ether\+Mac\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mac0,  }\item[{uint8\+\_\+t}]{mac1,  }\item[{uint8\+\_\+t}]{mac2,  }\item[{uint8\+\_\+t}]{mac3,  }\item[{uint8\+\_\+t}]{mac4,  }\item[{uint8\+\_\+t}]{mac5 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 497 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_afcc4d6e0bb55eb862abfd8da36d1cd6d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{eth0_8c_afcc4d6e0bb55eb862abfd8da36d1cd6d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a3e736df66218730f1339d440c4b05cae}\label{eth0_8c_a3e736df66218730f1339d440c4b05cae}} 
+\index{eth0.\+c@{eth0.\+c}!set\+Ether\+Reg@{set\+Ether\+Reg}}
+\index{set\+Ether\+Reg@{set\+Ether\+Reg}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{set\+Ether\+Reg()}{setEtherReg()}}
+{\footnotesize\ttfamily void set\+Ether\+Reg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg,  }\item[{uint8\+\_\+t}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 170 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a3e736df66218730f1339d440c4b05cae_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a3e736df66218730f1339d440c4b05cae_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a4f9c299a7f58fb3d1d6b75e6986ecb01}\label{eth0_8c_a4f9c299a7f58fb3d1d6b75e6986ecb01}} 
+\index{eth0.\+c@{eth0.\+c}!start\+Ether\+Mem\+Read@{start\+Ether\+Mem\+Read}}
+\index{start\+Ether\+Mem\+Read@{start\+Ether\+Mem\+Read}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{start\+Ether\+Mem\+Read()}{startEtherMemRead()}}
+{\footnotesize\ttfamily void start\+Ether\+Mem\+Read (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 239 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a4f9c299a7f58fb3d1d6b75e6986ecb01_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a4f9c299a7f58fb3d1d6b75e6986ecb01_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a91e1a45ccece2fd39a19008997207360}\label{eth0_8c_a91e1a45ccece2fd39a19008997207360}} 
+\index{eth0.\+c@{eth0.\+c}!start\+Ether\+Mem\+Write@{start\+Ether\+Mem\+Write}}
+\index{start\+Ether\+Mem\+Write@{start\+Ether\+Mem\+Write}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{start\+Ether\+Mem\+Write()}{startEtherMemWrite()}}
+{\footnotesize\ttfamily void start\+Ether\+Mem\+Write (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 221 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a91e1a45ccece2fd39a19008997207360_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a91e1a45ccece2fd39a19008997207360_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a6faaebe4427947ea9f7e420d420f9b62}\label{eth0_8c_a6faaebe4427947ea9f7e420d420f9b62}} 
+\index{eth0.\+c@{eth0.\+c}!stop\+Ether\+Mem\+Read@{stop\+Ether\+Mem\+Read}}
+\index{stop\+Ether\+Mem\+Read@{stop\+Ether\+Mem\+Read}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{stop\+Ether\+Mem\+Read()}{stopEtherMemRead()}}
+{\footnotesize\ttfamily void stop\+Ether\+Mem\+Read (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 252 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a6faaebe4427947ea9f7e420d420f9b62_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a6faaebe4427947ea9f7e420d420f9b62_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a481f721b62dec9128c72100875103a8a}\label{eth0_8c_a481f721b62dec9128c72100875103a8a}} 
+\index{eth0.\+c@{eth0.\+c}!stop\+Ether\+Mem\+Write@{stop\+Ether\+Mem\+Write}}
+\index{stop\+Ether\+Mem\+Write@{stop\+Ether\+Mem\+Write}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{stop\+Ether\+Mem\+Write()}{stopEtherMemWrite()}}
+{\footnotesize\ttfamily void stop\+Ether\+Mem\+Write (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 234 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a481f721b62dec9128c72100875103a8a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a481f721b62dec9128c72100875103a8a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a11eacf1c697bbcc4dc95a7ab702e6ba5}\label{eth0_8c_a11eacf1c697bbcc4dc95a7ab702e6ba5}} 
+\index{eth0.\+c@{eth0.\+c}!write\+Ether\+Mem@{write\+Ether\+Mem}}
+\index{write\+Ether\+Mem@{write\+Ether\+Mem}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{write\+Ether\+Mem()}{writeEtherMem()}}
+{\footnotesize\ttfamily void write\+Ether\+Mem (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 228 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{eth0_8c_a11eacf1c697bbcc4dc95a7ab702e6ba5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a11eacf1c697bbcc4dc95a7ab702e6ba5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_ae383ebcd73e965e4898e09917391e9ef}\label{eth0_8c_ae383ebcd73e965e4898e09917391e9ef}} 
+\index{eth0.\+c@{eth0.\+c}!write\+Ether\+Phy@{write\+Ether\+Phy}}
+\index{write\+Ether\+Phy@{write\+Ether\+Phy}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{write\+Ether\+Phy()}{writeEtherPhy()}}
+{\footnotesize\ttfamily void write\+Ether\+Phy (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg,  }\item[{uint16\+\_\+t}]{data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 196 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_ae383ebcd73e965e4898e09917391e9ef_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{eth0_8c_ae383ebcd73e965e4898e09917391e9ef_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{eth0_8c_a5308b6a5c80e4a964ce8dcf3d0bb44e2}\label{eth0_8c_a5308b6a5c80e4a964ce8dcf3d0bb44e2}} 
+\index{eth0.\+c@{eth0.\+c}!write\+Ether\+Reg@{write\+Ether\+Reg}}
+\index{write\+Ether\+Reg@{write\+Ether\+Reg}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{write\+Ether\+Reg()}{writeEtherReg()}}
+{\footnotesize\ttfamily void write\+Ether\+Reg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg,  }\item[{uint8\+\_\+t}]{data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 148 of file eth0.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a5308b6a5c80e4a964ce8dcf3d0bb44e2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eth0_8c_a5308b6a5c80e4a964ce8dcf3d0bb44e2_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{eth0_8c_a0822e070c34d5ebc6c0ca92050293261}\label{eth0_8c_a0822e070c34d5ebc6c0ca92050293261}} 
+\index{eth0.\+c@{eth0.\+c}!hw\+Address@{hw\+Address}}
+\index{hw\+Address@{hw\+Address}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{hw\+Address}{hwAddress}}
+{\footnotesize\ttfamily uint8\+\_\+t hw\+Address\mbox{[}\hyperlink{eth0_8h_a636be4362c6d2cc570e9a8e6a8519d88}{H\+W\+\_\+\+A\+D\+D\+\_\+\+L\+E\+N\+G\+TH}\mbox{]} = \{2,3,4,5,6,7\}}
+
+
+
+Definition at line 123 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_a4b89283ff8dba420cacfc5605c2473ed}\label{eth0_8c_a4b89283ff8dba420cacfc5605c2473ed}} 
+\index{eth0.\+c@{eth0.\+c}!next\+Packet\+Lsb@{next\+Packet\+Lsb}}
+\index{next\+Packet\+Lsb@{next\+Packet\+Lsb}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{next\+Packet\+Lsb}{nextPacketLsb}}
+{\footnotesize\ttfamily uint8\+\_\+t next\+Packet\+Lsb = 0x00}
+
+
+
+Definition at line 120 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ae8972404b25e6b04501d0e964388c43f}\label{eth0_8c_ae8972404b25e6b04501d0e964388c43f}} 
+\index{eth0.\+c@{eth0.\+c}!next\+Packet\+Msb@{next\+Packet\+Msb}}
+\index{next\+Packet\+Msb@{next\+Packet\+Msb}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{next\+Packet\+Msb}{nextPacketMsb}}
+{\footnotesize\ttfamily uint8\+\_\+t next\+Packet\+Msb = 0x00}
+
+
+
+Definition at line 121 of file eth0.\+c.
+
+\mbox{\Hypertarget{eth0_8c_ae406c54a3f430f53b7036a3233d9238b}\label{eth0_8c_ae406c54a3f430f53b7036a3233d9238b}} 
+\index{eth0.\+c@{eth0.\+c}!sequence\+Id@{sequence\+Id}}
+\index{sequence\+Id@{sequence\+Id}!eth0.\+c@{eth0.\+c}}
+\subsubsection{\texorpdfstring{sequence\+Id}{sequenceId}}
+{\footnotesize\ttfamily uint8\+\_\+t sequence\+Id = 1}
+
+
+
+Definition at line 122 of file eth0.\+c.
+

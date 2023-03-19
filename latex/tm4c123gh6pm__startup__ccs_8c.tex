@@ -1,0 +1,111 @@
+\hypertarget{tm4c123gh6pm__startup__ccs_8c}{}\section{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c File Reference}
+\label{tm4c123gh6pm__startup__ccs_8c}\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{tm4c123gh6pm__startup__ccs_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{tm4c123gh6pm__startup__ccs_8c_a516ff8924be921fa3a1bb7754b1f5734}{Reset\+I\+SR} (void)
+\item 
+static void \hyperlink{tm4c123gh6pm__startup__ccs_8c_ab6bfaa60e7bfe85a2116230a2afdcb40}{Nmi\+SR} (void)
+\item 
+static void \hyperlink{tm4c123gh6pm__startup__ccs_8c_a50057a2a70b3ab2320bc6e3f93e83d27}{Fault\+I\+SR} (void)
+\item 
+static void \hyperlink{tm4c123gh6pm__startup__ccs_8c_ac62d95950fb9f007b01e80b27290ee43}{Int\+Default\+Handler} (void)
+\item 
+void \hyperlink{tm4c123gh6pm__startup__ccs_8c_a3c8534f5781f4cf53ffbeb6d35880b27}{\+\_\+c\+\_\+int00} (void)
+\item 
+void \hyperlink{tm4c123gh6pm__startup__ccs_8c_a7a0563816b99190da2084a2cfc103234}{tick\+Isr} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \hyperlink{tm4c123gh6pm__startup__ccs_8c_ac1f2b7c32de8681c4f4184ca6efca568}{\+\_\+\+\_\+\+S\+T\+A\+C\+K\+\_\+\+T\+OP}
+\item 
+void($\ast$const \hyperlink{tm4c123gh6pm__startup__ccs_8c_a28c770c8f2522f11e2a95f7486620c5b}{g\+\_\+pfn\+Vectors} \mbox{[}$\,$\mbox{]})(void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{tm4c123gh6pm__startup__ccs_8c_a3c8534f5781f4cf53ffbeb6d35880b27}\label{tm4c123gh6pm__startup__ccs_8c_a3c8534f5781f4cf53ffbeb6d35880b27}} 
+\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}!\+\_\+c\+\_\+int00@{\+\_\+c\+\_\+int00}}
+\index{\+\_\+c\+\_\+int00@{\+\_\+c\+\_\+int00}!tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+c\+\_\+int00()}{\_c\_int00()}}
+{\footnotesize\ttfamily void \+\_\+c\+\_\+int00 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tm4c123gh6pm__startup__ccs_8c_a50057a2a70b3ab2320bc6e3f93e83d27}\label{tm4c123gh6pm__startup__ccs_8c_a50057a2a70b3ab2320bc6e3f93e83d27}} 
+\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}!Fault\+I\+SR@{Fault\+I\+SR}}
+\index{Fault\+I\+SR@{Fault\+I\+SR}!tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+\subsubsection{\texorpdfstring{Fault\+I\+S\+R()}{FaultISR()}}
+{\footnotesize\ttfamily static void Fault\+I\+SR (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 274 of file tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c.
+
+\mbox{\Hypertarget{tm4c123gh6pm__startup__ccs_8c_ac62d95950fb9f007b01e80b27290ee43}\label{tm4c123gh6pm__startup__ccs_8c_ac62d95950fb9f007b01e80b27290ee43}} 
+\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}!Int\+Default\+Handler@{Int\+Default\+Handler}}
+\index{Int\+Default\+Handler@{Int\+Default\+Handler}!tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+\subsubsection{\texorpdfstring{Int\+Default\+Handler()}{IntDefaultHandler()}}
+{\footnotesize\ttfamily static void Int\+Default\+Handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 292 of file tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c.
+
+\mbox{\Hypertarget{tm4c123gh6pm__startup__ccs_8c_ab6bfaa60e7bfe85a2116230a2afdcb40}\label{tm4c123gh6pm__startup__ccs_8c_ab6bfaa60e7bfe85a2116230a2afdcb40}} 
+\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}!Nmi\+SR@{Nmi\+SR}}
+\index{Nmi\+SR@{Nmi\+SR}!tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+\subsubsection{\texorpdfstring{Nmi\+S\+R()}{NmiSR()}}
+{\footnotesize\ttfamily static void Nmi\+SR (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 256 of file tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c.
+
+\mbox{\Hypertarget{tm4c123gh6pm__startup__ccs_8c_a516ff8924be921fa3a1bb7754b1f5734}\label{tm4c123gh6pm__startup__ccs_8c_a516ff8924be921fa3a1bb7754b1f5734}} 
+\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}!Reset\+I\+SR@{Reset\+I\+SR}}
+\index{Reset\+I\+SR@{Reset\+I\+SR}!tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+\subsubsection{\texorpdfstring{Reset\+I\+S\+R()}{ResetISR()}}
+{\footnotesize\ttfamily void Reset\+I\+SR (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 238 of file tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c.
+
+\mbox{\Hypertarget{tm4c123gh6pm__startup__ccs_8c_a7a0563816b99190da2084a2cfc103234}\label{tm4c123gh6pm__startup__ccs_8c_a7a0563816b99190da2084a2cfc103234}} 
+\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}!tick\+Isr@{tick\+Isr}}
+\index{tick\+Isr@{tick\+Isr}!tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+\subsubsection{\texorpdfstring{tick\+Isr()}{tickIsr()}}
+{\footnotesize\ttfamily void tick\+Isr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 131 of file timer.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{tm4c123gh6pm__startup__ccs_8c_ac1f2b7c32de8681c4f4184ca6efca568}\label{tm4c123gh6pm__startup__ccs_8c_ac1f2b7c32de8681c4f4184ca6efca568}} 
+\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}!\+\_\+\+\_\+\+S\+T\+A\+C\+K\+\_\+\+T\+OP@{\+\_\+\+\_\+\+S\+T\+A\+C\+K\+\_\+\+T\+OP}}
+\index{\+\_\+\+\_\+\+S\+T\+A\+C\+K\+\_\+\+T\+OP@{\+\_\+\+\_\+\+S\+T\+A\+C\+K\+\_\+\+T\+OP}!tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+\+S\+T\+A\+C\+K\+\_\+\+T\+OP}{\_\_STACK\_TOP}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+\+\_\+\+S\+T\+A\+C\+K\+\_\+\+T\+OP}
+
+\mbox{\Hypertarget{tm4c123gh6pm__startup__ccs_8c_a28c770c8f2522f11e2a95f7486620c5b}\label{tm4c123gh6pm__startup__ccs_8c_a28c770c8f2522f11e2a95f7486620c5b}} 
+\index{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}!g\+\_\+pfn\+Vectors@{g\+\_\+pfn\+Vectors}}
+\index{g\+\_\+pfn\+Vectors@{g\+\_\+pfn\+Vectors}!tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c@{tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c}}
+\subsubsection{\texorpdfstring{g\+\_\+pfn\+Vectors}{g\_pfnVectors}}
+{\footnotesize\ttfamily void($\ast$ const g\+\_\+pfn\+Vectors\mbox{[}$\,$\mbox{]})(void)}
+
+
+
+Definition at line 67 of file tm4c123gh6pm\+\_\+startup\+\_\+ccs.\+c.
+

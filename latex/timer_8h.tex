@@ -1,0 +1,158 @@
+\hypertarget{timer_8h}{}\section{timer.\+h File Reference}
+\label{timer_8h}\index{timer.\+h@{timer.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{timer_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback}) ()
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{timer_8h_a5a7931957f8a5298b3982cab604da1ee}{init\+Timer} ()
+\item 
+bool \hyperlink{timer_8h_a894b868de871bc73f3787c18466b1cee}{start\+Oneshot\+Timer} (\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} callback, uint32\+\_\+t seconds)
+\item 
+bool \hyperlink{timer_8h_a221a0ad49a32d9d8390c69b9bccc8ad0}{start\+Periodic\+Timer} (\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} callback, uint32\+\_\+t seconds)
+\item 
+bool \hyperlink{timer_8h_a60b86504389ce168084f15dba34378d1}{stop\+Timer} (\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} callback)
+\item 
+bool \hyperlink{timer_8h_ae4d94e3bb08cfcee00ebd01841c5a5e6}{restart\+Timer} (\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} callback)
+\item 
+void \hyperlink{timer_8h_a7a0563816b99190da2084a2cfc103234}{tick\+Isr} ()
+\item 
+uint32\+\_\+t \hyperlink{timer_8h_a74a318bbae856b2de48ba7490e0460af}{random32} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}\label{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}} 
+\index{timer.\+h@{timer.\+h}!\+\_\+callback@{\+\_\+callback}}
+\index{\+\_\+callback@{\+\_\+callback}!timer.\+h@{timer.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+callback}{\_callback}}
+{\footnotesize\ttfamily typedef void($\ast$ \+\_\+callback) ()}
+
+
+
+Definition at line 22 of file timer.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{timer_8h_a5a7931957f8a5298b3982cab604da1ee}\label{timer_8h_a5a7931957f8a5298b3982cab604da1ee}} 
+\index{timer.\+h@{timer.\+h}!init\+Timer@{init\+Timer}}
+\index{init\+Timer@{init\+Timer}!timer.\+h@{timer.\+h}}
+\subsubsection{\texorpdfstring{init\+Timer()}{initTimer()}}
+{\footnotesize\ttfamily void init\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 40 of file timer.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{timer_8h_a5a7931957f8a5298b3982cab604da1ee_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{timer_8h_a74a318bbae856b2de48ba7490e0460af}\label{timer_8h_a74a318bbae856b2de48ba7490e0460af}} 
+\index{timer.\+h@{timer.\+h}!random32@{random32}}
+\index{random32@{random32}!timer.\+h@{timer.\+h}}
+\subsubsection{\texorpdfstring{random32()}{random32()}}
+{\footnotesize\ttfamily uint32\+\_\+t random32 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 151 of file timer.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{timer_8h_a74a318bbae856b2de48ba7490e0460af_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{timer_8h_ae4d94e3bb08cfcee00ebd01841c5a5e6}\label{timer_8h_ae4d94e3bb08cfcee00ebd01841c5a5e6}} 
+\index{timer.\+h@{timer.\+h}!restart\+Timer@{restart\+Timer}}
+\index{restart\+Timer@{restart\+Timer}!timer.\+h@{timer.\+h}}
+\subsubsection{\texorpdfstring{restart\+Timer()}{restartTimer()}}
+{\footnotesize\ttfamily bool restart\+Timer (\begin{DoxyParamCaption}\item[{\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback}}]{callback }\end{DoxyParamCaption})}
+
+
+
+Definition at line 117 of file timer.\+c.
+
+\mbox{\Hypertarget{timer_8h_a894b868de871bc73f3787c18466b1cee}\label{timer_8h_a894b868de871bc73f3787c18466b1cee}} 
+\index{timer.\+h@{timer.\+h}!start\+Oneshot\+Timer@{start\+Oneshot\+Timer}}
+\index{start\+Oneshot\+Timer@{start\+Oneshot\+Timer}!timer.\+h@{timer.\+h}}
+\subsubsection{\texorpdfstring{start\+Oneshot\+Timer()}{startOneshotTimer()}}
+{\footnotesize\ttfamily bool start\+Oneshot\+Timer (\begin{DoxyParamCaption}\item[{\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback}}]{callback,  }\item[{uint32\+\_\+t}]{seconds }\end{DoxyParamCaption})}
+
+
+
+Definition at line 65 of file timer.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{timer_8h_a894b868de871bc73f3787c18466b1cee_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{timer_8h_a221a0ad49a32d9d8390c69b9bccc8ad0}\label{timer_8h_a221a0ad49a32d9d8390c69b9bccc8ad0}} 
+\index{timer.\+h@{timer.\+h}!start\+Periodic\+Timer@{start\+Periodic\+Timer}}
+\index{start\+Periodic\+Timer@{start\+Periodic\+Timer}!timer.\+h@{timer.\+h}}
+\subsubsection{\texorpdfstring{start\+Periodic\+Timer()}{startPeriodicTimer()}}
+{\footnotesize\ttfamily bool start\+Periodic\+Timer (\begin{DoxyParamCaption}\item[{\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback}}]{callback,  }\item[{uint32\+\_\+t}]{seconds }\end{DoxyParamCaption})}
+
+
+
+Definition at line 84 of file timer.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{timer_8h_a221a0ad49a32d9d8390c69b9bccc8ad0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{timer_8h_a60b86504389ce168084f15dba34378d1}\label{timer_8h_a60b86504389ce168084f15dba34378d1}} 
+\index{timer.\+h@{timer.\+h}!stop\+Timer@{stop\+Timer}}
+\index{stop\+Timer@{stop\+Timer}!timer.\+h@{timer.\+h}}
+\subsubsection{\texorpdfstring{stop\+Timer()}{stopTimer()}}
+{\footnotesize\ttfamily bool stop\+Timer (\begin{DoxyParamCaption}\item[{\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback}}]{callback }\end{DoxyParamCaption})}
+
+
+
+Definition at line 103 of file timer.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{timer_8h_a60b86504389ce168084f15dba34378d1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{timer_8h_a7a0563816b99190da2084a2cfc103234}\label{timer_8h_a7a0563816b99190da2084a2cfc103234}} 
+\index{timer.\+h@{timer.\+h}!tick\+Isr@{tick\+Isr}}
+\index{tick\+Isr@{tick\+Isr}!timer.\+h@{timer.\+h}}
+\subsubsection{\texorpdfstring{tick\+Isr()}{tickIsr()}}
+{\footnotesize\ttfamily void tick\+Isr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 131 of file timer.\+c.
+

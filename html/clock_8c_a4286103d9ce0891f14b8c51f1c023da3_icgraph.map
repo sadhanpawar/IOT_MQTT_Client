@@ -1,0 +1,4 @@
+<map id="initSystemClockTo40Mhz" name="initSystemClockTo40Mhz">
+<area shape="rect" id="node2" href="$ethernet_8c.html#ae5e20c90f0611c1fd09fad99cc3a30a6" title="initHw" alt="" coords="225,5,284,32"/>
+<area shape="rect" id="node3" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="332,5,383,32"/>
+</map>

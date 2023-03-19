@@ -1,0 +1,7 @@
+<map id="selectPinDigitalInput" name="selectPinDigitalInput">
+<area shape="rect" id="node2" href="$eth0_8h.html#aecae72b4579b409c7c7c90c2c12237f1" title="initEther" alt="" coords="315,22,385,48"/>
+<area shape="rect" id="node4" href="$ethernet_8c.html#ae5e20c90f0611c1fd09fad99cc3a30a6" title="initHw" alt="" coords="321,72,379,99"/>
+<area shape="rect" id="node5" href="$spi0_8h.html#a7aaeaabfbcd0eb33cdefc28c3033e837" title="initSpi0" alt="" coords="199,22,264,48"/>
+<area shape="rect" id="node6" href="$uart0_8h.html#aaf8b957b5cacc4c93e957cde3e24ea9a" title="initUart0" alt="" coords="196,123,267,150"/>
+<area shape="rect" id="node3" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="433,72,484,99"/>
+</map>

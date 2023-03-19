@@ -1,0 +1,22 @@
+<map id="initEther" name="initEther">
+<area shape="rect" id="node2" href="$spi0_8c.html#a7aaeaabfbcd0eb33cdefc28c3033e837" title="initSpi0" alt="" coords="153,107,219,133"/>
+<area shape="rect" id="node3" href="$gpio_8c.html#a559f2df5463450eaf46e9c44d4c86551" title="enablePort" alt="" coords="337,5,421,32"/>
+<area shape="rect" id="node4" href="$gpio_8c.html#a7be5030f98516485e0f32aace2a9dbf2" title="selectPinPushPullOutput" alt="" coords="296,56,463,83"/>
+<area shape="rect" id="node7" href="$gpio_8c.html#ae9f4dbc88be2adca83589a8c6652f9d2" title="selectPinDigitalInput" alt="" coords="308,208,451,235"/>
+<area shape="rect" id="node8" href="$spi0_8c.html#a70e1238009487db9c80eb4d8c7215cbc" title="setSpi0BaudRate" alt="" coords="124,208,248,235"/>
+<area shape="rect" id="node9" href="$spi0_8c.html#af587c448245b2e750ca02e8a31998896" title="setSpi0Mode" alt="" coords="137,259,235,285"/>
+<area shape="rect" id="node10" href="$eth0_8c.html#aceaa52a49cf227193b6a1b49cfc03d84" title="readEtherReg" alt="" coords="512,360,615,387"/>
+<area shape="rect" id="node16" href="$eth0_8c.html#a38241c09b42791119c8dbab457febeda" title="clearEtherReg" alt="" coords="511,411,616,437"/>
+<area shape="rect" id="node17" href="$eth0_8c.html#ae1db6f1bddfe9bfec4eaff780300f72e" title="setEtherBank" alt="" coords="329,411,430,437"/>
+<area shape="rect" id="node18" href="$eth0_8c.html#a3e736df66218730f1339d440c4b05cae" title="setEtherReg" alt="" coords="516,461,611,488"/>
+<area shape="rect" id="node19" href="$eth0_8c.html#a5308b6a5c80e4a964ce8dcf3d0bb44e2" title="writeEtherReg" alt="" coords="511,512,616,539"/>
+<area shape="rect" id="node20" href="$eth0_8c.html#ae383ebcd73e965e4898e09917391e9ef" title="writeEtherPhy" alt="" coords="134,512,238,539"/>
+<area shape="rect" id="node21" href="$wait_8c.html#af97018ae05e94f602f956c08ef08c36c" title="waitMicrosecond" alt="" coords="126,613,246,640"/>
+<area shape="rect" id="node5" href="$gpio_8c.html#ae33ec6b75af4c832c276f82dd97393c8" title="setPinAuxFunction" alt="" coords="313,157,445,184"/>
+<area shape="rect" id="node6" href="$gpio_8c.html#ad90ea69db9bd81d40dd02157c11759ff" title="enablePinPullup" alt="" coords="322,107,437,133"/>
+<area shape="rect" id="node11" href="$eth0_8c.html#a710f2a378c0c955c211f9e4670ade7ed" title="enableEtherCs" alt="" coords="665,461,773,488"/>
+<area shape="rect" id="node13" href="$spi0_8c.html#aeb845d4e36ea3a559bf3ce3fd9bfe832" title="writeSpi0Data" alt="" coords="667,360,771,387"/>
+<area shape="rect" id="node14" href="$spi0_8c.html#a7d14193a061bb777d242d572e5a4e1e5" title="readSpi0Data" alt="" coords="669,411,770,437"/>
+<area shape="rect" id="node15" href="$eth0_8c.html#a159404cc749fadcacda50a180a5adbd7" title="disableEtherCs" alt="" coords="664,512,775,539"/>
+<area shape="rect" id="node12" href="$gpio_8c.html#ac4f40226199e0901f3ef20eb1a5791eb" title="setPinValue" alt="" coords="823,487,915,513"/>
+</map>

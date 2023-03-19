@@ -1,0 +1,4 @@
+<map id="stopEtherMemRead" name="stopEtherMemRead">
+<area shape="rect" id="node2" href="$eth0_8c.html#a159404cc749fadcacda50a180a5adbd7" title="disableEtherCs" alt="" coords="192,5,303,32"/>
+<area shape="rect" id="node3" href="$gpio_8c.html#ac4f40226199e0901f3ef20eb1a5791eb" title="setPinValue" alt="" coords="351,5,443,32"/>
+</map>

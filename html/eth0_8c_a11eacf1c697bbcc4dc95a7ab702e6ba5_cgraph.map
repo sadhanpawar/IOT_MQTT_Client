@@ -1,0 +1,4 @@
+<map id="writeEtherMem" name="writeEtherMem">
+<area shape="rect" id="node2" href="$spi0_8c.html#aeb845d4e36ea3a559bf3ce3fd9bfe832" title="writeSpi0Data" alt="" coords="164,5,268,32"/>
+<area shape="rect" id="node3" href="$spi0_8c.html#a7d14193a061bb777d242d572e5a4e1e5" title="readSpi0Data" alt="" coords="165,56,267,83"/>
+</map>

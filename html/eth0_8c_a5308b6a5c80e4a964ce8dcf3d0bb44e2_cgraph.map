@@ -1,0 +1,7 @@
+<map id="writeEtherReg" name="writeEtherReg">
+<area shape="rect" id="node2" href="$eth0_8c.html#a710f2a378c0c955c211f9e4670ade7ed" title="enableEtherCs" alt="" coords="160,5,268,32"/>
+<area shape="rect" id="node4" href="$spi0_8c.html#aeb845d4e36ea3a559bf3ce3fd9bfe832" title="writeSpi0Data" alt="" coords="162,56,266,83"/>
+<area shape="rect" id="node5" href="$spi0_8c.html#a7d14193a061bb777d242d572e5a4e1e5" title="readSpi0Data" alt="" coords="163,107,265,133"/>
+<area shape="rect" id="node6" href="$eth0_8c.html#a159404cc749fadcacda50a180a5adbd7" title="disableEtherCs" alt="" coords="159,157,269,184"/>
+<area shape="rect" id="node3" href="$gpio_8c.html#ac4f40226199e0901f3ef20eb1a5791eb" title="setPinValue" alt="" coords="317,81,409,108"/>
+</map>

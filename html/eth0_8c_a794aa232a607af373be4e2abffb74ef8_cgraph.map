@@ -1,0 +1,13 @@
+<map id="readEtherPhy" name="readEtherPhy">
+<area shape="rect" id="node2" href="$eth0_8c.html#ae1db6f1bddfe9bfec4eaff780300f72e" title="setEtherBank" alt="" coords="164,56,265,83"/>
+<area shape="rect" id="node10" href="$eth0_8c.html#a5308b6a5c80e4a964ce8dcf3d0bb44e2" title="writeEtherReg" alt="" coords="323,107,428,133"/>
+<area shape="rect" id="node11" href="$wait_8c.html#af97018ae05e94f602f956c08ef08c36c" title="waitMicrosecond" alt="" coords="155,208,275,235"/>
+<area shape="rect" id="node12" href="$eth0_8c.html#aceaa52a49cf227193b6a1b49cfc03d84" title="readEtherReg" alt="" coords="324,157,427,184"/>
+<area shape="rect" id="node3" href="$eth0_8c.html#a38241c09b42791119c8dbab457febeda" title="clearEtherReg" alt="" coords="323,5,428,32"/>
+<area shape="rect" id="node9" href="$eth0_8c.html#a3e736df66218730f1339d440c4b05cae" title="setEtherReg" alt="" coords="328,56,423,83"/>
+<area shape="rect" id="node4" href="$eth0_8c.html#a710f2a378c0c955c211f9e4670ade7ed" title="enableEtherCs" alt="" coords="477,107,585,133"/>
+<area shape="rect" id="node6" href="$spi0_8c.html#aeb845d4e36ea3a559bf3ce3fd9bfe832" title="writeSpi0Data" alt="" coords="479,5,583,32"/>
+<area shape="rect" id="node7" href="$spi0_8c.html#a7d14193a061bb777d242d572e5a4e1e5" title="readSpi0Data" alt="" coords="481,56,582,83"/>
+<area shape="rect" id="node8" href="$eth0_8c.html#a159404cc749fadcacda50a180a5adbd7" title="disableEtherCs" alt="" coords="476,157,587,184"/>
+<area shape="rect" id="node5" href="$gpio_8c.html#ac4f40226199e0901f3ef20eb1a5791eb" title="setPinValue" alt="" coords="635,132,727,159"/>
+</map>

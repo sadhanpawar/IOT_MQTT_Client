@@ -1,37 +1,132 @@
 \hypertarget{struct__tcpHeader}{}\section{\+\_\+tcp\+Header Struct Reference}
 \label{struct__tcpHeader}\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
-\subsection*{Public Attributes}
+
+
+{\ttfamily \#include $<$tcp.\+h$>$}
+
+\subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_adab3cbb36f879d6bbb9511cbed24b7a5}\label{struct__tcpHeader_adab3cbb36f879d6bbb9511cbed24b7a5}} 
-uint16\+\_\+t {\bfseries source\+Port}
+uint16\+\_\+t \hyperlink{struct__tcpHeader_adab3cbb36f879d6bbb9511cbed24b7a5}{source\+Port}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_a5484a2aa2e860b1f226a7014ae402d3e}\label{struct__tcpHeader_a5484a2aa2e860b1f226a7014ae402d3e}} 
-uint16\+\_\+t {\bfseries dest\+Port}
+uint16\+\_\+t \hyperlink{struct__tcpHeader_a5484a2aa2e860b1f226a7014ae402d3e}{dest\+Port}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_a5441a14212cd0e07d20b95ce8198db27}\label{struct__tcpHeader_a5441a14212cd0e07d20b95ce8198db27}} 
-uint32\+\_\+t {\bfseries sequence\+Number}
+uint32\+\_\+t \hyperlink{struct__tcpHeader_a5441a14212cd0e07d20b95ce8198db27}{sequence\+Number}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_a99a7268547ba31c3fe8e44933d435389}\label{struct__tcpHeader_a99a7268547ba31c3fe8e44933d435389}} 
-uint32\+\_\+t {\bfseries acknowledgement\+Number}
+uint32\+\_\+t \hyperlink{struct__tcpHeader_a99a7268547ba31c3fe8e44933d435389}{acknowledgement\+Number}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_ad3fe63661ec8dea7e4a46bf010788384}\label{struct__tcpHeader_ad3fe63661ec8dea7e4a46bf010788384}} 
-uint16\+\_\+t {\bfseries offset\+Fields}
+uint16\+\_\+t \hyperlink{struct__tcpHeader_ad3fe63661ec8dea7e4a46bf010788384}{offset\+Fields}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_ab3caec0ac5bef36c592a52b800f73e5b}\label{struct__tcpHeader_ab3caec0ac5bef36c592a52b800f73e5b}} 
-uint16\+\_\+t {\bfseries window\+Size}
+uint16\+\_\+t \hyperlink{struct__tcpHeader_ab3caec0ac5bef36c592a52b800f73e5b}{window\+Size}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_a0906fe118aa70365e0820e171c75119b}\label{struct__tcpHeader_a0906fe118aa70365e0820e171c75119b}} 
-uint16\+\_\+t {\bfseries checksum}
+uint16\+\_\+t \hyperlink{struct__tcpHeader_a0906fe118aa70365e0820e171c75119b}{checksum}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_a971349f17dd591d019c1e12c1454998f}\label{struct__tcpHeader_a971349f17dd591d019c1e12c1454998f}} 
-uint16\+\_\+t {\bfseries urgent\+Pointer}
+uint16\+\_\+t \hyperlink{struct__tcpHeader_a971349f17dd591d019c1e12c1454998f}{urgent\+Pointer}
 \item 
-\mbox{\Hypertarget{struct__tcpHeader_aede9eb26ef4f1a85dc3491029ee4baac}\label{struct__tcpHeader_aede9eb26ef4f1a85dc3491029ee4baac}} 
-uint8\+\_\+t {\bfseries data} \mbox{[}0\mbox{]}
+uint8\+\_\+t \hyperlink{struct__tcpHeader_aede9eb26ef4f1a85dc3491029ee4baac}{data} \mbox{[}0\mbox{]}
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 27 of file tcp.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct__tcpHeader_a99a7268547ba31c3fe8e44933d435389}\label{struct__tcpHeader_a99a7268547ba31c3fe8e44933d435389}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!acknowledgement\+Number@{acknowledgement\+Number}}
+\index{acknowledgement\+Number@{acknowledgement\+Number}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{acknowledgement\+Number}{acknowledgementNumber}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+tcp\+Header\+::acknowledgement\+Number}
+
+
+
+Definition at line 32 of file tcp.\+h.
+
+\mbox{\Hypertarget{struct__tcpHeader_a0906fe118aa70365e0820e171c75119b}\label{struct__tcpHeader_a0906fe118aa70365e0820e171c75119b}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!checksum@{checksum}}
+\index{checksum@{checksum}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{checksum}{checksum}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+tcp\+Header\+::checksum}
+
+
+
+Definition at line 35 of file tcp.\+h.
+
+\mbox{\Hypertarget{struct__tcpHeader_aede9eb26ef4f1a85dc3491029ee4baac}\label{struct__tcpHeader_aede9eb26ef4f1a85dc3491029ee4baac}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!data@{data}}
+\index{data@{data}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily uint8\+\_\+t \+\_\+tcp\+Header\+::data\mbox{[}0\mbox{]}}
+
+
+
+Definition at line 37 of file tcp.\+h.
+
+\mbox{\Hypertarget{struct__tcpHeader_a5484a2aa2e860b1f226a7014ae402d3e}\label{struct__tcpHeader_a5484a2aa2e860b1f226a7014ae402d3e}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!dest\+Port@{dest\+Port}}
+\index{dest\+Port@{dest\+Port}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{dest\+Port}{destPort}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+tcp\+Header\+::dest\+Port}
+
+
+
+Definition at line 30 of file tcp.\+h.
+
+\mbox{\Hypertarget{struct__tcpHeader_ad3fe63661ec8dea7e4a46bf010788384}\label{struct__tcpHeader_ad3fe63661ec8dea7e4a46bf010788384}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!offset\+Fields@{offset\+Fields}}
+\index{offset\+Fields@{offset\+Fields}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{offset\+Fields}{offsetFields}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+tcp\+Header\+::offset\+Fields}
+
+
+
+Definition at line 33 of file tcp.\+h.
+
+\mbox{\Hypertarget{struct__tcpHeader_a5441a14212cd0e07d20b95ce8198db27}\label{struct__tcpHeader_a5441a14212cd0e07d20b95ce8198db27}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!sequence\+Number@{sequence\+Number}}
+\index{sequence\+Number@{sequence\+Number}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{sequence\+Number}{sequenceNumber}}
+{\footnotesize\ttfamily uint32\+\_\+t \+\_\+tcp\+Header\+::sequence\+Number}
+
+
+
+Definition at line 31 of file tcp.\+h.
+
+\mbox{\Hypertarget{struct__tcpHeader_adab3cbb36f879d6bbb9511cbed24b7a5}\label{struct__tcpHeader_adab3cbb36f879d6bbb9511cbed24b7a5}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!source\+Port@{source\+Port}}
+\index{source\+Port@{source\+Port}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{source\+Port}{sourcePort}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+tcp\+Header\+::source\+Port}
+
+
+
+Definition at line 29 of file tcp.\+h.
+
+\mbox{\Hypertarget{struct__tcpHeader_a971349f17dd591d019c1e12c1454998f}\label{struct__tcpHeader_a971349f17dd591d019c1e12c1454998f}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!urgent\+Pointer@{urgent\+Pointer}}
+\index{urgent\+Pointer@{urgent\+Pointer}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{urgent\+Pointer}{urgentPointer}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+tcp\+Header\+::urgent\+Pointer}
+
+
+
+Definition at line 36 of file tcp.\+h.
+
+\mbox{\Hypertarget{struct__tcpHeader_ab3caec0ac5bef36c592a52b800f73e5b}\label{struct__tcpHeader_ab3caec0ac5bef36c592a52b800f73e5b}} 
+\index{\+\_\+tcp\+Header@{\+\_\+tcp\+Header}!window\+Size@{window\+Size}}
+\index{window\+Size@{window\+Size}!\+\_\+tcp\+Header@{\+\_\+tcp\+Header}}
+\subsubsection{\texorpdfstring{window\+Size}{windowSize}}
+{\footnotesize\ttfamily uint16\+\_\+t \+\_\+tcp\+Header\+::window\+Size}
+
+
+
+Definition at line 34 of file tcp.\+h.
+
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-tcp.\+h\end{DoxyCompactItemize}
+\hyperlink{tcp_8h}{tcp.\+h}\end{DoxyCompactItemize}

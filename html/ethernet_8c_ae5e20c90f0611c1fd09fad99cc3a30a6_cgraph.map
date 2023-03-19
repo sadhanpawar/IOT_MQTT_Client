@@ -1,0 +1,7 @@
+<map id="initHw" name="initHw">
+<area shape="rect" id="node2" href="$clock_8c.html#a4286103d9ce0891f14b8c51f1c023da3" title="initSystemClockTo40Mhz" alt="" coords="112,5,284,32"/>
+<area shape="rect" id="node3" href="$gpio_8c.html#a559f2df5463450eaf46e9c44d4c86551" title="enablePort" alt="" coords="156,56,240,83"/>
+<area shape="rect" id="node4" href="$gpio_8c.html#a7be5030f98516485e0f32aace2a9dbf2" title="selectPinPushPullOutput" alt="" coords="115,107,281,133"/>
+<area shape="rect" id="node5" href="$gpio_8c.html#ae9f4dbc88be2adca83589a8c6652f9d2" title="selectPinDigitalInput" alt="" coords="127,157,269,184"/>
+<area shape="rect" id="node6" href="$gpio_8c.html#ad90ea69db9bd81d40dd02157c11759ff" title="enablePinPullup" alt="" coords="141,208,255,235"/>
+</map>

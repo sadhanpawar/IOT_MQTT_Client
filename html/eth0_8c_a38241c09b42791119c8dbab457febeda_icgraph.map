@@ -1,0 +1,27 @@
+<map id="clearEtherReg" name="clearEtherReg">
+<area shape="rect" id="node2" href="$eth0_8c.html#ae1db6f1bddfe9bfec4eaff780300f72e" title="setEtherBank" alt="" coords="165,180,267,207"/>
+<area shape="rect" id="node4" href="$eth0_8h.html#aecae72b4579b409c7c7c90c2c12237f1" title="initEther" alt="" coords="507,40,578,67"/>
+<area shape="rect" id="node11" href="$eth0_8h.html#a11901d5d59928253294313efbebc0966" title="putEtherPacket" alt="" coords="321,433,433,460"/>
+<area shape="rect" id="node26" href="$eth0_8h.html#a0ca653f48ca731d0be8fcb8af85c54bf" title="isEtherOverflow" alt="" coords="159,623,273,649"/>
+<area shape="rect" id="node3" href="$eth0_8c.html#ae383ebcd73e965e4898e09917391e9ef" title="writeEtherPhy" alt="" coords="325,28,429,55"/>
+<area shape="rect" id="node6" href="$eth0_8c.html#a794aa232a607af373be4e2abffb74ef8" title="readEtherPhy" alt="" coords="327,129,428,156"/>
+<area shape="rect" id="node10" href="$eth0_8h.html#a6a509b2d966f67bdb1f98f90ebd2440a" title="getEtherPacket" alt="" coords="910,180,1022,207"/>
+<area shape="rect" id="node25" href="$eth0_8h.html#afcc4d6e0bb55eb862abfd8da36d1cd6d" title="setEtherMacAddress" alt="" coords="1104,231,1248,257"/>
+<area shape="rect" id="node5" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="1296,357,1347,384"/>
+<area shape="rect" id="node7" href="$eth0_8h.html#a3bbcc2a0d14181ed2dc3f1e221997ee5" title="isEtherLinkUp" alt="" coords="491,129,595,156"/>
+<area shape="rect" id="node8" href="$ethernet_8c.html#a9adc2dd1318583612cac250116a519d6" title="displayConnectionInfo" alt="" coords="665,129,815,156"/>
+<area shape="rect" id="node9" href="$ethernet_8c.html#af6f1c3a0953d95dd428f20f02d5f5227" title="processShell" alt="" coords="917,129,1015,156"/>
+<area shape="rect" id="node12" href="$arp_8h.html#a9268cc75de7c71024782126b605fed01" title="sendArpResponse" alt="" coords="1111,636,1241,663"/>
+<area shape="rect" id="node13" href="$arp_8h.html#ad6d840efc736fbd372f2f637f151848e" title="sendArpRequest" alt="" coords="483,687,602,713"/>
+<area shape="rect" id="node15" href="$icmp_8h.html#a1b97fdeedbd44b73e12ae135d32dc315" title="sendPingResponse" alt="" coords="673,281,807,308"/>
+<area shape="rect" id="node16" href="$tcp_8h.html#aec468e963da8be7fa1ebccc77c2175f6" title="tcpSendSyn " alt="" coords="693,332,787,359"/>
+<area shape="rect" id="node20" href="$tcp_8h.html#aa153bee7059deec9ab8bf6b240bb056b" title="tcpSendAck " alt="" coords="496,459,589,485"/>
+<area shape="rect" id="node22" href="$tcp_8h.html#a33ea9d3a2d13e4ab37c9c448d5996ef4" title="tcpSendFin " alt="" coords="696,535,784,561"/>
+<area shape="rect" id="node23" href="$tcp_8h.html#afa7b48f81b64c1f2f157ef3db197c5d9" title="tcpSendSegment " alt="" coords="481,408,604,435"/>
+<area shape="rect" id="node24" href="$udp_8h.html#a9fbf63751a372552bc0b357e51fcb225" title="sendUdpMessage" alt="" coords="903,560,1029,587"/>
+<area shape="rect" id="node14" href="$ip__custom__layer_8h.html#a339da0050575be347091d65c8d08fc63" title="ipHandlerTx " alt="" coords="694,687,786,713"/>
+<area shape="rect" id="node17" href="$tcp_8h.html#a0c1266b1cbfa4647dc5b4b7b419bb459" title="tcpFsmStateMachineClient " alt="" coords="876,408,1056,435"/>
+<area shape="rect" id="node18" href="$tcp_8h.html#a5dab6f4625c1210a018296689981683e" title="tcpHandlerRx " alt="" coords="1125,357,1227,384"/>
+<area shape="rect" id="node19" href="$tcp_8h.html#a75e52507034e38f1f3be362bcd3f1b6e" title="tcpHandlerTx " alt="" coords="1126,408,1226,435"/>
+<area shape="rect" id="node21" href="$tcp_8h.html#aebf714fd29db1cc43a9489d84685bab9" title="tcpHandleRwTransactions " alt="" coords="652,433,828,460"/>
+</map>

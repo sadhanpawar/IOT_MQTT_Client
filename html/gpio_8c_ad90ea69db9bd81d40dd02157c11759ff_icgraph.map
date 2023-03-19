@@ -1,0 +1,6 @@
+<map id="enablePinPullup" name="enablePinPullup">
+<area shape="rect" id="node2" href="$ethernet_8c.html#ae5e20c90f0611c1fd09fad99cc3a30a6" title="initHw" alt="" coords="287,5,346,32"/>
+<area shape="rect" id="node4" href="$spi0_8h.html#a7aaeaabfbcd0eb33cdefc28c3033e837" title="initSpi0" alt="" coords="168,56,233,83"/>
+<area shape="rect" id="node3" href="$ethernet_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="400,31,451,57"/>
+<area shape="rect" id="node5" href="$eth0_8h.html#aecae72b4579b409c7c7c90c2c12237f1" title="initEther" alt="" coords="281,56,352,83"/>
+</map>

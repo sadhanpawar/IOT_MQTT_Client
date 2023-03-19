@@ -1,0 +1,1621 @@
+\hypertarget{mqtt_8h}{}\section{mqtt.\+h File Reference}
+\label{mqtt_8h}\index{mqtt.\+h@{mqtt.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}tcp.\+h\char`\"{}}\newline
+Include dependency graph for mqtt.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{mqtt_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{mqtt_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__mqttHeader}{\+\_\+mqtt\+Header}
+\item 
+struct \hyperlink{struct__mqttMcb__t}{\+\_\+mqtt\+Mcb\+\_\+t}
+\item 
+struct \hyperlink{structmqttRxBf__t}{mqtt\+Rx\+Bf\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mqtt_8h_aa2c202fa4c48dc3aceca4813104c3397}{M\+Q\+\_\+\+C\+O\+N\+N\+E\+CT}~(1u)
+\item 
+\#define \hyperlink{mqtt_8h_a4d97fb8a8dea6f1ff6292053852d3503}{M\+Q\+\_\+\+C\+O\+N\+N\+A\+CK}~(2u)
+\item 
+\#define \hyperlink{mqtt_8h_a1d21cd302f8b90cfc22841ada952c8a3}{M\+Q\+\_\+\+P\+U\+B\+L\+I\+SH}~(3u)
+\item 
+\#define \hyperlink{mqtt_8h_a9bd51651f24d2629d7c16674cdc66d82}{M\+Q\+\_\+\+P\+U\+B\+A\+CK}~(4u)
+\item 
+\#define \hyperlink{mqtt_8h_a94f19c906c0a16b873d9f089dd14dfdc}{M\+Q\+\_\+\+P\+U\+B\+R\+EC}~(5u)
+\item 
+\#define \hyperlink{mqtt_8h_a9102b084906778cdcf682567cb67a5eb}{M\+Q\+\_\+\+P\+U\+B\+R\+EL}~(6u)
+\item 
+\#define \hyperlink{mqtt_8h_a72e08be9457b3d1f72cd71e40c0f0984}{M\+Q\+\_\+\+P\+U\+B\+C\+O\+MP}~(7u)
+\item 
+\#define \hyperlink{mqtt_8h_af0e6baf0b71f8154787b5ef42bdb8396}{M\+Q\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE}~(8u)
+\item 
+\#define \hyperlink{mqtt_8h_a72defe3adbfd97b14ad04b182d697ba0}{M\+Q\+\_\+\+S\+U\+B\+A\+CK}~(9u)
+\item 
+\#define \hyperlink{mqtt_8h_a3755c3f654a1e367ecc01a32f4eca366}{M\+Q\+\_\+\+U\+N\+S\+U\+B\+S\+C\+R\+I\+BE}~(10u)
+\item 
+\#define \hyperlink{mqtt_8h_a00f2b8eaa590b91067f27874d9fc1b6a}{M\+Q\+\_\+\+U\+N\+S\+U\+B\+A\+CK}~(11u)
+\item 
+\#define \hyperlink{mqtt_8h_a965dc57863d4f1deed43a5277f5d83cc}{M\+Q\+\_\+\+P\+I\+N\+G\+R\+EQ}~(12u)
+\item 
+\#define \hyperlink{mqtt_8h_a639859d463eca745fd297e1264d96c0c}{M\+Q\+\_\+\+P\+I\+N\+G\+R\+E\+SP}~(13u)
+\item 
+\#define \hyperlink{mqtt_8h_a6d2a728547fd182802511cf90a4b6bc4}{M\+Q\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}~(14u)
+\item 
+\#define \hyperlink{mqtt_8h_a23e04caf8eeb62fd0b6b8fbf2625cca6}{M\+Q\+\_\+\+A\+U\+TH}~(15u)
+\item 
+\#define \hyperlink{mqtt_8h_a6c907fb59ef049777ff9874d90e1103c}{M\+Q\+\_\+\+F\+I\+R\+E\+\_\+\+F\+O\+R\+G\+ET}~(0u)
+\item 
+\#define \hyperlink{mqtt_8h_a0e1abfcfa4c7d3fe0b1f18c0800114c3}{M\+Q\+\_\+\+A\+C\+K\+\_\+\+D\+E\+L\+I\+V\+E\+RY}~(1u)
+\item 
+\#define \hyperlink{mqtt_8h_ab58820e7673a60267bb91e64f3c1ce7f}{M\+Q\+\_\+\+A\+S\+S\+\_\+\+D\+E\+L\+I\+V\+E\+RY}~(2u)
+\item 
+\#define \hyperlink{mqtt_8h_aa106cf1c67a3ba010563c4a458a42cb0}{M\+Q\+\_\+\+R\+E\+S\+E\+R\+V\+ED}~(3u)
+\item 
+\#define \hyperlink{mqtt_8h_ab4dd3a15b57435a3cd9a97736f4366a8}{M\+Q\+T\+T\+\_\+\+S\+I\+ZE}~(60u)
+\item 
+\#define \hyperlink{mqtt_8h_a3cb7d7a3aed653ccec7f4610d03dbe3a}{M\+Q\+T\+T\+\_\+\+S\+R\+V\+\_\+\+P\+O\+RT}~(8081u)
+\item 
+\#define \hyperlink{mqtt_8h_aa8632baff6bbb5004385998918f1e6bd}{M\+Q\+T\+T\+\_\+\+P\+O\+RT}~(1883u)
+\item 
+\#define \hyperlink{mqtt_8h_adaf86a906a305dd129164982d50111b3}{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+ED}~0u
+\item 
+\#define \hyperlink{mqtt_8h_abb5539db14c26155eebe929fa84d1e96}{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}~1u
+\item 
+\#define \hyperlink{mqtt_8h_a35bb4dcdcd1478b4b78e4225177e1325}{M\+Q\+T\+T\+\_\+\+N\+O\+\_\+\+S\+U\+B\+\_\+\+T\+O\+P\+I\+CS}~(2u)
+\item 
+\#define \hyperlink{mqtt_8h_ab297370142ff048b5e5bb05230766a82}{M\+Q\+T\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+EN}~(23u)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct__mqttHeader}{\+\_\+mqtt\+Header} \hyperlink{mqtt_8h_a70bef2e73b008c9895db38af41f1daa3}{mqtt\+Header}
+\item 
+typedef struct \hyperlink{struct__mqttMcb__t}{\+\_\+mqtt\+Mcb\+\_\+t} \hyperlink{mqtt_8h_afbdd59f90c0ff24b5479171f395eaf69}{mqtt\+Mcb\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855}{mqtt\+Event\+\_\+t} \{ \newline
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855ac61e1df7bc1b44f97a997124ea3debdf}{N\+O\+E\+V\+E\+NT}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855abd1a204dcfa4933760cd12e779f36fc5}{P\+U\+B\+L\+I\+SH}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855a29e6e1306a3f75409cfad0c41a105282}{P\+U\+B\+L\+I\+S\+H\+\_\+\+W\+A\+IT}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855abc6f919ff681f5f552b2f7d1f0fba832}{S\+U\+B\+S\+C\+R\+I\+BE}, 
+\newline
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855a31300fc579bc1cddbc32cf743fc208bc}{S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855a8395e5981c15d813c588c86988fd4aea}{U\+N\+S\+U\+B\+S\+C\+R\+I\+BE}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855adeecb20fee60d4b62dd1180a5ec3e16e}{U\+N\+S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855a20391dd2915a0e64343d24c2f2e40b95}{C\+O\+N\+N\+E\+CT}, 
+\newline
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855a5cc5f99bfddaa4fb90e277707bc27f74}{C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855a2f6318afb30e8e2817e6203ebedc8173}{D\+I\+S\+C\+O\+N\+N\+E\+CT}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855aae8814833bd7b3e2175efce30ddaae8f}{D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT}, 
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855aa601cb89d53ca73b00553088042434c1}{P\+I\+N\+G\+\_\+\+R\+E\+Q\+U\+E\+ST}, 
+\newline
+\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855a10696352c7a880c63be11053f13e17eb}{P\+I\+N\+G\+\_\+\+R\+E\+S\+P\+O\+N\+SE}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mqtt_8h_a2f40a8541e37e2acc32f402acf7937c8}{mqtt\+Publish} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether, uint8\+\_\+t $\ast$data, uint16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em mqtt\+Publish \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a8dff97806cdcb07896e607fe64dfeb2e}{mqtt\+Subscribe} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether, uint8\+\_\+t $\ast$data, uint16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em mqtt\+Subscribe \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a89d56355c1ec80d1a3a11523260473ee}{mqtt\+Unsubscribe} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether, uint8\+\_\+t $\ast$data, uint16\+\_\+t size)
+\item 
+void \hyperlink{mqtt_8h_a561077e5b72215b491600fd5bfad9a2f}{mqtt\+Connect} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether, uint8\+\_\+t $\ast$data, uint16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em mqtt\+Connect \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a193ebb676d13372612c1bc71bd626e93}{mqtt\+Disconnect} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether, uint8\+\_\+t $\ast$data, uint16\+\_\+t size)
+\item 
+void \hyperlink{mqtt_8h_a6d4ec44690f0f61da90214f0929e405b}{mqtt\+Ping\+Request} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether, uint8\+\_\+t $\ast$data, uint16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em mqtt\+Ping\+Request \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_acc1cb5116db808518bbc89257c10f118}{mqtt\+Log\+Publish\+Event} (char $\ast$data, uint16\+\_\+t size, bool flag)
+\begin{DoxyCompactList}\small\item\em mqtt\+Log\+Publish\+Event \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a3e876148feb44961134e2adca845944c}{mqtt\+Log\+Subscribe\+Event} (char $\ast$data, uint16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em mqtt\+Log\+Subscribe\+Event \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a510fb83df2337046150398b1e437aff4}{mqtt\+Log\+Un\+Subscribe\+Event} (char $\ast$data, uint16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em mqtt\+Log\+Un\+Subscribe\+Event \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a8895c68cae81eb236280c0e02d8e8baa}{mqtt\+Log\+Connect\+Event} (void)
+\begin{DoxyCompactList}\small\item\em mqtt\+Log\+Connect\+Event \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_abe8394131d0bf3c2197381b0e97db265}{mqtt\+Log\+Dis\+Connect\+Event} (void)
+\begin{DoxyCompactList}\small\item\em mqtt\+Log\+Dis\+Connect\+Event \end{DoxyCompactList}\item 
+bool \hyperlink{mqtt_8h_aedf81593174cb6fdade42f45193f334c}{mqtt\+Get\+Tx\+Status} (void)
+\begin{DoxyCompactList}\small\item\em mqtt\+Get\+Tx\+Status \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a92569e6b19c7bf1f5290498502d9b432}{mqtt\+Set\+Tx\+Status} (bool status)
+\begin{DoxyCompactList}\small\item\em mqtt\+Set\+Tx\+Status \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_ab8d92d8b17b60b8e9b22170a8bb55a74}{mqtt\+Get\+Tx\+Data} (uint8\+\_\+t $\ast$data, uint16\+\_\+t $\ast$size)
+\begin{DoxyCompactList}\small\item\em mqtt\+Get\+Tx\+Data \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a7950a2c34b22ef8b0f0ed7851d1151e1}{mqtt\+Handler} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Handler \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a7bcc7e2a7323b7c2a44795623b7a4ae0}{mqtt\+Init} (void)
+\begin{DoxyCompactList}\small\item\em mqtt\+Init \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a91c2f7d47472205c14caa0bfe849fcc2}{mqtt\+Set\+Rx\+Data} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Set\+Rx\+Data \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a47ed1e535fd6629e5366687dbf036d23}{app\+Init} (void)
+\item 
+bool \hyperlink{mqtt_8h_ab2c64d11ec403f02594d244e7964c825}{is\+Mqtt} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em is\+Mqtt \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{mqtt_8h_aa656a4ac4adca0ac7867681fb32874ef}{mqtt\+Get\+Curr\+State} (void)
+\begin{DoxyCompactList}\small\item\em mqtt\+Get\+Curr\+State \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a79fc239d413bc36add7a7d9abca772f6}{mqtt\+Set\+Curr\+State} (\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855}{mqtt\+Event\+\_\+t} val)
+\begin{DoxyCompactList}\small\item\em mqtt\+Set\+Curr\+State \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a922ab95d59874b919c3b62931328aa25}{mqtt\+Set\+Conn\+State} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em mqtt\+Set\+Conn\+State \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{mqtt_8h_a5b68c8493f34f5288d377767814d5883}{mqtt\+Get\+Conn\+State} (void)
+\begin{DoxyCompactList}\small\item\em mqtt\+Get\+Conn\+State \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_ad51fbb07ee1ec36d8783bdc774a74fda}{mqtt\+Pub\+Ack} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Pub\+Ack \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_ad4dd073773a7eff97b33b46eba8a8735}{mqtt\+Sub\+Ack} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Sub\+Ack \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a08e19bc52f04eef520067d3de8caef5d}{mqtt\+Handle\+Pub\+Server} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Handle\+Pub\+Server \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a9910abd79973346ebd34458ba3bfbee2}{mqtt\+Handle\+Sub\+Server} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Handle\+Sub\+Server \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a8dfd888736a978be32aef39f07e88e78}{mqtt\+Handle\+All\+Rx\+Msgs} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Handle\+All\+Rx\+Msgs \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a9c19d2b62cacf0954a755f3d915074a5}{mqtt\+Handle\+Connect\+Server} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Handle\+Connect\+Server \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a6034d7f24611c77469726ecd8003e1cd}{mqtt\+Conn\+Ack} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Conn\+Ack \end{DoxyCompactList}\item 
+void \hyperlink{mqtt_8h_a6443fbe1eed649acb1f94e5a47a8d907}{mqtt\+Ping\+Resp} (\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$ether)
+\begin{DoxyCompactList}\small\item\em mqtt\+Ping\+Resp \end{DoxyCompactList}\item 
+bool \hyperlink{mqtt_8h_a560c72d3bdbfe4c8e6358ffbaefbbceb}{ismqtt\+Connected} (void)
+\item 
+void \hyperlink{mqtt_8h_a99bd95527498cc3e0366545913a27740}{mqtt\+Calc\+Dyn\+Length} (uint8\+\_\+t $\ast$ptr, uint32\+\_\+t enclen, uint8\+\_\+t $\ast$no\+Of\+Bytes)
+\begin{DoxyCompactList}\small\item\em mqtt\+Calc\+Dyn\+Length \end{DoxyCompactList}\item 
+\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} \hyperlink{mqtt_8h_ab7b23aef0ef5452ca297b213b7d02508}{mqtt\+Keep\+Alive\+Time\+Srv\+Cb} ()
+\begin{DoxyCompactList}\small\item\em mqtt\+Keep\+Alive\+Time\+Srv\+Cb \end{DoxyCompactList}\item 
+\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} \hyperlink{mqtt_8h_acc3f008e0bbcd8dc6899b172ceb07b25}{mqtt\+Keep\+Alive\+Time\+Cli\+Cb} ()
+\begin{DoxyCompactList}\small\item\em mqtt\+Keep\+Alive\+Time\+Cli\+Cb \end{DoxyCompactList}\item 
+\hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} \hyperlink{mqtt_8h_ac7cc380d8f43af15ec90789dbed11506}{mqtt\+Con\+Timer\+Cb} ()
+\begin{DoxyCompactList}\small\item\em mqtt\+Con\+Timer\+Cb \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{mqtt_8h_aefe64b61aa9675182f1e66801f378fb6}{mqtt\+State} \mbox{[}$\,$\mbox{]}
+\item 
+char $\ast$ \hyperlink{mqtt_8h_a910d645985a9aa856c9f269ae906e512}{mqtt\+Fsm\+State} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{mqtt_8h_a0e1abfcfa4c7d3fe0b1f18c0800114c3}\label{mqtt_8h_a0e1abfcfa4c7d3fe0b1f18c0800114c3}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+A\+C\+K\+\_\+\+D\+E\+L\+I\+V\+E\+RY@{M\+Q\+\_\+\+A\+C\+K\+\_\+\+D\+E\+L\+I\+V\+E\+RY}}
+\index{M\+Q\+\_\+\+A\+C\+K\+\_\+\+D\+E\+L\+I\+V\+E\+RY@{M\+Q\+\_\+\+A\+C\+K\+\_\+\+D\+E\+L\+I\+V\+E\+RY}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+A\+C\+K\+\_\+\+D\+E\+L\+I\+V\+E\+RY}{MQ\_ACK\_DELIVERY}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+A\+C\+K\+\_\+\+D\+E\+L\+I\+V\+E\+RY~(1u)}
+
+
+
+Definition at line 48 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_ab58820e7673a60267bb91e64f3c1ce7f}\label{mqtt_8h_ab58820e7673a60267bb91e64f3c1ce7f}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+A\+S\+S\+\_\+\+D\+E\+L\+I\+V\+E\+RY@{M\+Q\+\_\+\+A\+S\+S\+\_\+\+D\+E\+L\+I\+V\+E\+RY}}
+\index{M\+Q\+\_\+\+A\+S\+S\+\_\+\+D\+E\+L\+I\+V\+E\+RY@{M\+Q\+\_\+\+A\+S\+S\+\_\+\+D\+E\+L\+I\+V\+E\+RY}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+A\+S\+S\+\_\+\+D\+E\+L\+I\+V\+E\+RY}{MQ\_ASS\_DELIVERY}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+A\+S\+S\+\_\+\+D\+E\+L\+I\+V\+E\+RY~(2u)}
+
+
+
+Definition at line 49 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a23e04caf8eeb62fd0b6b8fbf2625cca6}\label{mqtt_8h_a23e04caf8eeb62fd0b6b8fbf2625cca6}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+A\+U\+TH@{M\+Q\+\_\+\+A\+U\+TH}}
+\index{M\+Q\+\_\+\+A\+U\+TH@{M\+Q\+\_\+\+A\+U\+TH}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+A\+U\+TH}{MQ\_AUTH}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+A\+U\+TH~(15u)}
+
+
+
+Definition at line 44 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a4d97fb8a8dea6f1ff6292053852d3503}\label{mqtt_8h_a4d97fb8a8dea6f1ff6292053852d3503}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+C\+O\+N\+N\+A\+CK@{M\+Q\+\_\+\+C\+O\+N\+N\+A\+CK}}
+\index{M\+Q\+\_\+\+C\+O\+N\+N\+A\+CK@{M\+Q\+\_\+\+C\+O\+N\+N\+A\+CK}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+C\+O\+N\+N\+A\+CK}{MQ\_CONNACK}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+C\+O\+N\+N\+A\+CK~(2u)}
+
+
+
+Definition at line 31 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_aa2c202fa4c48dc3aceca4813104c3397}\label{mqtt_8h_aa2c202fa4c48dc3aceca4813104c3397}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+C\+O\+N\+N\+E\+CT@{M\+Q\+\_\+\+C\+O\+N\+N\+E\+CT}}
+\index{M\+Q\+\_\+\+C\+O\+N\+N\+E\+CT@{M\+Q\+\_\+\+C\+O\+N\+N\+E\+CT}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+C\+O\+N\+N\+E\+CT}{MQ\_CONNECT}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+C\+O\+N\+N\+E\+CT~(1u)}
+
+
+
+Definition at line 30 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a6d2a728547fd182802511cf90a4b6bc4}\label{mqtt_8h_a6d2a728547fd182802511cf90a4b6bc4}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{M\+Q\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}}
+\index{M\+Q\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{M\+Q\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}{MQ\_DISCONNECT}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT~(14u)}
+
+
+
+Definition at line 43 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a6c907fb59ef049777ff9874d90e1103c}\label{mqtt_8h_a6c907fb59ef049777ff9874d90e1103c}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+F\+I\+R\+E\+\_\+\+F\+O\+R\+G\+ET@{M\+Q\+\_\+\+F\+I\+R\+E\+\_\+\+F\+O\+R\+G\+ET}}
+\index{M\+Q\+\_\+\+F\+I\+R\+E\+\_\+\+F\+O\+R\+G\+ET@{M\+Q\+\_\+\+F\+I\+R\+E\+\_\+\+F\+O\+R\+G\+ET}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+F\+I\+R\+E\+\_\+\+F\+O\+R\+G\+ET}{MQ\_FIRE\_FORGET}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+F\+I\+R\+E\+\_\+\+F\+O\+R\+G\+ET~(0u)}
+
+
+
+Definition at line 47 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a965dc57863d4f1deed43a5277f5d83cc}\label{mqtt_8h_a965dc57863d4f1deed43a5277f5d83cc}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+P\+I\+N\+G\+R\+EQ@{M\+Q\+\_\+\+P\+I\+N\+G\+R\+EQ}}
+\index{M\+Q\+\_\+\+P\+I\+N\+G\+R\+EQ@{M\+Q\+\_\+\+P\+I\+N\+G\+R\+EQ}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+P\+I\+N\+G\+R\+EQ}{MQ\_PINGREQ}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+P\+I\+N\+G\+R\+EQ~(12u)}
+
+
+
+Definition at line 41 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a639859d463eca745fd297e1264d96c0c}\label{mqtt_8h_a639859d463eca745fd297e1264d96c0c}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+P\+I\+N\+G\+R\+E\+SP@{M\+Q\+\_\+\+P\+I\+N\+G\+R\+E\+SP}}
+\index{M\+Q\+\_\+\+P\+I\+N\+G\+R\+E\+SP@{M\+Q\+\_\+\+P\+I\+N\+G\+R\+E\+SP}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+P\+I\+N\+G\+R\+E\+SP}{MQ\_PINGRESP}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+P\+I\+N\+G\+R\+E\+SP~(13u)}
+
+
+
+Definition at line 42 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a9bd51651f24d2629d7c16674cdc66d82}\label{mqtt_8h_a9bd51651f24d2629d7c16674cdc66d82}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+P\+U\+B\+A\+CK@{M\+Q\+\_\+\+P\+U\+B\+A\+CK}}
+\index{M\+Q\+\_\+\+P\+U\+B\+A\+CK@{M\+Q\+\_\+\+P\+U\+B\+A\+CK}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+P\+U\+B\+A\+CK}{MQ\_PUBACK}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+P\+U\+B\+A\+CK~(4u)}
+
+
+
+Definition at line 33 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a72e08be9457b3d1f72cd71e40c0f0984}\label{mqtt_8h_a72e08be9457b3d1f72cd71e40c0f0984}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+P\+U\+B\+C\+O\+MP@{M\+Q\+\_\+\+P\+U\+B\+C\+O\+MP}}
+\index{M\+Q\+\_\+\+P\+U\+B\+C\+O\+MP@{M\+Q\+\_\+\+P\+U\+B\+C\+O\+MP}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+P\+U\+B\+C\+O\+MP}{MQ\_PUBCOMP}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+P\+U\+B\+C\+O\+MP~(7u)}
+
+
+
+Definition at line 36 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a1d21cd302f8b90cfc22841ada952c8a3}\label{mqtt_8h_a1d21cd302f8b90cfc22841ada952c8a3}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+P\+U\+B\+L\+I\+SH@{M\+Q\+\_\+\+P\+U\+B\+L\+I\+SH}}
+\index{M\+Q\+\_\+\+P\+U\+B\+L\+I\+SH@{M\+Q\+\_\+\+P\+U\+B\+L\+I\+SH}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+P\+U\+B\+L\+I\+SH}{MQ\_PUBLISH}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+P\+U\+B\+L\+I\+SH~(3u)}
+
+
+
+Definition at line 32 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a94f19c906c0a16b873d9f089dd14dfdc}\label{mqtt_8h_a94f19c906c0a16b873d9f089dd14dfdc}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+P\+U\+B\+R\+EC@{M\+Q\+\_\+\+P\+U\+B\+R\+EC}}
+\index{M\+Q\+\_\+\+P\+U\+B\+R\+EC@{M\+Q\+\_\+\+P\+U\+B\+R\+EC}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+P\+U\+B\+R\+EC}{MQ\_PUBREC}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+P\+U\+B\+R\+EC~(5u)}
+
+
+
+Definition at line 34 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a9102b084906778cdcf682567cb67a5eb}\label{mqtt_8h_a9102b084906778cdcf682567cb67a5eb}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+P\+U\+B\+R\+EL@{M\+Q\+\_\+\+P\+U\+B\+R\+EL}}
+\index{M\+Q\+\_\+\+P\+U\+B\+R\+EL@{M\+Q\+\_\+\+P\+U\+B\+R\+EL}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+P\+U\+B\+R\+EL}{MQ\_PUBREL}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+P\+U\+B\+R\+EL~(6u)}
+
+
+
+Definition at line 35 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_aa106cf1c67a3ba010563c4a458a42cb0}\label{mqtt_8h_aa106cf1c67a3ba010563c4a458a42cb0}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+R\+E\+S\+E\+R\+V\+ED@{M\+Q\+\_\+\+R\+E\+S\+E\+R\+V\+ED}}
+\index{M\+Q\+\_\+\+R\+E\+S\+E\+R\+V\+ED@{M\+Q\+\_\+\+R\+E\+S\+E\+R\+V\+ED}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+R\+E\+S\+E\+R\+V\+ED}{MQ\_RESERVED}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+R\+E\+S\+E\+R\+V\+ED~(3u)}
+
+
+
+Definition at line 50 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a72defe3adbfd97b14ad04b182d697ba0}\label{mqtt_8h_a72defe3adbfd97b14ad04b182d697ba0}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+S\+U\+B\+A\+CK@{M\+Q\+\_\+\+S\+U\+B\+A\+CK}}
+\index{M\+Q\+\_\+\+S\+U\+B\+A\+CK@{M\+Q\+\_\+\+S\+U\+B\+A\+CK}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+S\+U\+B\+A\+CK}{MQ\_SUBACK}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+S\+U\+B\+A\+CK~(9u)}
+
+
+
+Definition at line 38 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_af0e6baf0b71f8154787b5ef42bdb8396}\label{mqtt_8h_af0e6baf0b71f8154787b5ef42bdb8396}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE@{M\+Q\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE}}
+\index{M\+Q\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE@{M\+Q\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE}{MQ\_SUBSCRIBE}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+S\+U\+B\+S\+C\+R\+I\+BE~(8u)}
+
+
+
+Definition at line 37 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a00f2b8eaa590b91067f27874d9fc1b6a}\label{mqtt_8h_a00f2b8eaa590b91067f27874d9fc1b6a}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+U\+N\+S\+U\+B\+A\+CK@{M\+Q\+\_\+\+U\+N\+S\+U\+B\+A\+CK}}
+\index{M\+Q\+\_\+\+U\+N\+S\+U\+B\+A\+CK@{M\+Q\+\_\+\+U\+N\+S\+U\+B\+A\+CK}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+U\+N\+S\+U\+B\+A\+CK}{MQ\_UNSUBACK}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+U\+N\+S\+U\+B\+A\+CK~(11u)}
+
+
+
+Definition at line 40 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a3755c3f654a1e367ecc01a32f4eca366}\label{mqtt_8h_a3755c3f654a1e367ecc01a32f4eca366}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+\_\+\+U\+N\+S\+U\+B\+S\+C\+R\+I\+BE@{M\+Q\+\_\+\+U\+N\+S\+U\+B\+S\+C\+R\+I\+BE}}
+\index{M\+Q\+\_\+\+U\+N\+S\+U\+B\+S\+C\+R\+I\+BE@{M\+Q\+\_\+\+U\+N\+S\+U\+B\+S\+C\+R\+I\+BE}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+\_\+\+U\+N\+S\+U\+B\+S\+C\+R\+I\+BE}{MQ\_UNSUBSCRIBE}}
+{\footnotesize\ttfamily \#define M\+Q\+\_\+\+U\+N\+S\+U\+B\+S\+C\+R\+I\+BE~(10u)}
+
+
+
+Definition at line 39 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_abb5539db14c26155eebe929fa84d1e96}\label{mqtt_8h_abb5539db14c26155eebe929fa84d1e96}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED@{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}}
+\index{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED@{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}{MQTT\_CONNECTED}}
+{\footnotesize\ttfamily \#define M\+Q\+T\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED~1u}
+
+
+
+Definition at line 57 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_adaf86a906a305dd129164982d50111b3}\label{mqtt_8h_adaf86a906a305dd129164982d50111b3}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+ED@{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+ED}}
+\index{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+ED@{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+ED}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+ED}{MQTT\_DISCONNECTED}}
+{\footnotesize\ttfamily \#define M\+Q\+T\+T\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+ED~0u}
+
+
+
+Definition at line 56 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a35bb4dcdcd1478b4b78e4225177e1325}\label{mqtt_8h_a35bb4dcdcd1478b4b78e4225177e1325}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+T\+T\+\_\+\+N\+O\+\_\+\+S\+U\+B\+\_\+\+T\+O\+P\+I\+CS@{M\+Q\+T\+T\+\_\+\+N\+O\+\_\+\+S\+U\+B\+\_\+\+T\+O\+P\+I\+CS}}
+\index{M\+Q\+T\+T\+\_\+\+N\+O\+\_\+\+S\+U\+B\+\_\+\+T\+O\+P\+I\+CS@{M\+Q\+T\+T\+\_\+\+N\+O\+\_\+\+S\+U\+B\+\_\+\+T\+O\+P\+I\+CS}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+T\+T\+\_\+\+N\+O\+\_\+\+S\+U\+B\+\_\+\+T\+O\+P\+I\+CS}{MQTT\_NO\_SUB\_TOPICS}}
+{\footnotesize\ttfamily \#define M\+Q\+T\+T\+\_\+\+N\+O\+\_\+\+S\+U\+B\+\_\+\+T\+O\+P\+I\+CS~(2u)}
+
+
+
+Definition at line 59 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_aa8632baff6bbb5004385998918f1e6bd}\label{mqtt_8h_aa8632baff6bbb5004385998918f1e6bd}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+T\+T\+\_\+\+P\+O\+RT@{M\+Q\+T\+T\+\_\+\+P\+O\+RT}}
+\index{M\+Q\+T\+T\+\_\+\+P\+O\+RT@{M\+Q\+T\+T\+\_\+\+P\+O\+RT}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+T\+T\+\_\+\+P\+O\+RT}{MQTT\_PORT}}
+{\footnotesize\ttfamily \#define M\+Q\+T\+T\+\_\+\+P\+O\+RT~(1883u)}
+
+
+
+Definition at line 54 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_ab4dd3a15b57435a3cd9a97736f4366a8}\label{mqtt_8h_ab4dd3a15b57435a3cd9a97736f4366a8}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+T\+T\+\_\+\+S\+I\+ZE@{M\+Q\+T\+T\+\_\+\+S\+I\+ZE}}
+\index{M\+Q\+T\+T\+\_\+\+S\+I\+ZE@{M\+Q\+T\+T\+\_\+\+S\+I\+ZE}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+T\+T\+\_\+\+S\+I\+ZE}{MQTT\_SIZE}}
+{\footnotesize\ttfamily \#define M\+Q\+T\+T\+\_\+\+S\+I\+ZE~(60u)}
+
+
+
+Definition at line 52 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_a3cb7d7a3aed653ccec7f4610d03dbe3a}\label{mqtt_8h_a3cb7d7a3aed653ccec7f4610d03dbe3a}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+T\+T\+\_\+\+S\+R\+V\+\_\+\+P\+O\+RT@{M\+Q\+T\+T\+\_\+\+S\+R\+V\+\_\+\+P\+O\+RT}}
+\index{M\+Q\+T\+T\+\_\+\+S\+R\+V\+\_\+\+P\+O\+RT@{M\+Q\+T\+T\+\_\+\+S\+R\+V\+\_\+\+P\+O\+RT}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+T\+T\+\_\+\+S\+R\+V\+\_\+\+P\+O\+RT}{MQTT\_SRV\_PORT}}
+{\footnotesize\ttfamily \#define M\+Q\+T\+T\+\_\+\+S\+R\+V\+\_\+\+P\+O\+RT~(8081u)}
+
+
+
+Definition at line 53 of file mqtt.\+h.
+
+\mbox{\Hypertarget{mqtt_8h_ab297370142ff048b5e5bb05230766a82}\label{mqtt_8h_ab297370142ff048b5e5bb05230766a82}} 
+\index{mqtt.\+h@{mqtt.\+h}!M\+Q\+T\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+EN@{M\+Q\+T\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+EN}}
+\index{M\+Q\+T\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+EN@{M\+Q\+T\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+EN}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{M\+Q\+T\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+EN}{MQTT\_TOPIC\_LEN}}
+{\footnotesize\ttfamily \#define M\+Q\+T\+T\+\_\+\+T\+O\+P\+I\+C\+\_\+\+L\+EN~(23u)}
+
+
+
+Definition at line 60 of file mqtt.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{mqtt_8h_a70bef2e73b008c9895db38af41f1daa3}\label{mqtt_8h_a70bef2e73b008c9895db38af41f1daa3}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Header@{mqtt\+Header}}
+\index{mqtt\+Header@{mqtt\+Header}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Header}{mqttHeader}}
+{\footnotesize\ttfamily typedef struct \hyperlink{struct__mqttHeader}{\+\_\+mqtt\+Header} \hyperlink{mqtt_8h_a70bef2e73b008c9895db38af41f1daa3}{mqtt\+Header}}
+
+\mbox{\Hypertarget{mqtt_8h_afbdd59f90c0ff24b5479171f395eaf69}\label{mqtt_8h_afbdd59f90c0ff24b5479171f395eaf69}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Mcb\+\_\+t@{mqtt\+Mcb\+\_\+t}}
+\index{mqtt\+Mcb\+\_\+t@{mqtt\+Mcb\+\_\+t}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Mcb\+\_\+t}{mqttMcb\_t}}
+{\footnotesize\ttfamily typedef struct \hyperlink{struct__mqttMcb__t}{\+\_\+mqtt\+Mcb\+\_\+t} \hyperlink{mqtt_8h_afbdd59f90c0ff24b5479171f395eaf69}{mqtt\+Mcb\+\_\+t}}
+
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855}\label{mqtt_8h_addc2504b9e66d98288c510964264c855}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Event\+\_\+t@{mqtt\+Event\+\_\+t}}
+\index{mqtt\+Event\+\_\+t@{mqtt\+Event\+\_\+t}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Event\+\_\+t}{mqttEvent\_t}}
+{\footnotesize\ttfamily enum \hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855}{mqtt\+Event\+\_\+t}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N\+O\+E\+V\+E\+NT@{N\+O\+E\+V\+E\+NT}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!N\+O\+E\+V\+E\+NT@{N\+O\+E\+V\+E\+NT}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855ac61e1df7bc1b44f97a997124ea3debdf}\label{mqtt_8h_addc2504b9e66d98288c510964264c855ac61e1df7bc1b44f97a997124ea3debdf}} 
+N\+O\+E\+V\+E\+NT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P\+U\+B\+L\+I\+SH@{P\+U\+B\+L\+I\+SH}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!P\+U\+B\+L\+I\+SH@{P\+U\+B\+L\+I\+SH}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855abd1a204dcfa4933760cd12e779f36fc5}\label{mqtt_8h_addc2504b9e66d98288c510964264c855abd1a204dcfa4933760cd12e779f36fc5}} 
+P\+U\+B\+L\+I\+SH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P\+U\+B\+L\+I\+S\+H\+\_\+\+W\+A\+IT@{P\+U\+B\+L\+I\+S\+H\+\_\+\+W\+A\+IT}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!P\+U\+B\+L\+I\+S\+H\+\_\+\+W\+A\+IT@{P\+U\+B\+L\+I\+S\+H\+\_\+\+W\+A\+IT}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855a29e6e1306a3f75409cfad0c41a105282}\label{mqtt_8h_addc2504b9e66d98288c510964264c855a29e6e1306a3f75409cfad0c41a105282}} 
+P\+U\+B\+L\+I\+S\+H\+\_\+\+W\+A\+IT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+B\+S\+C\+R\+I\+BE@{S\+U\+B\+S\+C\+R\+I\+BE}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!S\+U\+B\+S\+C\+R\+I\+BE@{S\+U\+B\+S\+C\+R\+I\+BE}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855abc6f919ff681f5f552b2f7d1f0fba832}\label{mqtt_8h_addc2504b9e66d98288c510964264c855abc6f919ff681f5f552b2f7d1f0fba832}} 
+S\+U\+B\+S\+C\+R\+I\+BE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT@{S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT@{S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855a31300fc579bc1cddbc32cf743fc208bc}\label{mqtt_8h_addc2504b9e66d98288c510964264c855a31300fc579bc1cddbc32cf743fc208bc}} 
+S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U\+N\+S\+U\+B\+S\+C\+R\+I\+BE@{U\+N\+S\+U\+B\+S\+C\+R\+I\+BE}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!U\+N\+S\+U\+B\+S\+C\+R\+I\+BE@{U\+N\+S\+U\+B\+S\+C\+R\+I\+BE}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855a8395e5981c15d813c588c86988fd4aea}\label{mqtt_8h_addc2504b9e66d98288c510964264c855a8395e5981c15d813c588c86988fd4aea}} 
+U\+N\+S\+U\+B\+S\+C\+R\+I\+BE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U\+N\+S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT@{U\+N\+S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!U\+N\+S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT@{U\+N\+S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855adeecb20fee60d4b62dd1180a5ec3e16e}\label{mqtt_8h_addc2504b9e66d98288c510964264c855adeecb20fee60d4b62dd1180a5ec3e16e}} 
+U\+N\+S\+U\+B\+S\+C\+R\+I\+B\+E\+\_\+\+W\+A\+IT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\+O\+N\+N\+E\+CT@{C\+O\+N\+N\+E\+CT}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!C\+O\+N\+N\+E\+CT@{C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855a20391dd2915a0e64343d24c2f2e40b95}\label{mqtt_8h_addc2504b9e66d98288c510964264c855a20391dd2915a0e64343d24c2f2e40b95}} 
+C\+O\+N\+N\+E\+CT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT@{C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT@{C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855a5cc5f99bfddaa4fb90e277707bc27f74}\label{mqtt_8h_addc2504b9e66d98288c510964264c855a5cc5f99bfddaa4fb90e277707bc27f74}} 
+C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+I\+S\+C\+O\+N\+N\+E\+CT@{D\+I\+S\+C\+O\+N\+N\+E\+CT}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!D\+I\+S\+C\+O\+N\+N\+E\+CT@{D\+I\+S\+C\+O\+N\+N\+E\+CT}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855a2f6318afb30e8e2817e6203ebedc8173}\label{mqtt_8h_addc2504b9e66d98288c510964264c855a2f6318afb30e8e2817e6203ebedc8173}} 
+D\+I\+S\+C\+O\+N\+N\+E\+CT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT@{D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT@{D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855aae8814833bd7b3e2175efce30ddaae8f}\label{mqtt_8h_addc2504b9e66d98288c510964264c855aae8814833bd7b3e2175efce30ddaae8f}} 
+D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+\_\+\+W\+A\+IT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P\+I\+N\+G\+\_\+\+R\+E\+Q\+U\+E\+ST@{P\+I\+N\+G\+\_\+\+R\+E\+Q\+U\+E\+ST}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!P\+I\+N\+G\+\_\+\+R\+E\+Q\+U\+E\+ST@{P\+I\+N\+G\+\_\+\+R\+E\+Q\+U\+E\+ST}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855aa601cb89d53ca73b00553088042434c1}\label{mqtt_8h_addc2504b9e66d98288c510964264c855aa601cb89d53ca73b00553088042434c1}} 
+P\+I\+N\+G\+\_\+\+R\+E\+Q\+U\+E\+ST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{P\+I\+N\+G\+\_\+\+R\+E\+S\+P\+O\+N\+SE@{P\+I\+N\+G\+\_\+\+R\+E\+S\+P\+O\+N\+SE}!mqtt.\+h@{mqtt.\+h}}\index{mqtt.\+h@{mqtt.\+h}!P\+I\+N\+G\+\_\+\+R\+E\+S\+P\+O\+N\+SE@{P\+I\+N\+G\+\_\+\+R\+E\+S\+P\+O\+N\+SE}}}\mbox{\Hypertarget{mqtt_8h_addc2504b9e66d98288c510964264c855a10696352c7a880c63be11053f13e17eb}\label{mqtt_8h_addc2504b9e66d98288c510964264c855a10696352c7a880c63be11053f13e17eb}} 
+P\+I\+N\+G\+\_\+\+R\+E\+S\+P\+O\+N\+SE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 72 of file mqtt.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{mqtt_8h_a47ed1e535fd6629e5366687dbf036d23}\label{mqtt_8h_a47ed1e535fd6629e5366687dbf036d23}} 
+\index{mqtt.\+h@{mqtt.\+h}!app\+Init@{app\+Init}}
+\index{app\+Init@{app\+Init}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{app\+Init()}{appInit()}}
+{\footnotesize\ttfamily void app\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 509 of file ethernet.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a47ed1e535fd6629e5366687dbf036d23_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{mqtt_8h_a47ed1e535fd6629e5366687dbf036d23_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_ab2c64d11ec403f02594d244e7964c825}\label{mqtt_8h_ab2c64d11ec403f02594d244e7964c825}} 
+\index{mqtt.\+h@{mqtt.\+h}!is\+Mqtt@{is\+Mqtt}}
+\index{is\+Mqtt@{is\+Mqtt}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{is\+Mqtt()}{isMqtt()}}
+{\footnotesize\ttfamily bool is\+Mqtt (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+is\+Mqtt 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+Definition at line 1170 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{mqtt_8h_ab2c64d11ec403f02594d244e7964c825_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_ab2c64d11ec403f02594d244e7964c825_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a560c72d3bdbfe4c8e6358ffbaefbbceb}\label{mqtt_8h_a560c72d3bdbfe4c8e6358ffbaefbbceb}} 
+\index{mqtt.\+h@{mqtt.\+h}!ismqtt\+Connected@{ismqtt\+Connected}}
+\index{ismqtt\+Connected@{ismqtt\+Connected}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{ismqtt\+Connected()}{ismqttConnected()}}
+{\footnotesize\ttfamily bool ismqtt\+Connected (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1003 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a560c72d3bdbfe4c8e6358ffbaefbbceb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a99bd95527498cc3e0366545913a27740}\label{mqtt_8h_a99bd95527498cc3e0366545913a27740}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Calc\+Dyn\+Length@{mqtt\+Calc\+Dyn\+Length}}
+\index{mqtt\+Calc\+Dyn\+Length@{mqtt\+Calc\+Dyn\+Length}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Calc\+Dyn\+Length()}{mqttCalcDynLength()}}
+{\footnotesize\ttfamily void mqtt\+Calc\+Dyn\+Length (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{ptr,  }\item[{uint32\+\_\+t}]{enclen,  }\item[{uint8\+\_\+t $\ast$}]{no\+Of\+Bytes }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Calc\+Dyn\+Length 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & \\
+\hline
+{\em enclen} & \\
+\hline
+{\em no\+Of\+Bytes} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 346 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a99bd95527498cc3e0366545913a27740_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a6034d7f24611c77469726ecd8003e1cd}\label{mqtt_8h_a6034d7f24611c77469726ecd8003e1cd}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Conn\+Ack@{mqtt\+Conn\+Ack}}
+\index{mqtt\+Conn\+Ack@{mqtt\+Conn\+Ack}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Conn\+Ack()}{mqttConnAck()}}
+{\footnotesize\ttfamily void mqtt\+Conn\+Ack (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Conn\+Ack 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1078 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{mqtt_8h_a6034d7f24611c77469726ecd8003e1cd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a6034d7f24611c77469726ecd8003e1cd_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a561077e5b72215b491600fd5bfad9a2f}\label{mqtt_8h_a561077e5b72215b491600fd5bfad9a2f}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Connect@{mqtt\+Connect}}
+\index{mqtt\+Connect@{mqtt\+Connect}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Connect()}{mqttConnect()}}
+{\footnotesize\ttfamily void mqtt\+Connect (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether,  }\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Connect 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+{\em data} & \\
+\hline
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 273 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{mqtt_8h_a561077e5b72215b491600fd5bfad9a2f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{mqtt_8h_a561077e5b72215b491600fd5bfad9a2f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_ac7cc380d8f43af15ec90789dbed11506}\label{mqtt_8h_ac7cc380d8f43af15ec90789dbed11506}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Con\+Timer\+Cb@{mqtt\+Con\+Timer\+Cb}}
+\index{mqtt\+Con\+Timer\+Cb@{mqtt\+Con\+Timer\+Cb}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Con\+Timer\+Cb()}{mqttConTimerCb()}}
+{\footnotesize\ttfamily \hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} mqtt\+Con\+Timer\+Cb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Con\+Timer\+Cb 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+callback 
+\end{DoxyReturn}
+
+
+Definition at line 1278 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_ac7cc380d8f43af15ec90789dbed11506_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a193ebb676d13372612c1bc71bd626e93}\label{mqtt_8h_a193ebb676d13372612c1bc71bd626e93}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Disconnect@{mqtt\+Disconnect}}
+\index{mqtt\+Disconnect@{mqtt\+Disconnect}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Disconnect()}{mqttDisconnect()}}
+{\footnotesize\ttfamily void mqtt\+Disconnect (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether,  }\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mqtt_8h_a5b68c8493f34f5288d377767814d5883}\label{mqtt_8h_a5b68c8493f34f5288d377767814d5883}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Get\+Conn\+State@{mqtt\+Get\+Conn\+State}}
+\index{mqtt\+Get\+Conn\+State@{mqtt\+Get\+Conn\+State}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Get\+Conn\+State()}{mqttGetConnState()}}
+{\footnotesize\ttfamily uint8\+\_\+t mqtt\+Get\+Conn\+State (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Get\+Conn\+State 
+
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t 
+\end{DoxyReturn}
+
+
+Definition at line 1259 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a5b68c8493f34f5288d377767814d5883_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_aa656a4ac4adca0ac7867681fb32874ef}\label{mqtt_8h_aa656a4ac4adca0ac7867681fb32874ef}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Get\+Curr\+State@{mqtt\+Get\+Curr\+State}}
+\index{mqtt\+Get\+Curr\+State@{mqtt\+Get\+Curr\+State}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Get\+Curr\+State()}{mqttGetCurrState()}}
+{\footnotesize\ttfamily uint8\+\_\+t mqtt\+Get\+Curr\+State (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Get\+Curr\+State 
+
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t 
+\end{DoxyReturn}
+
+
+Definition at line 1239 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_aa656a4ac4adca0ac7867681fb32874ef_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_ab8d92d8b17b60b8e9b22170a8bb55a74}\label{mqtt_8h_ab8d92d8b17b60b8e9b22170a8bb55a74}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Get\+Tx\+Data@{mqtt\+Get\+Tx\+Data}}
+\index{mqtt\+Get\+Tx\+Data@{mqtt\+Get\+Tx\+Data}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Get\+Tx\+Data()}{mqttGetTxData()}}
+{\footnotesize\ttfamily void mqtt\+Get\+Tx\+Data (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint16\+\_\+t $\ast$}]{size }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Get\+Tx\+Data 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & \\
+\hline
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1152 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_ab8d92d8b17b60b8e9b22170a8bb55a74_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_aedf81593174cb6fdade42f45193f334c}\label{mqtt_8h_aedf81593174cb6fdade42f45193f334c}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Get\+Tx\+Status@{mqtt\+Get\+Tx\+Status}}
+\index{mqtt\+Get\+Tx\+Status@{mqtt\+Get\+Tx\+Status}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Get\+Tx\+Status()}{mqttGetTxStatus()}}
+{\footnotesize\ttfamily bool mqtt\+Get\+Tx\+Status (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Get\+Tx\+Status 
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+Definition at line 1131 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_aedf81593174cb6fdade42f45193f334c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a8dfd888736a978be32aef39f07e88e78}\label{mqtt_8h_a8dfd888736a978be32aef39f07e88e78}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Handle\+All\+Rx\+Msgs@{mqtt\+Handle\+All\+Rx\+Msgs}}
+\index{mqtt\+Handle\+All\+Rx\+Msgs@{mqtt\+Handle\+All\+Rx\+Msgs}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Handle\+All\+Rx\+Msgs()}{mqttHandleAllRxMsgs()}}
+{\footnotesize\ttfamily void mqtt\+Handle\+All\+Rx\+Msgs (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Handle\+All\+Rx\+Msgs 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 805 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a8dfd888736a978be32aef39f07e88e78_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a8dfd888736a978be32aef39f07e88e78_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a9c19d2b62cacf0954a755f3d915074a5}\label{mqtt_8h_a9c19d2b62cacf0954a755f3d915074a5}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Handle\+Connect\+Server@{mqtt\+Handle\+Connect\+Server}}
+\index{mqtt\+Handle\+Connect\+Server@{mqtt\+Handle\+Connect\+Server}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Handle\+Connect\+Server()}{mqttHandleConnectServer()}}
+{\footnotesize\ttfamily void mqtt\+Handle\+Connect\+Server (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Handle\+Connect\+Server 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 962 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a9c19d2b62cacf0954a755f3d915074a5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a9c19d2b62cacf0954a755f3d915074a5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a08e19bc52f04eef520067d3de8caef5d}\label{mqtt_8h_a08e19bc52f04eef520067d3de8caef5d}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Handle\+Pub\+Server@{mqtt\+Handle\+Pub\+Server}}
+\index{mqtt\+Handle\+Pub\+Server@{mqtt\+Handle\+Pub\+Server}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Handle\+Pub\+Server()}{mqttHandlePubServer()}}
+{\footnotesize\ttfamily void mqtt\+Handle\+Pub\+Server (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Handle\+Pub\+Server 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 871 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a08e19bc52f04eef520067d3de8caef5d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a08e19bc52f04eef520067d3de8caef5d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a7950a2c34b22ef8b0f0ed7851d1151e1}\label{mqtt_8h_a7950a2c34b22ef8b0f0ed7851d1151e1}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Handler@{mqtt\+Handler}}
+\index{mqtt\+Handler@{mqtt\+Handler}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Handler()}{mqttHandler()}}
+{\footnotesize\ttfamily void mqtt\+Handler (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Handler 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 519 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a7950a2c34b22ef8b0f0ed7851d1151e1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{mqtt_8h_a7950a2c34b22ef8b0f0ed7851d1151e1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a9910abd79973346ebd34458ba3bfbee2}\label{mqtt_8h_a9910abd79973346ebd34458ba3bfbee2}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Handle\+Sub\+Server@{mqtt\+Handle\+Sub\+Server}}
+\index{mqtt\+Handle\+Sub\+Server@{mqtt\+Handle\+Sub\+Server}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Handle\+Sub\+Server()}{mqttHandleSubServer()}}
+{\footnotesize\ttfamily void mqtt\+Handle\+Sub\+Server (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Handle\+Sub\+Server 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 926 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a9910abd79973346ebd34458ba3bfbee2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a9910abd79973346ebd34458ba3bfbee2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a7bcc7e2a7323b7c2a44795623b7a4ae0}\label{mqtt_8h_a7bcc7e2a7323b7c2a44795623b7a4ae0}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Init@{mqtt\+Init}}
+\index{mqtt\+Init@{mqtt\+Init}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Init()}{mqttInit()}}
+{\footnotesize\ttfamily void mqtt\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Init 
+
+
+
+Definition at line 1226 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a7bcc7e2a7323b7c2a44795623b7a4ae0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{mqtt_8h_a7bcc7e2a7323b7c2a44795623b7a4ae0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_acc3f008e0bbcd8dc6899b172ceb07b25}\label{mqtt_8h_acc3f008e0bbcd8dc6899b172ceb07b25}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Keep\+Alive\+Time\+Cli\+Cb@{mqtt\+Keep\+Alive\+Time\+Cli\+Cb}}
+\index{mqtt\+Keep\+Alive\+Time\+Cli\+Cb@{mqtt\+Keep\+Alive\+Time\+Cli\+Cb}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Keep\+Alive\+Time\+Cli\+Cb()}{mqttKeepAliveTimeCliCb()}}
+{\footnotesize\ttfamily \hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} mqtt\+Keep\+Alive\+Time\+Cli\+Cb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Keep\+Alive\+Time\+Cli\+Cb 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+callback 
+\end{DoxyReturn}
+
+
+Definition at line 995 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_acc3f008e0bbcd8dc6899b172ceb07b25_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_ab7b23aef0ef5452ca297b213b7d02508}\label{mqtt_8h_ab7b23aef0ef5452ca297b213b7d02508}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Keep\+Alive\+Time\+Srv\+Cb@{mqtt\+Keep\+Alive\+Time\+Srv\+Cb}}
+\index{mqtt\+Keep\+Alive\+Time\+Srv\+Cb@{mqtt\+Keep\+Alive\+Time\+Srv\+Cb}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Keep\+Alive\+Time\+Srv\+Cb()}{mqttKeepAliveTimeSrvCb()}}
+{\footnotesize\ttfamily \hyperlink{timer_8h_aac537af29cf20563dcd603ab9f3cbf13}{\+\_\+callback} mqtt\+Keep\+Alive\+Time\+Srv\+Cb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Keep\+Alive\+Time\+Srv\+Cb 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+callback 
+\end{DoxyReturn}
+
+
+Definition at line 986 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_ab7b23aef0ef5452ca297b213b7d02508_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a8895c68cae81eb236280c0e02d8e8baa}\label{mqtt_8h_a8895c68cae81eb236280c0e02d8e8baa}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Log\+Connect\+Event@{mqtt\+Log\+Connect\+Event}}
+\index{mqtt\+Log\+Connect\+Event@{mqtt\+Log\+Connect\+Event}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Log\+Connect\+Event()}{mqttLogConnectEvent()}}
+{\footnotesize\ttfamily void mqtt\+Log\+Connect\+Event (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Log\+Connect\+Event 
+
+
+
+Definition at line 490 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a8895c68cae81eb236280c0e02d8e8baa_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_abe8394131d0bf3c2197381b0e97db265}\label{mqtt_8h_abe8394131d0bf3c2197381b0e97db265}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Log\+Dis\+Connect\+Event@{mqtt\+Log\+Dis\+Connect\+Event}}
+\index{mqtt\+Log\+Dis\+Connect\+Event@{mqtt\+Log\+Dis\+Connect\+Event}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Log\+Dis\+Connect\+Event()}{mqttLogDisConnectEvent()}}
+{\footnotesize\ttfamily void mqtt\+Log\+Dis\+Connect\+Event (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Log\+Dis\+Connect\+Event 
+
+
+
+Definition at line 504 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_abe8394131d0bf3c2197381b0e97db265_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_acc1cb5116db808518bbc89257c10f118}\label{mqtt_8h_acc1cb5116db808518bbc89257c10f118}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Log\+Publish\+Event@{mqtt\+Log\+Publish\+Event}}
+\index{mqtt\+Log\+Publish\+Event@{mqtt\+Log\+Publish\+Event}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Log\+Publish\+Event()}{mqttLogPublishEvent()}}
+{\footnotesize\ttfamily void mqtt\+Log\+Publish\+Event (\begin{DoxyParamCaption}\item[{char $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size,  }\item[{bool}]{flag }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Log\+Publish\+Event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & \\
+\hline
+{\em size} & \\
+\hline
+{\em flag} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 423 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_acc1cb5116db808518bbc89257c10f118_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a3e876148feb44961134e2adca845944c}\label{mqtt_8h_a3e876148feb44961134e2adca845944c}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Log\+Subscribe\+Event@{mqtt\+Log\+Subscribe\+Event}}
+\index{mqtt\+Log\+Subscribe\+Event@{mqtt\+Log\+Subscribe\+Event}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Log\+Subscribe\+Event()}{mqttLogSubscribeEvent()}}
+{\footnotesize\ttfamily void mqtt\+Log\+Subscribe\+Event (\begin{DoxyParamCaption}\item[{char $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Log\+Subscribe\+Event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & \\
+\hline
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 452 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a3e876148feb44961134e2adca845944c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a510fb83df2337046150398b1e437aff4}\label{mqtt_8h_a510fb83df2337046150398b1e437aff4}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Log\+Un\+Subscribe\+Event@{mqtt\+Log\+Un\+Subscribe\+Event}}
+\index{mqtt\+Log\+Un\+Subscribe\+Event@{mqtt\+Log\+Un\+Subscribe\+Event}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Log\+Un\+Subscribe\+Event()}{mqttLogUnSubscribeEvent()}}
+{\footnotesize\ttfamily void mqtt\+Log\+Un\+Subscribe\+Event (\begin{DoxyParamCaption}\item[{char $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Log\+Un\+Subscribe\+Event 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & \\
+\hline
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 472 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a510fb83df2337046150398b1e437aff4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a6d4ec44690f0f61da90214f0929e405b}\label{mqtt_8h_a6d4ec44690f0f61da90214f0929e405b}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Ping\+Request@{mqtt\+Ping\+Request}}
+\index{mqtt\+Ping\+Request@{mqtt\+Ping\+Request}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Ping\+Request()}{mqttPingRequest()}}
+{\footnotesize\ttfamily void mqtt\+Ping\+Request (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether,  }\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Ping\+Request 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 395 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{mqtt_8h_a6d4ec44690f0f61da90214f0929e405b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a6d4ec44690f0f61da90214f0929e405b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a6443fbe1eed649acb1f94e5a47a8d907}\label{mqtt_8h_a6443fbe1eed649acb1f94e5a47a8d907}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Ping\+Resp@{mqtt\+Ping\+Resp}}
+\index{mqtt\+Ping\+Resp@{mqtt\+Ping\+Resp}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Ping\+Resp()}{mqttPingResp()}}
+{\footnotesize\ttfamily void mqtt\+Ping\+Resp (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Ping\+Resp 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1108 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{mqtt_8h_a6443fbe1eed649acb1f94e5a47a8d907_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a6443fbe1eed649acb1f94e5a47a8d907_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_ad51fbb07ee1ec36d8783bdc774a74fda}\label{mqtt_8h_ad51fbb07ee1ec36d8783bdc774a74fda}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Pub\+Ack@{mqtt\+Pub\+Ack}}
+\index{mqtt\+Pub\+Ack@{mqtt\+Pub\+Ack}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Pub\+Ack()}{mqttPubAck()}}
+{\footnotesize\ttfamily void mqtt\+Pub\+Ack (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Pub\+Ack 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1012 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{mqtt_8h_ad51fbb07ee1ec36d8783bdc774a74fda_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_ad51fbb07ee1ec36d8783bdc774a74fda_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a2f40a8541e37e2acc32f402acf7937c8}\label{mqtt_8h_a2f40a8541e37e2acc32f402acf7937c8}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Publish@{mqtt\+Publish}}
+\index{mqtt\+Publish@{mqtt\+Publish}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Publish()}{mqttPublish()}}
+{\footnotesize\ttfamily void mqtt\+Publish (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether,  }\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Publish 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+{\em data} & \\
+\hline
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 91 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{mqtt_8h_a2f40a8541e37e2acc32f402acf7937c8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{mqtt_8h_a2f40a8541e37e2acc32f402acf7937c8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a922ab95d59874b919c3b62931328aa25}\label{mqtt_8h_a922ab95d59874b919c3b62931328aa25}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Set\+Conn\+State@{mqtt\+Set\+Conn\+State}}
+\index{mqtt\+Set\+Conn\+State@{mqtt\+Set\+Conn\+State}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Set\+Conn\+State()}{mqttSetConnState()}}
+{\footnotesize\ttfamily void mqtt\+Set\+Conn\+State (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Set\+Conn\+State 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1269 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a922ab95d59874b919c3b62931328aa25_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a79fc239d413bc36add7a7d9abca772f6}\label{mqtt_8h_a79fc239d413bc36add7a7d9abca772f6}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Set\+Curr\+State@{mqtt\+Set\+Curr\+State}}
+\index{mqtt\+Set\+Curr\+State@{mqtt\+Set\+Curr\+State}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Set\+Curr\+State()}{mqttSetCurrState()}}
+{\footnotesize\ttfamily void mqtt\+Set\+Curr\+State (\begin{DoxyParamCaption}\item[{\hyperlink{mqtt_8h_addc2504b9e66d98288c510964264c855}{mqtt\+Event\+\_\+t}}]{val }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Set\+Curr\+State 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1249 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a79fc239d413bc36add7a7d9abca772f6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a91c2f7d47472205c14caa0bfe849fcc2}\label{mqtt_8h_a91c2f7d47472205c14caa0bfe849fcc2}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Set\+Rx\+Data@{mqtt\+Set\+Rx\+Data}}
+\index{mqtt\+Set\+Rx\+Data@{mqtt\+Set\+Rx\+Data}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Set\+Rx\+Data()}{mqttSetRxData()}}
+{\footnotesize\ttfamily void mqtt\+Set\+Rx\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Set\+Rx\+Data 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1205 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{mqtt_8h_a91c2f7d47472205c14caa0bfe849fcc2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a91c2f7d47472205c14caa0bfe849fcc2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a92569e6b19c7bf1f5290498502d9b432}\label{mqtt_8h_a92569e6b19c7bf1f5290498502d9b432}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Set\+Tx\+Status@{mqtt\+Set\+Tx\+Status}}
+\index{mqtt\+Set\+Tx\+Status@{mqtt\+Set\+Tx\+Status}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Set\+Tx\+Status()}{mqttSetTxStatus()}}
+{\footnotesize\ttfamily void mqtt\+Set\+Tx\+Status (\begin{DoxyParamCaption}\item[{bool}]{status }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Set\+Tx\+Status 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1141 of file mqtt.\+c.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_a92569e6b19c7bf1f5290498502d9b432_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_ad4dd073773a7eff97b33b46eba8a8735}\label{mqtt_8h_ad4dd073773a7eff97b33b46eba8a8735}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Sub\+Ack@{mqtt\+Sub\+Ack}}
+\index{mqtt\+Sub\+Ack@{mqtt\+Sub\+Ack}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Sub\+Ack()}{mqttSubAck()}}
+{\footnotesize\ttfamily void mqtt\+Sub\+Ack (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Sub\+Ack 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1043 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{mqtt_8h_ad4dd073773a7eff97b33b46eba8a8735_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mqtt_8h_ad4dd073773a7eff97b33b46eba8a8735_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a8dff97806cdcb07896e607fe64dfeb2e}\label{mqtt_8h_a8dff97806cdcb07896e607fe64dfeb2e}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Subscribe@{mqtt\+Subscribe}}
+\index{mqtt\+Subscribe@{mqtt\+Subscribe}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Subscribe()}{mqttSubscribe()}}
+{\footnotesize\ttfamily void mqtt\+Subscribe (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether,  }\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+mqtt\+Subscribe 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ether} & \\
+\hline
+{\em data} & \\
+\hline
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 154 of file mqtt.\+c.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{mqtt_8h_a8dff97806cdcb07896e607fe64dfeb2e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{mqtt_8h_a8dff97806cdcb07896e607fe64dfeb2e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{mqtt_8h_a89d56355c1ec80d1a3a11523260473ee}\label{mqtt_8h_a89d56355c1ec80d1a3a11523260473ee}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Unsubscribe@{mqtt\+Unsubscribe}}
+\index{mqtt\+Unsubscribe@{mqtt\+Unsubscribe}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Unsubscribe()}{mqttUnsubscribe()}}
+{\footnotesize\ttfamily void mqtt\+Unsubscribe (\begin{DoxyParamCaption}\item[{\hyperlink{eth0_8h_a592bdc9f1e029368efe61c7eab510635}{ether\+Header} $\ast$}]{ether,  }\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{mqtt_8h_a910d645985a9aa856c9f269ae906e512}\label{mqtt_8h_a910d645985a9aa856c9f269ae906e512}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+Fsm\+State@{mqtt\+Fsm\+State}}
+\index{mqtt\+Fsm\+State@{mqtt\+Fsm\+State}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+Fsm\+State}{mqttFsmState}}
+{\footnotesize\ttfamily char$\ast$ mqtt\+Fsm\+State\mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line 65 of file mqtt.\+c.
+
+\mbox{\Hypertarget{mqtt_8h_aefe64b61aa9675182f1e66801f378fb6}\label{mqtt_8h_aefe64b61aa9675182f1e66801f378fb6}} 
+\index{mqtt.\+h@{mqtt.\+h}!mqtt\+State@{mqtt\+State}}
+\index{mqtt\+State@{mqtt\+State}!mqtt.\+h@{mqtt.\+h}}
+\subsubsection{\texorpdfstring{mqtt\+State}{mqttState}}
+{\footnotesize\ttfamily char$\ast$ mqtt\+State\mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line 46 of file mqtt.\+c.
+
