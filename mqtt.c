@@ -197,6 +197,8 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     varHdrPtr += i;
 
     strncpy(mqttCurSubTopics[topicIdx],mqttMcb.args,mqttMcb.topicSize);
+    ++topicIdx;
+    topicIdx %= MQTT_NO_SUB_TOPICS;
 
     /*requested qos*/
     *varHdrPtr = reqQos;
@@ -217,6 +219,7 @@ void mqttSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
  */
 void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
 {
+    char str[35] = {0};
     uint8_t *varHdrPtr;
     uint8_t i;
     uint16_t varLen = 0;
@@ -249,6 +252,15 @@ void mqttUnSubscribe(etherHeader *ether, uint8_t *data, uint16_t size)
     varLen += 2;
 
     varHdrPtr += 2;
+
+    strncpy(str,(char*)mqttMcb.args,mqttMcb.topicSize);
+
+    for(i = 0; i < MQTT_NO_SUB_TOPICS; i++) {
+        if(strcmp(str,mqttCurSubTopics[i] == 0)) {
+            memset(mqttCurSubTopics[i],0,sizeof(mqttCurSubTopics[i]));
+            break;
+        }
+    }
 
     /*topic name*/
     for(i = 0 ; i < mqttMcb.topicSize; i ++) {

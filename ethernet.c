@@ -510,4 +510,5 @@ void appInit(void)
 {
     (void)random32();
     mqttInit();
+    mqttLogConnectEvent();
 }
