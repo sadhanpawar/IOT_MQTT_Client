@@ -419,7 +419,17 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
 
         case TCP_FIN_WAIT_1:
         {
-            if((flag == TCP_RX) && (htons(tcp->offsetFields) & FIN ) )
+            if((flag == TCP_RX) && (htons(tcp->offsetFields) & FIN ) && 
+                                (htons(tcp->offsetFields) & ACK ))
+            {
+                initialSeqNo += 1;
+                socketConns[0].s.sequenceNumber += 1;
+                tcpSendAck(ether,0);
+                socketConns[Idx].fsmState = TCP_CLOSED;
+                snprintf(str, sizeof(str), "TCP STATE: TCP_CLOSED\n");
+                putsUart0(str);
+            }
+            else if((flag == TCP_RX) && (htons(tcp->offsetFields) & FIN ) )
             {
                 initialSeqNo += 1;
                 socketConns[0].s.sequenceNumber += 1;
