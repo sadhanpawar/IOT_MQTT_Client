@@ -418,7 +418,7 @@ int main(void)
     // Init ethernet interface (eth0)
     putsUart0("\nStarting eth0\n");
     initEther(ETHER_UNICAST | ETHER_BROADCAST | ETHER_HALFDUPLEX);
-    setEtherMacAddress(2, 3, 4, 5, 6, 75);
+    setEtherMacAddress(2, 3, 4, 5, 6, 78);
 
     // Init EEPROM
     initEeprom();

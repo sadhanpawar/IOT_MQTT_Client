@@ -465,6 +465,13 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
                 }
 
             }
+            else if((flag == TCP_RX) && (htons(tcp->offsetFields) & RST))
+            {
+                snprintf(str, sizeof(str), "TCP STATE: TCP_CLOSED\n");
+                putsUart0(str);
+                stopTimer(tcpSendTimerCb);
+                socketConns[Idx].fsmState = TCP_CLOSED;
+            }
             else if(tcpTimerFlag == 1)
             {
                 /*re-send */
@@ -540,7 +547,6 @@ void tcpFsmStateMachineClient(etherHeader *ether, uint8_t Idx, uint8_t flag)
             }
             else if((flag == TCP_RX) && (htons(tcp->offsetFields) & RST))
             {
-                socketConns[Idx].fsmState = TCP_TIME_WAIT;
                 snprintf(str, sizeof(str), "TCP STATE: TCP_CLOSED\n");
                 putsUart0(str);
                 stopTimer(tcpSendTimerCb);

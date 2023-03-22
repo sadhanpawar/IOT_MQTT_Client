@@ -49,7 +49,7 @@
 #define MQ_ASS_DELIVERY (2u)
 #define MQ_RESERVED     (3u)
 
-#define MQTT_SIZE       (60u)
+#define MQTT_SIZE       (1024u)
 #define MQTT_SRV_PORT   (8081u)
 #define MQTT_PORT       (1883u)
 
