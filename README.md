@@ -42,5 +42,3 @@ password_file /etc/mosquitto/passwd
 
 ## Author
 Sadhan Pawar Vadeher
-
-UTA ID: 1002023295
